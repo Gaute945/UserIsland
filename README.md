@@ -1,5 +1,5 @@
 # UserIsland
 
 ## Mii plaza
-### 3.js
+### Three.js
 ### Script Mii plaza charcters
