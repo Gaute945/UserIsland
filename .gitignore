@@ -1,4 +1,5 @@
 .log
 node_modules/*
 temp/
-.package
+package-lock.json
+package.json
