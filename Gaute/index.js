@@ -25,18 +25,15 @@ const geometry = new THREE.BufferGeometry().setFromPoints( points );
 const line = new THREE.Line( geometry, material );
 
 //scene.add(line);
+const pointlight = new THREE.PointLight(0xffffff)
+pointlight.position.set(0,2,0)
 
-function animate() {
-	requestAnimationFrame( animate );
-
-	line.rotation.x += 0.01;
-
-	renderer.render( scene, camera);
-}
+const ambientLight = new THREE.AmbientLight(0xffffff)
+scene.add(pointlight, ambientLight)
 
 const loader = new GLTFLoader();
 
-loader.load( 'path/to/model.glb', function ( gltf ) {
+loader.load( "scene.gltf", function ( gltf ) {
 
 	scene.add( gltf.scene );
 
@@ -45,5 +42,13 @@ loader.load( 'path/to/model.glb', function ( gltf ) {
 	console.error( error );
 
 } );
+
+function animate() {
+	requestAnimationFrame( animate );
+
+	line.rotation.x += 0.01;
+
+	renderer.render( scene, camera);
+}
 
 animate();
