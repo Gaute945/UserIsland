@@ -7,7 +7,7 @@ document.body.appendChild( renderer.domElement );
 
 const camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 500 );
 camera.position.set( 0, 0, 100 );
-camera.lookAt( 0, 0, 0 );
+camera.lookAt( 0, 45, 0 );
 
 const scene = new THREE.Scene();
 
@@ -24,7 +24,7 @@ const geometry = new THREE.BufferGeometry().setFromPoints( points );
 
 const line = new THREE.Line( geometry, material );
 
-//scene.add(line);
+scene.add(line);
 const pointlight = new THREE.PointLight(0xffffff)
 pointlight.position.set(0,2,0)
 
