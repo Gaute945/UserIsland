@@ -25,6 +25,11 @@ const geometry = new THREE.BufferGeometry().setFromPoints( points );
 const line = new THREE.Line( geometry, material );
 
 //scene.add(line);
+const pointlight = new THREE.PointLight(0xffffff)
+pointlight.position.set(0,2,0)
+
+const ambientLight = new THREE.AmbientLight(0xffffff)
+scene.add(pointlight, ambientLight)
 
 const loader = new GLTFLoader();
 
