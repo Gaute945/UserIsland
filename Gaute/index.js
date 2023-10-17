@@ -26,17 +26,9 @@ const line = new THREE.Line( geometry, material );
 
 //scene.add(line);
 
-function animate() {
-	requestAnimationFrame( animate );
-
-	line.rotation.x += 0.01;
-
-	renderer.render( scene, camera);
-}
-
 const loader = new GLTFLoader();
 
-loader.load( 'path/to/model.glb', function ( gltf ) {
+loader.load( "scene.gltf", function ( gltf ) {
 
 	scene.add( gltf.scene );
 
@@ -45,5 +37,13 @@ loader.load( 'path/to/model.glb', function ( gltf ) {
 	console.error( error );
 
 } );
+
+function animate() {
+	requestAnimationFrame( animate );
+
+	line.rotation.x += 0.01;
+
+	renderer.render( scene, camera);
+}
 
 animate();
