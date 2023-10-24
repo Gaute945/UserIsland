@@ -1,0 +1,13 @@
+{
+  "dependencies": {
+    "d3": "^7.8.5",
+    "three": "^0.157.0",
+    "three.js": "^0.77.1",
+    "yarn": "^1.22.19"
+  },
+  "devDependencies": {
+    "install": "^0.13.0",
+    "npm": "^10.2.1",
+    "vite": "^4.5.0"
+  }
+}
