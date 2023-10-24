@@ -1,13 +1,25 @@
 <!DOCTYPE html>
-<html>
-	<head lang="en">
+<html lang="en">
+	<head>
 		<meta charset="utf-8">
-		<title>UserIsland</title>
+		<title>My first three.js app</title>
+
 		<style>
 			body { margin: 0; }
+            #info {
+	position: absolute;
+	top: 50px;
+	width: 100%;
+	text-align: center;
+	z-index: 100;
+	display:block;
+    color: white;
+    font-size: xx-large;
+}
 		</style>
 	</head>
 	<body>
-		<script type="module" src="index.js"></script>
+        <div id="info">0</div>
+		<script type="module" src="/main.js"></script>
 	</body>
 </html>
