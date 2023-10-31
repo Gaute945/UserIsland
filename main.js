@@ -58,11 +58,11 @@ for (let j = 0; j < befolkningNO; j++) {
   scene.add(Cyllinder);
 }
 
-const cylGeometry = new THREE.CylinderGeometry( 4, 5, 7, 128 ); 
+const cylGeometry = new THREE.CylinderGeometry( 4, 5, 50, 128 ); 
 const cylMaterial = new THREE.MeshBasicMaterial({ map: textureLoad }); 
 const cylinder = new THREE.Mesh( cylGeometry, cylMaterial ); 
 cylinder.rotation.x = -1.5
-cylinder.position.z = -3.6
+cylinder.position.z = -25.2
 scene.add( cylinder );
 
 const axesHelper = new THREE.AxesHelper( 5 );
