@@ -50,7 +50,7 @@ const befolkningSE = THREE.MathUtils.randFloat(1, 8);
 //for så lange i er mindre en befolkningse lager den fleire Svenskers
 for (let i = 0; i < befolkningSE; i++) {
   let xPos = THREE.MathUtils.randFloat(1.875, -1.875);
-  let yPos = THREE.MathUtils.randFloat(1.1,-6);
+  let yPos = THREE.MathUtils.randFloat(-6,4);
   const Svensker = new THREE.Mesh(SvenskG, SvenskF);
   Svensker.position.set(xPos, yPos, 0);
   scene.add(Svensker);
@@ -59,24 +59,24 @@ for (let i = 0; i < befolkningSE; i++) {
 const befolkningNO = THREE.MathUtils.randFloat(1, 5);
 //for så lange j er mindre en befolkning se lager den fleire Svenskers
 for (let j = 0; j < befolkningNO; j++) {
-  let xPos2 = THREE.MathUtils.randFloat(7.5, -7.5);
-  let yPos2 = THREE.MathUtils.randFloat(1.1,-6);
+  let xPos2 = THREE.MathUtils.randFloat(3,-3);
+  let yPos2 = THREE.MathUtils.randFloat(-6,4);
   const normen = new THREE.Mesh(NorskG, NorskF);
   normen.position.set(xPos2, yPos2, 0);
   scene.add(normen);
 }
 const befolkningDK = THREE.MathUtils.randFloat(1, 12);
 for (let j = 0; j < befolkningDK; j++) {
-  let xPos3 = THREE.MathUtils.randFloat(7.5, -7.5);
-  let yPos3 = THREE.MathUtils.randFloat(1.1,-6);
+  let xPos3 = THREE.MathUtils.randFloat(3,-3);
+  let yPos3 = THREE.MathUtils.randFloat(-6,4);
   const Danske = new THREE.Mesh(DanskG, DanskF);
   Danske.position.set(xPos3, yPos3, 0);
   scene.add(Danske);
 }
 const befolkningFI = THREE.MathUtils.randFloat(1, 12);
 for (let k = 0; k < befolkningFI; k++) {
-  let xPos3 = THREE.MathUtils.randFloat(7.5, -7.5);
-  let yPos3 = THREE.MathUtils.randFloat(1.1,-6);
+  let xPos3 = THREE.MathUtils.randFloat(3,-3);
+  let yPos3 = THREE.MathUtils.randFloat(-6,4);
   const finske = new THREE.Mesh(FinskG, FinskF);
   finske.position.set(xPos3, yPos3, 0);
   scene.add(finske);
