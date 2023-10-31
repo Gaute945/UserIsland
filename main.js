@@ -33,9 +33,7 @@ const material = new THREE.MeshBasicMaterial({ color: 0xff2d00 });
 //geometry meterial for cyllinder
 const geomeCy = new THREE.CylinderGeometry(0.3, 0.3, 0.3);
 const mateCy = new THREE.MeshBasicMaterial({ color: 0x2d9c18 });
-//geometry meterial for
-const geome = new THREE.geom(0.3, 0.3, 0.3);
-const mate = new THREE.MeshBasicMaterial({ color: 0x2d9c18 });
+
 
 //befolkningse er kor mangen cubes/svensker eg vil rendere i siden
 const befolkningSE = THREE.MathUtils.randFloat(1, 10);
