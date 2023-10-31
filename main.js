@@ -13,7 +13,7 @@ const helper = new THREE.CameraHelper( camera );
 scene.add( helper );
 
 //lager en webglrenderer i koden som blir kaldt ut som renderer
-const renderer = new THREE.WebGLRenderer();
+const renderer = new THREE.WebGLRenderer({antialiasing:true});
 //renderer størelse
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
