@@ -1,5 +1,4 @@
 //importerer three.js som THREE
-import { color } from "d3";
 import * as THREE from "three";
 //scene lager en scene
 const scene = new THREE.Scene();
@@ -22,7 +21,7 @@ document.body.appendChild(renderer.domElement);
 const textureLoad = new THREE.TextureLoader().load("mapofplace.jpg");
 const boksmap = new THREE.Mesh(
   new THREE.BoxGeometry(23, 10, 0),
-  new THREE.MeshBasicMaterial({ map: textureLoad })
+  new THREE.MeshBasicMaterial({ wireframe: true })
 );
 scene.add(boksmap);
 boksmap.position.set(0, 0, 0);
@@ -59,9 +58,12 @@ for (let j = 0; j < befolkningNO; j++) {
   scene.add(Cyllinder);
 }
 
-const cylGeometry = new THREE.CylinderGeometry( 20, 50, 50, 64 ); 
-const cylMaterial = new THREE.MeshNormalMaterial({ color: 0xcc330 }); 
-const cylinder = new THREE.Mesh( cylGeometry, cylMaterial ); scene.add( cylinder );
+const cylGeometry = new THREE.CylinderGeometry( 4, 5, 7, 128 ); 
+const cylMaterial = new THREE.MeshBasicMaterial({ map: textureLoad }); 
+const cylinder = new THREE.Mesh( cylGeometry, cylMaterial ); 
+cylinder.rotation.x = -1.5
+cylinder.position.z = -3.6
+scene.add( cylinder );
 
 const axesHelper = new THREE.AxesHelper( 5 );
 scene.add( axesHelper );
@@ -74,17 +76,17 @@ scene.add( axesHelper );
   scene.add(Cyllinder);
 } */
 
-camera.position.z = 10;
+/* camera.position.z = 10;
 camera.position.y = 80;
 camera.position.x = 0;
 camera.rotation.x = -1.55;
 camera.rotation.y = 0;
-camera.rotation.z = 0;
+camera.rotation.z = 0; */
 
-/* camera.position.z = 15;
+camera.position.z = 15;
 camera.position.y = -18;
 camera.position.x = 3.5;
-camera.rotation.x = 1; */
+camera.rotation.x = 1;
 
 function animate() {
   requestAnimationFrame(animate);
