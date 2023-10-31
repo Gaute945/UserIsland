@@ -42,21 +42,25 @@ const FinskG = new THREE.BoxGeometry(0.3, 0.3, 0.3);
 const FinskF = new THREE.MeshBasicMaterial({ color: 0xa832a6 });
 
 let testnumbef = 1
-
+//let for å holde arrays alle objectene som går igjennom loopen neddenfor
+let Svensker
+let animateSE = []
 //befolkningse er kor mangen cube/svensker eg vil rendere i siden
-const befolkningSE = THREE.MathUtils.randFloat(1, 80);
+const befolkningSE = THREE.MathUtils.randFloat(1, 8);
 //for så lange i er mindre en befolkningse lager den fleire Svenskers
 for (let i = 0; i < befolkningSE; i++) {
   let xPos = THREE.MathUtils.randFloat(-4,4.5);
   let yPos = THREE.MathUtils.randFloat(-7,2);
-  const Svensker = new THREE.Mesh(SvenskG, SvenskF);
+  Svensker = new THREE.Mesh(SvenskG, SvenskF);
   Svensker.position.set(xPos, yPos, 0);
   scene.add(Svensker);
+  animateSE.push(Svensker)
 }
 //let for å holde arrays alle objectene som går igjennom loopen neddenfor
-let normens = [];
+let normen
+let animateNO = []
 //befolkning er kor mangen normen representert i cyllinder eg vil rendere i siden
-const befolkningNO = THREE.MathUtils.randFloat(1, 50);
+const befolkningNO = THREE.MathUtils.randFloat(1, 5);
 //for så lange j er mindre en befolkning se lager den fleire Svenskers
 for (let j = 0; j < befolkningNO; j++) {
   let xPos2 = THREE.MathUtils.randFloat(7.5, -7.5);
@@ -64,25 +68,32 @@ for (let j = 0; j < befolkningNO; j++) {
   normen = new THREE.Mesh(NorskG, NorskF);
   normen.position.set(xPos2, yPos2, 0);
   scene.add(normen);
-  normens.push(normen)
+  animateNO.push(normen)
 }
-
-const befolkningDK = THREE.MathUtils.randFloat(1, 120);
+//let for å holde arrays alle objectene som går igjennom loopen neddenfor
+let Danske
+let animateDK = []
+//
+const befolkningDK = THREE.MathUtils.randFloat(1, 12);
 for (let j = 0; j < befolkningDK; j++) {
   let xPos3 = THREE.MathUtils.randFloat(-4,4.5);
   let yPos3 = THREE.MathUtils.randFloat(-7,2);
-  const Danske = new THREE.Mesh(DanskG, DanskF);
+  Danske = new THREE.Mesh(DanskG, DanskF);
   Danske.position.set(xPos3, yPos3, 0);
   scene.add(Danske);
+  animateDK.push(Danske)
 }
-
-const befolkningFI = THREE.MathUtils.randFloat(1, 30);
+//let for å holde arrays alle objectene som går igjennom loopen neddenfor
+let finske
+let animateFI = []
+const befolkningFI = THREE.MathUtils.randFloat(1, 3);
 for (let k = 0; k < befolkningFI; k++) {
   let xPos3 = THREE.MathUtils.randFloat(-4,4.5);
   let yPos3 = THREE.MathUtils.randFloat(-7,2);
-  const finske = new THREE.Mesh(FinskG, FinskF);
+  finske = new THREE.Mesh(FinskG, FinskF);
   finske.position.set(xPos3, yPos3, 0);
   scene.add(finske);
+  animateFI.push(finske)
 }
 
 const cylGeometry = new THREE.CylinderGeometry( 6, 7, 49, 128 ); 
@@ -103,7 +114,28 @@ camera.rotation.x = 1;
 function animate() {
 	requestAnimationFrame( animate );
 
-	normens.rotation.x += 0.01;
+	//normen.rotation.x += 0.01;
+  //animate norman i animateNO array
+  for (let i = 0; i < animateNO.length; i++) {
+    animateNO[i].rotation.x += 0.01;
+    animateNO[i].rotation.y += 0.01;
+  }
+  //animate svensker i animateSE
+  for (let i = 0; i < animateSE.length; i++) {
+    animateSE[i].rotation.x += 0.01;
+    animateSE[i].rotation.y += 0.01;
+  }
+  //animate dansker i animateSE
+ for (let i = 0; i < animateDK.length; i++) {
+    animateDK[i].rotation.x += 0.01;
+    animateDK[i].rotation.y += 0.01;
+  } 
+  //animate finske i animateFI
+  for (let i = 0; i < animateFI.length; i++) {
+    animateFI[i].rotation.x += 0.01;
+    animateFI[i].rotation.y += 0.01;
+  } 
+  
 
 	renderer.render( scene, camera );
 }
