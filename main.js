@@ -2,6 +2,7 @@
 import * as THREE from "three";
 //scene lager en scene
 const scene = new THREE.Scene();
+
 //camera lager et camera med perspectivet 90 fov og størelse
 const camera = new THREE.PerspectiveCamera(
   45,
@@ -52,16 +53,18 @@ for (let i = 0; i < befolkningSE; i++) {
   Svensker.position.set(xPos, yPos, 0);
   scene.add(Svensker);
 }
-
+//let for å holde arrays alle objectene som går igjennom loopen neddenfor
+let normens = [];
 //befolkning er kor mangen normen representert i cyllinder eg vil rendere i siden
 const befolkningNO = THREE.MathUtils.randFloat(1, 50);
 //for så lange j er mindre en befolkning se lager den fleire Svenskers
 for (let j = 0; j < befolkningNO; j++) {
-  let xPos2 = THREE.MathUtils.randFloat(-4,4.5);
-  let yPos2 = THREE.MathUtils.randFloat(-7,2);
-  const normen = new THREE.Mesh(NorskG, NorskF);
+  let xPos2 = THREE.MathUtils.randFloat(7.5, -7.5);
+  let yPos2 = THREE.MathUtils.randFloat(1.1,-6);
+  normen = new THREE.Mesh(NorskG, NorskF);
   normen.position.set(xPos2, yPos2, 0);
   scene.add(normen);
+  normens.push(normen)
 }
 
 const befolkningDK = THREE.MathUtils.randFloat(1, 120);
@@ -98,8 +101,11 @@ camera.position.x = 0;
 camera.rotation.x = 1;
 
 function animate() {
-  requestAnimationFrame(animate);
-  renderer.render(scene, camera);
-  
+	requestAnimationFrame( animate );
+
+	normens.rotation.x += 0.01;
+
+	renderer.render( scene, camera );
 }
+
 animate();
