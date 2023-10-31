@@ -55,6 +55,7 @@ for (let i = 0; i < befolkningSE; i++) {
   Svensker.position.set(xPos, yPos, 0);
   scene.add(Svensker);
 }
+
 //befolkning er kor mangen normen representert i cyllinder eg vil rendere i siden
 const befolkningNO = THREE.MathUtils.randFloat(1, 5);
 //for så lange j er mindre en befolkning se lager den fleire Svenskers
@@ -65,6 +66,7 @@ for (let j = 0; j < befolkningNO; j++) {
   normen.position.set(xPos2, yPos2, 0);
   scene.add(normen);
 }
+
 const befolkningDK = THREE.MathUtils.randFloat(1, 12);
 for (let j = 0; j < befolkningDK; j++) {
   let xPos3 = THREE.MathUtils.randFloat(3,-3);
@@ -73,6 +75,7 @@ for (let j = 0; j < befolkningDK; j++) {
   Danske.position.set(xPos3, yPos3, 0);
   scene.add(Danske);
 }
+
 const befolkningFI = THREE.MathUtils.randFloat(1, 12);
 for (let k = 0; k < befolkningFI; k++) {
   let xPos3 = THREE.MathUtils.randFloat(3,-3);
@@ -82,7 +85,7 @@ for (let k = 0; k < befolkningFI; k++) {
   scene.add(finske);
 }
 
-const cylGeometry = new THREE.CylinderGeometry( 4, 5, 50, 128 ); 
+const cylGeometry = new THREE.CylinderGeometry( 6, 7, 50, 128 ); 
 const cylMaterial = new THREE.MeshBasicMaterial({ map: textureLoad }); 
 const cylinder = new THREE.Mesh( cylGeometry, cylMaterial ); 
 cylinder.rotation.x = -1.5
@@ -92,9 +95,9 @@ scene.add( cylinder );
 const axesHelper = new THREE.AxesHelper( 5 );
 scene.add( axesHelper );
 
-camera.position.z = 15;
+camera.position.z = 10;
 camera.position.y = -18;
-camera.position.x = 3.5;
+camera.position.x = 0;
 camera.rotation.x = 1;
 
 function animate() {
