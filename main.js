@@ -2,6 +2,8 @@
 import * as THREE from "three";
 //scene lager en scene
 const scene = new THREE.Scene();
+
+let normen;
 //camera lager et camera med perspectivet 90 fov og størelse
 const camera = new THREE.PerspectiveCamera(
   45,
@@ -62,7 +64,7 @@ const befolkningNO = THREE.MathUtils.randFloat(1, 5);
 for (let j = 0; j < befolkningNO; j++) {
   let xPos2 = THREE.MathUtils.randFloat(7.5, -7.5);
   let yPos2 = THREE.MathUtils.randFloat(1.1,-6);
-  const normen = new THREE.Mesh(NorskG, NorskF);
+  normen = new THREE.Mesh(NorskG, NorskF);
   normen.position.set(xPos2, yPos2, 0);
   scene.add(normen);
 }
@@ -87,7 +89,7 @@ for (let k = 0; k < befolkningFI; k++) {
 
 const cylGeometry = new THREE.CylinderGeometry( 6, 7, 50, 128 ); 
 const cylMaterial = new THREE.MeshBasicMaterial({ map: textureLoad }); 
-const cylinder = new THREE.Mesh( cylGeometry, cylMaterial ); 
+const cylinder = new THREE.Mesh( cylGeometry, cylMaterial );
 cylinder.rotation.x = -1.5
 cylinder.position.z = -25.2
 scene.add( cylinder );
@@ -101,8 +103,11 @@ camera.position.x = 0;
 camera.rotation.x = 1;
 
 function animate() {
-  requestAnimationFrame(animate);
-  renderer.render(scene, camera);
-  
+	requestAnimationFrame( animate );
+
+	normen.rotation.x += 0.01;
+
+	renderer.render( scene, camera );
 }
+
 animate();
