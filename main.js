@@ -1,4 +1,5 @@
 //importerer three.js som THREE
+import { color } from "d3";
 import * as THREE from "three";
 //scene lager en scene
 const scene = new THREE.Scene();
@@ -7,8 +8,10 @@ const camera = new THREE.PerspectiveCamera(
   45,
   window.innerWidth / window.innerHeight,
   0.1,
-  1000
+  1000,
 );
+const helper = new THREE.CameraHelper( camera );
+scene.add( helper );
 
 //lager en webglrenderer i koden som blir kaldt ut som renderer
 const renderer = new THREE.WebGLRenderer();
@@ -32,7 +35,7 @@ const geomeCy = new THREE.CylinderGeometry(0.3, 0.3, 0.3);
 const mateCy = new THREE.MeshBasicMaterial({ color: 0x2d9c18 });
 //geometry meterial for bakCyllinder
 const BakgeomeCy = new THREE.CylinderGeometry(1, 1, 1, 1, 1);
-const BakMatCy = new THREE.MeshBasicMaterial({ color: 0xcc3300 })
+const BakMatCy = new THREE.MeshBasicMaterial({ color: 0xcc330 })
 
 //befolkningse er kor mangen cubes/svensker eg vil rendere i siden
 const befolkningSE = THREE.MathUtils.randFloat(1, 10);
@@ -56,9 +59,12 @@ for (let j = 0; j < befolkningNO; j++) {
   scene.add(Cyllinder);
 }
 
-const cylGeometry = new THREE.CylinderGeometry( 5, 5, 20, 32 ); 
-const cylMaterial = new THREE.MeshBasicMaterial( {color: 0xffff00} ); 
+const cylGeometry = new THREE.CylinderGeometry( 20, 50, 50, 64 ); 
+const cylMaterial = new THREE.MeshNormalMaterial({ color: 0xcc330 }); 
 const cylinder = new THREE.Mesh( cylGeometry, cylMaterial ); scene.add( cylinder );
+
+const axesHelper = new THREE.AxesHelper( 5 );
+scene.add( axesHelper );
 
 /* for (let j = 0; j < befolkningDK; j++) {
   let xPos3 = THREE.MathUtils.randFloat(7.5, -7.5);
@@ -68,8 +74,8 @@ const cylinder = new THREE.Mesh( cylGeometry, cylMaterial ); scene.add( cylinder
   scene.add(Cyllinder);
 } */
 
-camera.position.z = 0;
-camera.position.y =30;
+camera.position.z = 10;
+camera.position.y = 80;
 camera.position.x = 0;
 camera.rotation.x = -1.55;
 camera.rotation.y = 0;
