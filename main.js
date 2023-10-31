@@ -103,7 +103,7 @@ cylinder.rotation.x = -1.5
 cylinder.position.z = -25.2
 scene.add( cylinder );
 
-const axesHelper = new THREE.AxesHelper( 5 );
+const axesHelper = new THREE.AxesHelper( 50 );
 scene.add( axesHelper );
 
 camera.position.z = 10;
