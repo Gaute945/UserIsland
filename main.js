@@ -46,7 +46,21 @@ const DanskF = new THREE.MeshBasicMaterial({ color: 0xe00ff });
 const FinskG = new THREE.BoxGeometry(0.3, 0.3, 0.3);
 const FinskF = new THREE.MeshBasicMaterial({ color: 0xa832a6 });
 
+//let for å holde arrays alle objectene som går igjennom loopen neddenfor
+let Svensker
+let animateSE = []
 
+//befolkningse er kor mangen cube/svensker eg vil rendere i siden
+const befolkningSE = 0//THREE.MathUtils.randFloat(1, 80);
+//for så lange i er mindre en befolkningse lager den fleire Svenskers
+for (let i = 0; i < befolkningSE; i++) {
+  let xPos = THREE.MathUtils.randFloat(-4, 4.5);
+  let yPos = THREE.MathUtils.randFloat(-7, 2);
+  Svensker = new THREE.Mesh(SvenskG, SvenskF);
+  Svensker.position.set(xPos, yPos, 0);
+  scene.add(Svensker);
+  animateSE.push(Svensker)
+}
 
 
 //let for å holde arrays alle objectene som går igjennom loopen neddenfor
@@ -69,21 +83,7 @@ for (let j = 0; j < befolkningNO; j++) {
 
 
 
-//let for å holde arrays alle objectene som går igjennom loopen neddenfor
-let Svensker
-let animateSE = []
 
-//befolkningse er kor mangen cube/svensker eg vil rendere i siden
-const befolkningSE = 0//THREE.MathUtils.randFloat(1, 80);
-//for så lange i er mindre en befolkningse lager den fleire Svenskers
-for (let i = 0; i < befolkningSE; i++) {
-  let xPos = THREE.MathUtils.randFloat(-4, 4.5);
-  let yPos = THREE.MathUtils.randFloat(-7, 2);
-  Svensker = new THREE.Mesh(SvenskG, SvenskF);
-  Svensker.position.set(xPos, yPos, 0);
-  scene.add(Svensker);
-  animateSE.push(Svensker)
-}
 
 //let for å holde arrays alle objectene som går igjennom loopen neddenfor
 let Danske
