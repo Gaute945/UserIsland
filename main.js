@@ -111,22 +111,25 @@ camera.position.y = -18;
 camera.position.x = 0;
 camera.rotation.x = 1;
 
-/* const Lx = -6.3;
-const Rx = 6.3;
-const maxy = 0;
-const miny = 0;
-
+/*
 const guh = new THREE.BoxGeometry(0.3, 0.3, 0.3);
 const fuh = new THREE.MeshBasicMaterial({ color: 0xa832a6 });
 
-let boks = new THREE.Mesh(guh, fuh)
+ let boks = new THREE.Mesh(guh, fuh)
 scene.add(boks)
 //boks.position.set(0.-6,0)
-boks.position.y = -3
-boks.position.x = 6.3
+boks.position.y = -7.2
+boks.position.x = 0
 // venstre x =-6.3  høgre = 6.3
-// bunn y = -9.7 top 4 */
+// bunn y = -9.7 top 4  */
 
+// for stop condition
+const Lx = -5;
+const Rx = 5;
+const maxy = 1.5;
+const miny = -7.2;
+
+//delta time
 let clock = new THREE.Clock();
 let speed = 2;
 let delta = 0;
@@ -135,9 +138,15 @@ function animate() {
   requestAnimationFrame(animate);
 
   delta = clock.getDelta();
-
+  //
   for (let i = 0; i < animateSe.length; i++) {
-    animateSe[i].position.x += 0.1 * delta;
+    let move = animateSe[i].position.x += 1 * delta;
+    let bool
+    move
+    if (animateSe[i].position.x > Rx) {
+        animateSe[i].position.x = Rx;
+        move = animateSe[i].position.x += 0 * delta
+    }
   }
 
   for (let i = 0; i < animateNo.length; i++) {
