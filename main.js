@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
 const scene = new THREE.Scene();
 
@@ -16,7 +17,8 @@ const renderer = new THREE.WebGLRenderer({ antialiasing: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
-const textureLoad = new THREE.TextureLoader().load("Resource/tex_DebugGrid.png");
+const textureLoad = new THREE.TextureLoader().load("Resource/1200px-Scandinavia_regions_map-567632390.png");
+/* const textureLoad = new THREE.TextureLoader().load("Resource/tex_DebugGrid.png"); */
 const boksmap = new THREE.Mesh(
   new THREE.BoxGeometry(10, 8.8, 0),
   new THREE.MeshBasicMaterial({ color: 0xff2d00, wireframe: true })
@@ -98,6 +100,7 @@ const cylG = new THREE.CylinderGeometry(6, 7, 49, 128);
 const cylM = new THREE.MeshBasicMaterial({ map: textureLoad, });
 const cylinder = new THREE.Mesh(cylG, cylM);
 cylinder.rotation.x = -1.5
+cylinder.rotation.y = 1.5
 cylinder.position.z = -25.2
 scene.add(cylinder);
 
@@ -130,6 +133,7 @@ function animate() {
     animateFi[i].rotation.x += 0.01;
     animateFi[i].rotation.y += 0.01;
   }
+  
   renderer.render(scene, camera);
 }
 
