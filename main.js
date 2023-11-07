@@ -38,10 +38,12 @@ const dkf = new THREE.MeshBasicMaterial({ color: 0xe00ff });
 const fig = new THREE.BoxGeometry(0.3, 0.3, 0.3);
 const fif = new THREE.MeshBasicMaterial({ color: 0xa832a6 });
 
+
+
 let se
 let animateSe = []
 
-const populationSe = THREE.MathUtils.randFloat(1, 8);
+const populationSe = 5//THREE.MathUtils.randFloat(1, 8);
 
 for (let i = 0; i < populationSe; i++) {
   let xPos = THREE.MathUtils.randFloat(-4, 4.5);
@@ -55,11 +57,11 @@ for (let i = 0; i < populationSe; i++) {
 let no
 let animateNo = []
 
-const populationNo = THREE.MathUtils.randFloat(1, 5);
+const populationNo = 0//THREE.MathUtils.randFloat(1, 5);
 
 for (let j = 0; j < populationNo; j++) {
-  let xPos2 = THREE.MathUtils.randFloat(7.5, -7.5);
-  let yPos2 = THREE.MathUtils.randFloat(1.1, -6);
+  let xPos2 = THREE.MathUtils.randFloat(-4, 4.5);
+  let yPos2 = THREE.MathUtils.randFloat(-7, 2);
   no = new THREE.Mesh(nog, nof);
   no.position.set(xPos2, yPos2, 0);
   scene.add(no);
@@ -81,7 +83,7 @@ for (let j = 0; j < populationDk; j++) {
 
 let fi
 let animateFi = []
-const populationFi = THREE.MathUtils.randFloat(1, 3);
+const populationFi = 0//THREE.MathUtils.randFloat(1, 3);
 for (let k = 0; k < populationFi; k++) {
   let xPos3 = THREE.MathUtils.randFloat(-4, 4.5);
   let yPos3 = THREE.MathUtils.randFloat(-7, 2);
@@ -101,7 +103,7 @@ const cylM = new THREE.MeshBasicMaterial({ map: textureLoad, });
 const cylinder = new THREE.Mesh(cylG, cylM);
 cylinder.rotation.x = -1.5
 cylinder.rotation.y = 1.5
-cylinder.position.z = -25.2
+cylinder.position.z = -25.5
 scene.add(cylinder);
 
 const axesHelper = new THREE.AxesHelper(50);
@@ -112,26 +114,47 @@ camera.position.y = -18;
 camera.position.x = 0;
 camera.rotation.x = 1;
 
+/* const Lx = -6.3;
+const Rx = 6.3;
+const maxy = 0;
+const miny = 0;
+
+const guh = new THREE.BoxGeometry(0.3, 0.3, 0.3);
+const fuh = new THREE.MeshBasicMaterial({ color: 0xa832a6 });
+
+let boks = new THREE.Mesh(guh, fuh)
+scene.add(boks)
+//boks.position.set(0.-6,0)
+boks.position.y = -3
+boks.position.x = 6.3
+// venstre x =-6.3  høgre = 6.3
+// bunn y = -9.7 top 4 */
+
+let clock = new THREE.Clock();
+let speed = 2;
+let delta = 0;
+
 function animate() {
   requestAnimationFrame(animate);
-  for (let i = 0; i < animateNo.length; i++) {
-    animateNo[i].rotation.x += 0.01;
-    animateNo[i].rotation.y += 0.01;
-  }
+
+  delta = clock.getDelta();
 
   for (let i = 0; i < animateSe.length; i++) {
-    animateSe[i].rotation.x += 0.01;
-    animateSe[i].rotation.y += 0.01;
+    animateSe[i].position.x += 0.1 * delta;
+  }
+
+  for (let i = 0; i < animateNo.length; i++) {
+    
   }
 
   for (let i = 0; i < animateDk.length; i++) {
-    animateDk[i].rotation.x += 0.01;
-    animateDk[i].rotation.y += 0.01;
+    animateDk[i].rotation.x += 1 * delta;
+    animateDk[i].rotation.y += 1 * delta;
   }
   
     for (let i = 0; i < animateFi.length; i++) {
-    animateFi[i].rotation.x += 0.01;
-    animateFi[i].rotation.y += 0.01;
+    animateFi[i].rotation.x += 0.01 * delta;
+    animateFi[i].rotation.y += 0.01 * delta;
   }
   
   renderer.render(scene, camera);
