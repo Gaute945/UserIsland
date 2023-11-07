@@ -91,10 +91,10 @@ for (let k = 0; k < populationFi; k++) {
   animateFi.push(fi)
 }
 
-document.getElementById("no").innerHTML = populationNo;
-document.getElementById("se").innerHTML = populationSe;
-document.getElementById("dk").innerHTML = populationDk;
-document.getElementById("fi").innerHTML = populationFi;
+document.getElementById("no").innerHTML = Math.ceil(populationNo);
+document.getElementById("se").innerHTML = Math.ceil(populationSe);
+document.getElementById("dk").innerHTML = Math.ceil(populationDk);
+document.getElementById("fi").innerHTML = Math.ceil(populationFi);
 
 const cylG = new THREE.CylinderGeometry(6, 7, 49, 128);
 const cylM = new THREE.MeshBasicMaterial({ map: textureLoad, });
