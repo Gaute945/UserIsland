@@ -21,7 +21,7 @@ const renderer = new THREE.WebGLRenderer({ antialiasing: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
-const textureLoad = new THREE.TextureLoader().load("mapofplace.jpg");
+const textureLoad = new THREE.TextureLoader().load("Resource/tex_DebugGrid.png");
 const boksmap = new THREE.Mesh(
   new THREE.BoxGeometry(10, 8.8, 0),
   new THREE.MeshBasicMaterial({ color: 0xff2d00, wireframe: true })
