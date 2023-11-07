@@ -15,7 +15,7 @@ const renderer = new THREE.WebGLRenderer({ antialiasing: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
-const textureLoad = new THREE.TextureLoader().load("Resource/1200px-Scandinavia_regions_map-567632390.png");
+const textureLoad = new THREE.TextureLoader().load("Resource/Scandinavia_regions_map.png");
 /* const textureLoad = new THREE.TextureLoader().load("Resource/tex_DebugGrid.png"); */
 
 const seg = new THREE.BoxGeometry(0.3, 0.3, 0.3);
