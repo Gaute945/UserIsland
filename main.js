@@ -114,17 +114,11 @@ camera.position.y = -18;
 camera.position.x = 0;
 camera.rotation.x = 1;
 
-/*
-const guh = new THREE.BoxGeometry(0.3, 0.3, 0.3);
-const fuh = new THREE.MeshBasicMaterial({ color: 0xa832a6 });
-
- let boks = new THREE.Mesh(guh, fuh)
-scene.add(boks)
-//boks.position.set(0.-6,0)
-boks.position.y = -7.2
-boks.position.x = 0
-// venstre x =-6.3  høgre = 6.3
-// bunn y = -9.7 top 4  */
+//delta time
+let clock = new THREE.Clock();
+let speed = 2;
+let delta = 0;
+let speeds = [];
 
 // for stop condition
 const Lx = -5;
@@ -132,10 +126,10 @@ const Rx = 5;
 const maxy = 1.5;
 const miny = -7.2;
 
-//delta time
-let clock = new THREE.Clock();
-let speed = 2;
-let delta = 0;
+//how fast will object go indevidually
+for (let i = 0; i < animateSe.length; i++) {
+    speeds[i] = 1;
+}
 
 function animate() {
   requestAnimationFrame(animate);
@@ -143,8 +137,41 @@ function animate() {
   delta = clock.getDelta();
   //
   for (let i = 0; i < animateSe.length; i++) {
+    animateSe[i].position.x += speeds[i] * delta;
+
+    if (animateSe[i].position.x > Rx || animateSe[i].position.x < Lx) {
+        animateSe[i].position.x = Math.min(Rx, Math.max(Lx, animateSe[i].position.x));
+        speeds[i] *= -1;
+    }
+  }
+
+  for (let i = 0; i < animateNo.length; i++) {
+  }
+
+/*   for (let i = 0; i < animateDk.length; i++) {
+    animateDk[i].rotation.x += 1 * delta;
+    animateDk[i].rotation.y += 1 * delta;
+  }
+  
+    for (let i = 0; i < animateFi.length; i++) {
+    animateFi[i].rotation.x += 0.01 * delta;
+    animateFi[i].rotation.y += 0.01 * delta;
+  } */
+  renderer.render(scene, camera);
+}
+
+animate();
+
+/* 
+function animate() {
+  requestAnimationFrame(animate);
+
+  delta = clock.getDelta();
+  //
+  for (let i = 0; i < animateSe.length; i++) {
     let move = animateSe[i].position.x += 1 * delta;
-    let bool
+    //let bool
+    
     move
     if (animateSe[i].position.x > Rx) {
         animateSe[i].position.x = Rx;
@@ -169,4 +196,4 @@ function animate() {
   renderer.render(scene, camera);
 }
 
-animate();
+animate(); */
