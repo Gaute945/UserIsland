@@ -53,9 +53,9 @@ for (let i = 0; i < populationSe; i++) {
 let no
 let animateNo = []
 
-const PopulationNo = 0//THREE.MathUtils.randFloat(1, 5);
+const populationNo = THREE.MathUtils.randFloat(1, 5);
 
-for (let j = 0; j < PopulationNo; j++) {
+for (let j = 0; j < populationNo; j++) {
   let xPos2 = THREE.MathUtils.randFloat(-4, 4.5);
   let yPos2 = THREE.MathUtils.randFloat(-7, 2);
   no = new THREE.Mesh(nog, nof);
@@ -67,8 +67,8 @@ for (let j = 0; j < PopulationNo; j++) {
 let dk
 let animateDk = []
 
-const befolkningDK = 0//THREE.MathUtils.randFloat(1, 12);
-for (let j = 0; j < befolkningDK; j++) {
+const populationDk = THREE.MathUtils.randFloat(1, 12);
+for (let j = 0; j < populationDk; j++) {
   let xPos3 = THREE.MathUtils.randFloat(-4, 4.5);
   let yPos3 = THREE.MathUtils.randFloat(-7, 2);
   dk = new THREE.Mesh(dkg, dkf);
@@ -79,8 +79,8 @@ for (let j = 0; j < befolkningDK; j++) {
 
 let fi
 let animateFi = []
-const befolkningFI = 0//THREE.MathUtils.randFloat(1, 3);
-for (let k = 0; k < befolkningFI; k++) {
+const populationFi = THREE.MathUtils.randFloat(1, 3);
+for (let k = 0; k < populationFi; k++) {
   let xPos3 = THREE.MathUtils.randFloat(-4, 4.5);
   let yPos3 = THREE.MathUtils.randFloat(-7, 2);
   fi = new THREE.Mesh(fig, fif);
@@ -88,6 +88,11 @@ for (let k = 0; k < befolkningFI; k++) {
   scene.add(fi);
   animateFi.push(fi)
 }
+
+document.getElementById("no").innerHTML = populationNo;
+document.getElementById("se").innerHTML = populationSe;
+document.getElementById("dk").innerHTML = populationDk;
+document.getElementById("fi").innerHTML = populationFi;
 
 const cylG = new THREE.CylinderGeometry(6, 7, 49, 128);
 const cylM = new THREE.MeshBasicMaterial({ map: textureLoad, });
