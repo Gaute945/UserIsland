@@ -11,9 +11,10 @@ const camera = new THREE.PerspectiveCamera(
 );
 
 const renderer = new THREE.WebGLRenderer({ antialiasing: true });
-
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
+
+const controls = new OrbitControls (camera, renderer.domElement);
 
 const textureLoad = new THREE.TextureLoader().load("Resource/map (1)-expanded.png");
 /* const textureLoad = new THREE.TextureLoader().load("Resource/Scandinavia_regions_map.png"); */
@@ -92,9 +93,9 @@ document.getElementById("fi").innerHTML = "Fi " + Math.ceil(populationFi);
 const cylG = new THREE.CylinderGeometry(12, 13, 49, 128);
 const cylM = new THREE.MeshBasicMaterial({ map: textureLoad });
 const cylinder = new THREE.Mesh(cylG, cylM);
-cylinder.rotation.x = 1.5;
-cylinder.rotation.y = 1.55;
-cylinder.position.z = -25.5;
+cylinder.rotation.x = 1.555;
+cylinder.rotation.y = 0;
+cylinder.position.z = -24.7;
 scene.add(cylinder);
 
 camera.position.z = 10;
@@ -103,23 +104,22 @@ camera.position.x = 0;
 camera.rotation.x = 1;
 
 //helpers
-  const helper = new THREE.CameraHelper(camera);
-  scene.add(helper);
+/* const helper = new THREE.CameraHelper(camera);
+scene.add(helper);
 
-  const axesHelper = new THREE.AxesHelper(50);
-  scene.add(axesHelper);
+const axesHelper = new THREE.AxesHelper(50);
+scene.add(axesHelper);
 
-  //collision visualization for boxes
-  const boksmap = new THREE.Mesh(
-    new THREE.BoxGeometry(15.4, 13, 0),
-    new THREE.MeshBasicMaterial({ color: 0xff2d00, wireframe: true })
-  );
-  boksmap.position.set(0, -1, 0);
-  scene.add(boksmap);
-
+//collision visualization for boxes
+const boksmap = new THREE.Mesh(
+  new THREE.BoxGeometry(15.4, 13, 0),
+  new THREE.MeshBasicMaterial({ color: 0xff2d00, wireframe: true })
+);
+boksmap.position.set(0, -1, 0);
+scene.add(boksmap);
+ */
 //delta time
 let clock = new THREE.Clock();
-let speed = 2;
 let delta = 0;
 //speed arrays
 let speedsSe = [];
@@ -159,6 +159,9 @@ const Rx = 7.7;
 const maxy = 6;
 const miny = -7.2;
 
+delta = clock.getDelta();
+
+
 function animate() {
   requestAnimationFrame(animate);
 
@@ -181,25 +184,25 @@ function animate() {
     }
   }
   //Norway animastion
-for (let i = 0; i < animateNo.length; i++){
-  animateNo[i].position.x += speedsNo[i] * Math.cos(rotationsNo[i]) * delta;
-  animateNo[i].position.y += speedsNo[i] * Math.sin(rotationsNo[i]) * delta;
+  for (let i = 0; i < animateNo.length; i++) {
+    animateNo[i].position.x += speedsNo[i] * Math.cos(rotationsNo[i]) * delta;
+    animateNo[i].position.y += speedsNo[i] * Math.sin(rotationsNo[i]) * delta;
 
-  if (animateNo[i].position.x > Rx || animateNo[i].position.x < Lx || animateNo[i].position.y > maxy || animateNo[i].position.y < miny
-  ) {
-    animateNo[i].position.x = Math.min(Rx, Math.max(Lx, animateNo[i].position.x));
-    animateNo[i].position.y = Math.min(maxy, Math.max(miny, animateNo[i].position.y));
+    if (animateNo[i].position.x > Rx || animateNo[i].position.x < Lx || animateNo[i].position.y > maxy || animateNo[i].position.y < miny
+    ) {
+      animateNo[i].position.x = Math.min(Rx, Math.max(Lx, animateNo[i].position.x));
+      animateNo[i].position.y = Math.min(maxy, Math.max(miny, animateNo[i].position.y));
 
-    // Change direction and slightly rotate
-    speedsNo[i] *= -1;
-    rotationsNo[i] += THREE.MathUtils.randFloat(-Math.PI / 3, Math.PI / 3); // Rotate between -45 and 45 degrees
+      // Change direction and slightly rotate
+      speedsNo[i] *= -1;
+      rotationsNo[i] += THREE.MathUtils.randFloat(-Math.PI / 3, Math.PI / 3); // Rotate between -45 and 45 degrees
+    }
   }
-} 
   //denmark animastion
   for (let i = 0; i < animateDk.length; i++) {
     animateDk[i].position.x += speedsDk[i] * Math.cos(rotationsDk[i]) * delta;
     animateDk[i].position.y += speedsDk[i] * Math.sin(rotationsDk[i]) * delta;
-  
+
     if (animateDk[i].position.x > Rx || animateDk[i].position.x < Lx || animateDk[i].position.y > maxy || animateDk[i].position.y < miny
     ) {
       animateDk[i].position.y = Math.min(maxy, Math.max(miny, animateDk[i].position.y));
@@ -214,7 +217,7 @@ for (let i = 0; i < animateNo.length; i++){
   for (let i = 0; i < animateFi.length; i++) {
     animateFi[i].position.x += speedsFi[i] * Math.cos(rotationsFi[i]) * delta;
     animateFi[i].position.y += speedsFi[i] * Math.sin(rotationsFi[i]) * delta;
-  
+
     if (animateFi[i].position.x > Rx || animateFi[i].position.x < Lx || animateFi[i].position.y > maxy || animateFi[i].position.y < miny
     ) {
       animateFi[i].position.y = Math.min(maxy, Math.max(miny, animateFi[i].position.y));
@@ -224,10 +227,6 @@ for (let i = 0; i < animateNo.length; i++){
       speedsFi[i] *= -1;
       rotationsFi[i] += THREE.MathUtils.randFloat(-Math.PI / 3, Math.PI / 3); // Rotate between -45 and 45 degrees
     }
-  }
-  let eventjump = false;
-  if ((eventjump = true)) {
-  
   }
   renderer.render(scene, camera);
 }
