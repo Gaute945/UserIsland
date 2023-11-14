@@ -132,16 +132,16 @@ let speedsDk = [];
 let speedsFi = [];
 //how fast will object go indevidually
 for (let i = 0; i < animateSe.length; i++) {
-  speedsSe[i] = 1;
+  speedsSe[i] = THREE.MathUtils.randFloat(0.1, 2);;
 }
 for (let i = 0; i < animateNo.length; i++) {
-  speedsNo[i] = 1;
+  speedsNo[i] = THREE.MathUtils.randFloat(0.1, 2);
 }
 for (let i = 0; i < animateDk.length; i++) {
-  speedsDk[i] = 1;
+  speedsDk[i] = THREE.MathUtils.randFloat(0.1, 2);
 }
 for (let i = 0; i < animateFi.length; i++) {
-  speedsFi[i] = 1;
+  speedsFi[i] = THREE.MathUtils.randFloat(0.1, 2);
 }
 
 function animate() {
