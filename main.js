@@ -15,9 +15,7 @@ const renderer = new THREE.WebGLRenderer({ antialiasing: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
-const textureLoad = new THREE.TextureLoader().load(
-  "Resource/Scandinavia_regions_map.png"
-);
+const textureLoad = new THREE.TextureLoader().load("Resource/Scandinavia_regions_map.png");
 /* const textureLoad = new THREE.TextureLoader().load("Resource/tex_DebugGrid.png"); */
 
 const seg = new THREE.BoxGeometry(0.3, 0.3, 0.3);
@@ -90,11 +88,11 @@ document.getElementById("se").innerHTML = "Se " + Math.ceil(populationSe);
 document.getElementById("dk").innerHTML = "Dk " + Math.ceil(populationDk);
 document.getElementById("fi").innerHTML = "Fi " + Math.ceil(populationFi);
 
-const cylG = new THREE.CylinderGeometry(6, 7, 49, 128);
+const cylG = new THREE.CylinderGeometry(12, 13, 49, 128);
 const cylM = new THREE.MeshBasicMaterial({ map: textureLoad });
 const cylinder = new THREE.Mesh(cylG, cylM);
-cylinder.rotation.x = -1.5;
-cylinder.rotation.y = 1.5;
+cylinder.rotation.x = 1.5;
+cylinder.rotation.y = 1.55;
 cylinder.position.z = -25.5;
 scene.add(cylinder);
 
@@ -103,8 +101,8 @@ camera.position.y = -18;
 camera.position.x = 0;
 camera.rotation.x = 1;
 
-/* //helpers
-  const helper = new THREE.CameraHelper(camera);
+//helpers
+/*   const helper = new THREE.CameraHelper(camera);
   scene.add(helper);
 
   const axesHelper = new THREE.AxesHelper(50);
@@ -112,7 +110,7 @@ camera.rotation.x = 1;
 
   //collision visualization for boxes
   const boksmap = new THREE.Mesh(
-    new THREE.BoxGeometry(10, 8.8, 0),
+    new THREE.BoxGeometry(15, 10, 0),
     new THREE.MeshBasicMaterial({ color: 0xff2d00, wireframe: true })
   );
   boksmap.position.set(0, -3, 0);
