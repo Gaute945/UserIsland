@@ -34,7 +34,7 @@ const fif = new THREE.MeshBasicMaterial({ color: 0xbcbcbc }); //white ish gray t
 //make cube loop puts each cube in an array for animastion later
 let se;
 let animateSe = [];
-const populationSe = 1//THREE.MathUtils.randFloat(1, 8);
+const populationSe = THREE.MathUtils.randFloat(1, 80);
 
 for (let i = 0; i < populationSe; i++) {
   let xPos = THREE.MathUtils.randFloat(-4, 4.5);//placement random spawn
@@ -48,7 +48,7 @@ for (let i = 0; i < populationSe; i++) {
 let no;
 let animateNo = [];
 
-const populationNo = 1 //THREE.MathUtils.randFloat(1, 5);
+const populationNo = THREE.MathUtils.randFloat(1, 50);
 
 for (let j = 0; j < populationNo; j++) {
   let xPos2 = THREE.MathUtils.randFloat(-4, 4.5);
@@ -62,7 +62,7 @@ for (let j = 0; j < populationNo; j++) {
 let dk;
 let animateDk = [];
 
-const populationDk = 3 //THREE.MathUtils.randFloat(1, 12);
+const populationDk = THREE.MathUtils.randFloat(1, 120);
 for (let j = 0; j < populationDk; j++) {
   let xPos3 = THREE.MathUtils.randFloat(-4, 4.5);
   let yPos3 = THREE.MathUtils.randFloat(-7, 2);
@@ -74,7 +74,7 @@ for (let j = 0; j < populationDk; j++) {
 
 let fi;
 let animateFi = [];
-const populationFi = THREE.MathUtils.randFloat(1, 3);
+const populationFi = THREE.MathUtils.randFloat(1, 30);
 for (let k = 0; k < populationFi; k++) {
   let xPos3 = THREE.MathUtils.randFloat(-4, 4.5);
   let yPos3 = THREE.MathUtils.randFloat(-7, 2);
@@ -103,7 +103,7 @@ camera.position.x = 0;
 camera.rotation.x = 1;
 
 //helpers
-/*   const helper = new THREE.CameraHelper(camera);
+  const helper = new THREE.CameraHelper(camera);
   scene.add(helper);
 
   const axesHelper = new THREE.AxesHelper(50);
@@ -116,7 +116,7 @@ camera.rotation.x = 1;
   );
   boksmap.position.set(0, -1, 0);
   scene.add(boksmap);
- */
+
 //delta time
 let clock = new THREE.Clock();
 let speed = 2;
