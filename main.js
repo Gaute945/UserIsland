@@ -99,9 +99,9 @@ cylinder.position.z = -24.7;
 scene.add(cylinder);
 
 camera.position.z = 10;
-camera.position.y = -18;
+camera.position.y = 0;
 camera.position.x = 0;
-camera.rotation.x = 1;
+camera.rotation.x = 0;
 
 //helpers
 /* const helper = new THREE.CameraHelper(camera);
@@ -160,7 +160,7 @@ const maxy = 6;
 const miny = -7.2;
 
 controls.autoRotate = true;
-controls.autoRotateSpeed = 1;
+controls.autoRotateSpeed = 0;
 
 function animate() {
   delta = clock.getDelta();
