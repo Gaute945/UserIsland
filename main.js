@@ -15,29 +15,31 @@ const renderer = new THREE.WebGLRenderer({ antialiasing: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
-const textureLoad = new THREE.TextureLoader().load("Resource/Scandinavia_regions_map.png");
+const textureLoad = new THREE.TextureLoader().load(
+  "Resource/Scandinavia_regions_map.png"
+);
 /* const textureLoad = new THREE.TextureLoader().load("Resource/tex_DebugGrid.png"); */
 
-const seg = new THREE.BoxGeometry(0.3, 0.3, 0.3);
-const sef = new THREE.MeshBasicMaterial({ color: 0xecb920 });//yellow mesh for sweden
+const seg = new THREE.BoxGeometry(0.2, 0.2, 0.2);
+const sef = new THREE.MeshBasicMaterial({ color: 0xecb920 }); //yellow mesh for sweden
 
-const nog = new THREE.BoxGeometry(0.3, 0.3, 0.3);
-const nof = new THREE.MeshBasicMaterial({ color: 0x2986cc}); //blue mesh for norway
+const nog = new THREE.BoxGeometry(0.2, 0.2, 0.2);
+const nof = new THREE.MeshBasicMaterial({ color: 0x2986cc }); //blue mesh for norway
 
-const dkg = new THREE.BoxGeometry(0.3, 0.3, 0.3);
-const dkf = new THREE.MeshBasicMaterial({ color: 0xf44336 });//red for denmark
+const dkg = new THREE.BoxGeometry(0.2, 0.2, 0.2);
+const dkf = new THREE.MeshBasicMaterial({ color: 0xf44336 }); //red for denmark
 
-const fig = new THREE.BoxGeometry(0.3, 0.3, 0.3);
-const fif = new THREE.MeshBasicMaterial({ color: 0xbcbcbc });//white ish gray to finland
+const fig = new THREE.BoxGeometry(0.2, 0.2, 0.2);
+const fif = new THREE.MeshBasicMaterial({ color: 0xbcbcbc }); //white ish gray to finland
 
+//make cube loop puts each cube in an array for animastion later
 let se;
 let animateSe = [];
-
-const populationSe = THREE.MathUtils.randFloat(1, 8);
+const populationSe = 1//THREE.MathUtils.randFloat(1, 8);
 
 for (let i = 0; i < populationSe; i++) {
-  let xPos = THREE.MathUtils.randFloat(-4, 4.5);
-  let yPos = THREE.MathUtils.randFloat(-7, 2);
+  let xPos = THREE.MathUtils.randFloat(-4, 4.5);//placement random spawn
+  let yPos = THREE.MathUtils.randFloat(-7, 2);//placement random spawn
   se = new THREE.Mesh(seg, sef);
   se.position.set(xPos, yPos, 0);
   scene.add(se);
@@ -47,7 +49,7 @@ for (let i = 0; i < populationSe; i++) {
 let no;
 let animateNo = [];
 
-const populationNo = THREE.MathUtils.randFloat(1, 5);
+const populationNo = 1 //THREE.MathUtils.randFloat(1, 5);
 
 for (let j = 0; j < populationNo; j++) {
   let xPos2 = THREE.MathUtils.randFloat(-4, 4.5);
@@ -61,7 +63,7 @@ for (let j = 0; j < populationNo; j++) {
 let dk;
 let animateDk = [];
 
-const populationDk = THREE.MathUtils.randFloat(1, 12);
+const populationDk = 3 //THREE.MathUtils.randFloat(1, 12);
 for (let j = 0; j < populationDk; j++) {
   let xPos3 = THREE.MathUtils.randFloat(-4, 4.5);
   let yPos3 = THREE.MathUtils.randFloat(-7, 2);
@@ -82,7 +84,7 @@ for (let k = 0; k < populationFi; k++) {
   scene.add(fi);
   animateFi.push(fi);
 }
-
+//
 document.getElementById("no").innerHTML = "No " + Math.ceil(populationNo);
 document.getElementById("se").innerHTML = "Se " + Math.ceil(populationSe);
 document.getElementById("dk").innerHTML = "Dk " + Math.ceil(populationDk);
@@ -110,39 +112,53 @@ camera.rotation.x = 1;
 
   //collision visualization for boxes
   const boksmap = new THREE.Mesh(
-    new THREE.BoxGeometry(15, 10, 0),
+    new THREE.BoxGeometry(15.4, 13, 0),
     new THREE.MeshBasicMaterial({ color: 0xff2d00, wireframe: true })
   );
-  boksmap.position.set(0, -3, 0);
-  scene.add(boksmap); */
-
-// for stop condition
-const Lx = -5;
-const Rx = 5;
-const maxy = 1.5;
-const miny = -7.2;
-
+  boksmap.position.set(0, -1, 0);
+  scene.add(boksmap);
+ */
 //delta time
 let clock = new THREE.Clock();
 let speed = 2;
 let delta = 0;
+//speed arrays
 let speedsSe = [];
 let speedsNo = [];
 let speedsDk = [];
 let speedsFi = [];
+//rotation arrays
+let rotationsNo = [];
+let rotationsSe = [];
+let rotationsDk = [];
+let rotationsFi = [];
 //how fast will object go indevidually
+//chatgpt shit
 for (let i = 0; i < animateSe.length; i++) {
-  speedsSe[i] = THREE.MathUtils.randFloat(0.1, 2);;
+  speedsSe[i] = THREE.MathUtils.randFloat(0.1, 2);
+  rotationsSe[i] = THREE.MathUtils.randFloat(0, Math.PI / 2); // Random rotation between 0 and 90 degrees
 }
+/* for (let i = 0; i < animateSe.length; i++) {
+  speedsSe[i] = THREE.MathUtils.randFloat(0.1, 2);;
+} */
+
 for (let i = 0; i < animateNo.length; i++) {
   speedsNo[i] = THREE.MathUtils.randFloat(0.1, 2);
+  rotationsNo[i] = THREE.MathUtils.randFloat(0, Math.PI / 2);
 }
 for (let i = 0; i < animateDk.length; i++) {
   speedsDk[i] = THREE.MathUtils.randFloat(0.1, 2);
+  rotationsDk[i] = THREE.MathUtils.randFloat(0, Math.PI / 2);
 }
 for (let i = 0; i < animateFi.length; i++) {
   speedsFi[i] = THREE.MathUtils.randFloat(0.1, 2);
+  rotationsFi[i] = THREE.MathUtils.randFloat(0, Math.PI / 2);
 }
+// for stop condition collision borders
+const Lx = -7.7;
+const Rx = 7.7;
+const maxy = 6;
+const miny = -7.2;
 
 function animate() {
   requestAnimationFrame(animate);
@@ -150,58 +166,69 @@ function animate() {
   delta = clock.getDelta();
 
   //sweden animastion
+  //loop makes it so animatese rotates and goes a slightly different direction until it hits one of the condition stoppers
   for (let i = 0; i < animateSe.length; i++) {
-    animateSe[i].position.x += speedsSe[i] * delta;
+    animateSe[i].position.x += speedsSe[i] * Math.cos(rotationsSe[i]) * delta;
+    animateSe[i].position.y += speedsSe[i] * Math.sin(rotationsSe[i]) * delta;
 
-    if (animateSe[i].position.x > Rx || animateSe[i].position.x < Lx) {
-      animateSe[i].position.x = Math.min(
-        Rx,
-        Math.max(Lx, animateSe[i].position.x)
-      );
+    if (animateSe[i].position.x > Rx || animateSe[i].position.x < Lx || animateSe[i].position.y > maxy || animateSe[i].position.y < miny
+    ) {
+      animateSe[i].position.x = Math.min(Rx, Math.max(Lx, animateSe[i].position.x));
+      animateSe[i].position.y = Math.min(maxy, Math.max(miny, animateSe[i].position.y));
+
+      // Change direction and slightly rotate
       speedsSe[i] *= -1;
+      rotationsSe[i] += THREE.MathUtils.randFloat(-Math.PI / 3, Math.PI / 3); // Rotate between -45 and 45 degrees
     }
   }
   //Norway animastion
-  for (let i = 0; i < animateNo.length; i++) {
-    animateNo[i].position.x += speedsNo[i] * delta;
+for (let i = 0; i < animateNo.length; i++){
+  animateNo[i].position.x += speedsNo[i] * Math.cos(rotationsNo[i]) * delta;
+  animateNo[i].position.y += speedsNo[i] * Math.sin(rotationsNo[i]) * delta;
 
-    if (animateNo[i].position.x > Rx || animateNo[i].position.x < Lx) {
-      animateNo[i].position.x = Math.min(
-        Rx,
-        Math.max(Lx, animateNo[i].position.x)
-      );
-      speedsNo[i] *= -1;
-    }
+  if (animateNo[i].position.x > Rx || animateNo[i].position.x < Lx || animateNo[i].position.y > maxy || animateNo[i].position.y < miny
+  ) {
+    animateNo[i].position.x = Math.min(Rx, Math.max(Lx, animateNo[i].position.x));
+    animateNo[i].position.y = Math.min(maxy, Math.max(miny, animateNo[i].position.y));
+
+    // Change direction and slightly rotate
+    speedsNo[i] *= -1;
+    rotationsNo[i] += THREE.MathUtils.randFloat(-Math.PI / 3, Math.PI / 3); // Rotate between -45 and 45 degrees
   }
-/*   //denmark animastion
+} 
+  //denmark animastion
   for (let i = 0; i < animateDk.length; i++) {
-    animateDk[i].position.y += speedsDk[i] * delta;
+    animateDk[i].position.x += speedsDk[i] * Math.cos(rotationsDk[i]) * delta;
+    animateDk[i].position.y += speedsDk[i] * Math.sin(rotationsDk[i]) * delta;
+  
+    if (animateDk[i].position.x > Rx || animateDk[i].position.x < Lx || animateDk[i].position.y > maxy || animateDk[i].position.y < miny
+    ) {
+      animateDk[i].position.y = Math.min(maxy, Math.max(miny, animateDk[i].position.y));
+      animateDk[i].position.x = Math.min(Rx, Math.max(Lx, animateDk[i].position.x));
 
-    if (animateDk[i].position.y > maxy || animateDk[i].position.y < miny) {
-      animateDk[i].position.y = Math.min(
-        maxy,
-        Math.max(miny, animateDk[i].position.y)
-      );
+      // Change direction and slightly rotate
       speedsDk[i] *= -1;
+      rotationsDk[i] += THREE.MathUtils.randFloat(-Math.PI / 3, Math.PI / 3); // Rotate between -45 and 45 degrees
     }
   }
   //finland animastion
   for (let i = 0; i < animateFi.length; i++) {
-    animateFi[i].position.y += speedsFi[i] * delta;
+    animateFi[i].position.x += speedsFi[i] * Math.cos(rotationsFi[i]) * delta;
+    animateFi[i].position.y += speedsFi[i] * Math.sin(rotationsFi[i]) * delta;
+  
+    if (animateFi[i].position.x > Rx || animateFi[i].position.x < Lx || animateFi[i].position.y > maxy || animateFi[i].position.y < miny
+    ) {
+      animateFi[i].position.y = Math.min(maxy, Math.max(miny, animateFi[i].position.y));
+      animateFi[i].position.x = Math.min(Rx, Math.max(Lx, animateFi[i].position.x));
 
-    if (animateFi[i].position.y > maxy || animateFi[i].position.y < miny) {
-      animateFi[i].position.y = Math.min(
-        maxy,
-        Math.max(miny, animateFi[i].position.y)
-      );
+      // Change direction and slightly rotate
       speedsFi[i] *= -1;
+      rotationsFi[i] += THREE.MathUtils.randFloat(-Math.PI / 3, Math.PI / 3); // Rotate between -45 and 45 degrees
     }
-  } */
-  ;
+  }
   let eventjump = false;
-  if (eventjump = true){
-    
-  };
+  if ((eventjump = true)) {
+  }
   renderer.render(scene, camera);
 }
 
