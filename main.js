@@ -228,6 +228,7 @@ for (let i = 0; i < animateNo.length; i++){
   }
   let eventjump = false;
   if ((eventjump = true)) {
+  
   }
   renderer.render(scene, camera);
 }
