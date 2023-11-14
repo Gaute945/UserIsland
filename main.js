@@ -21,16 +21,16 @@ const textureLoad = new THREE.TextureLoader().load(
 /* const textureLoad = new THREE.TextureLoader().load("Resource/tex_DebugGrid.png"); */
 
 const seg = new THREE.BoxGeometry(0.3, 0.3, 0.3);
-const sef = new THREE.MeshBasicMaterial({ color: 0xff2d00 });
+const sef = new THREE.MeshBasicMaterial({ color: 0xecb920 });//yellow mesh for sweden
 
 const nog = new THREE.BoxGeometry(0.3, 0.3, 0.3);
-const nof = new THREE.MeshBasicMaterial({ color: 0x2d9c18 });//green
+const nof = new THREE.MeshBasicMaterial({ color: 0x2986cc}); //blue mesh for norway
 
 const dkg = new THREE.BoxGeometry(0.3, 0.3, 0.3);
-const dkf = new THREE.MeshBasicMaterial({ color: 0xe00ff });
+const dkf = new THREE.MeshBasicMaterial({ color: 0xf44336 });//red for denmark
 
 const fig = new THREE.BoxGeometry(0.3, 0.3, 0.3);
-const fif = new THREE.MeshBasicMaterial({ color: 0xa832a6 });
+const fif = new THREE.MeshBasicMaterial({ color: 0xbcbcbc });//white ish gray to finland
 
 let se;
 let animateSe = [];
@@ -145,10 +145,12 @@ for (let i = 0; i < animateDk.length; i++) {
 for (let i = 0; i < animateFi.length; i++) {
   speedsFi[i] = 1;
 }
+
 function animate() {
   requestAnimationFrame(animate);
 
   delta = clock.getDelta();
+
   //sweden animastion
   for (let i = 0; i < animateSe.length; i++) {
     animateSe[i].position.x += speedsSe[i] * delta;
@@ -173,7 +175,7 @@ function animate() {
       speedsNo[i] *= -1;
     }
   }
-
+/*   //denmark animastion
   for (let i = 0; i < animateDk.length; i++) {
     animateDk[i].position.y += speedsDk[i] * delta;
 
@@ -185,7 +187,7 @@ function animate() {
       speedsDk[i] *= -1;
     }
   }
-
+  //finland animastion
   for (let i = 0; i < animateFi.length; i++) {
     animateFi[i].position.y += speedsFi[i] * delta;
 
@@ -196,44 +198,13 @@ function animate() {
       );
       speedsFi[i] *= -1;
     }
-  }
+  } */
+  ;
+  let eventjump = false;
+  if (eventjump = true){
+    
+  };
   renderer.render(scene, camera);
 }
 
 animate();
-
-/* 
-function animate() {
-  requestAnimationFrame(animate);
-
-  delta = clock.getDelta();
-  //
-  for (let i = 0; i < animateSe.length; i++) {
-    let move = animateSe[i].position.x += 1 * delta;
-    //let bool
-    
-    move
-    if (animateSe[i].position.x > Rx) {
-        animateSe[i].position.x = Rx;
-        move = animateSe[i].position.x += 0 * delta
-    }
-  }
-
-  for (let i = 0; i < animateNo.length; i++) {
-    
-  }
-
-  for (let i = 0; i < animateDk.length; i++) {
-    animateDk[i].rotation.x += 1 * delta;
-    animateDk[i].rotation.y += 1 * delta;
-  }
-  
-    for (let i = 0; i < animateFi.length; i++) {
-    animateFi[i].rotation.x += 0.01 * delta;
-    animateFi[i].rotation.y += 0.01 * delta;
-  }
-  
-  renderer.render(scene, camera);
-}
-
-animate(); */
