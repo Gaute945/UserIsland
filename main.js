@@ -16,7 +16,7 @@ document.body.appendChild(renderer.domElement);
 
 const controls = new OrbitControls (camera, renderer.domElement);
 
-const textureLoad = new THREE.TextureLoader().load("Resource/map (1)-expanded.png");
+const textureLoad = new THREE.TextureLoader().load("Resource/map (1)-noCircle.png");
 /* const textureLoad = new THREE.TextureLoader().load("Resource/Scandinavia_regions_map.png"); */
 /* const textureLoad = new THREE.TextureLoader().load("Resource/tex_DebugGrid.png"); */
 
@@ -159,13 +159,14 @@ const Rx = 7.7;
 const maxy = 6;
 const miny = -7.2;
 
-delta = clock.getDelta();
-
+controls.autoRotate = true;
+controls.autoRotateSpeed = 1;
 
 function animate() {
-  requestAnimationFrame(animate);
-
   delta = clock.getDelta();
+
+  //OrbitControlls update
+  controls.update(delta);
 
   //sweden animastion
   //loop makes it so animatese rotates and goes a slightly different direction until it hits one of the condition stoppers
@@ -229,6 +230,7 @@ function animate() {
     }
   }
   renderer.render(scene, camera);
+  requestAnimationFrame(animate);
 }
 
 animate();
