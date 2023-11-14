@@ -30,7 +30,7 @@ const dkg = new THREE.BoxGeometry(0.2, 0.2, 0.2);
 const dkf = new THREE.MeshBasicMaterial({ color: 0xf44336 }); //red for denmark
 
 const fig = new THREE.BoxGeometry(0.2, 0.2, 0.2);
-const fif = new THREE.MeshBasicMaterial({ color: 0xbcbcbc }); //white ish gray to finland
+const fif = new THREE.MeshBasicMaterial({ color: 0xd5d5d5 }); //white ish gray to finland
 
 //make cube loop puts each cube in an array for animastion later
 let se;
@@ -38,8 +38,8 @@ let animateSe = [];
 const populationSe = THREE.MathUtils.randFloat(1, 80);
 
 for (let i = 0; i < populationSe; i++) {
-  let xPos = THREE.MathUtils.randFloat(-4, 4.5);//placement random spawn
-  let yPos = THREE.MathUtils.randFloat(-7, 2);//placement random spawn
+  let xPos = THREE.MathUtils.randFloat(3.6, 3.6);//placement random spawn
+  let yPos = THREE.MathUtils.randFloat(4.5, 4.5);//placement random spawn
   se = new THREE.Mesh(seg, sef);
   se.position.set(xPos, yPos, 0);
   scene.add(se);
@@ -52,8 +52,8 @@ let animateNo = [];
 const populationNo = THREE.MathUtils.randFloat(1, 50);
 
 for (let j = 0; j < populationNo; j++) {
-  let xPos2 = THREE.MathUtils.randFloat(-4, 4.5);
-  let yPos2 = THREE.MathUtils.randFloat(-7, 2);
+  let xPos2 = THREE.MathUtils.randFloat(-5,-5);
+  let yPos2 = THREE.MathUtils.randFloat(4,4);
   no = new THREE.Mesh(nog, nof);
   no.position.set(xPos2, yPos2, 0);
   scene.add(no);
@@ -65,8 +65,8 @@ let animateDk = [];
 
 const populationDk = THREE.MathUtils.randFloat(1, 120);
 for (let j = 0; j < populationDk; j++) {
-  let xPos3 = THREE.MathUtils.randFloat(-4, 4.5);
-  let yPos3 = THREE.MathUtils.randFloat(-7, 2);
+  let xPos3 = THREE.MathUtils.randFloat(5, 5);
+  let yPos3 = THREE.MathUtils.randFloat(-5, -5);
   dk = new THREE.Mesh(dkg, dkf);
   dk.position.set(xPos3, yPos3, 0);
   scene.add(dk);
@@ -77,8 +77,8 @@ let fi;
 let animateFi = [];
 const populationFi = THREE.MathUtils.randFloat(1, 30);
 for (let k = 0; k < populationFi; k++) {
-  let xPos3 = THREE.MathUtils.randFloat(-4, 4.5);
-  let yPos3 = THREE.MathUtils.randFloat(-7, 2);
+  let xPos3 = THREE.MathUtils.randFloat(-5, -5);
+  let yPos3 = THREE.MathUtils.randFloat(-5, -5);
   fi = new THREE.Mesh(fig, fif);
   fi.position.set(xPos3, yPos3, 0);
   scene.add(fi);
@@ -109,15 +109,15 @@ scene.add(helper);
 
 const axesHelper = new THREE.AxesHelper(50);
 scene.add(axesHelper);
-
+ 
 //collision visualization for boxes
 const boksmap = new THREE.Mesh(
-  new THREE.BoxGeometry(15.4, 13, 0),
+  new THREE.BoxGeometry(7, 3.5, 0),
   new THREE.MeshBasicMaterial({ color: 0xff2d00, wireframe: true })
 );
-boksmap.position.set(0, -1, 0);
+boksmap.position.set(3.6, 4.3, 0);
 scene.add(boksmap);
- */
+*/
 //delta time
 let clock = new THREE.Clock();
 let delta = 0;
