@@ -31,6 +31,7 @@ const dkf = new THREE.MeshBasicMaterial({ color: 0xf44336 }); //red for denmark
 
 const fig = new THREE.BoxGeometry(0.2, 0.2, 0.2);
 const fif = new THREE.MeshBasicMaterial({ color: 0xd5d5d5 }); //white ish gray to finland
+let buttonbool = true
 
 //make cube loop puts each cube in an array for animastion later
 let se;
@@ -98,10 +99,9 @@ cylinder.rotation.y = 0;
 cylinder.position.z = -24.7;
 scene.add(cylinder);
 
-camera.position.z = 10;
-camera.position.y = 0;
+camera.position.z = 20;
+camera.position.y = -20;
 camera.position.x = 0;
-camera.rotation.x = 0;
 
 //helpers
 /* const helper = new THREE.CameraHelper(camera);
