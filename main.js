@@ -30,6 +30,7 @@ const dkf = new THREE.MeshBasicMaterial({ color: 0xf44336 }); //red for denmark
 
 const fig = new THREE.ConeGeometry(0.2, 0.2, 128);
 const fif = new THREE.MeshBasicMaterial({ color: 0xd5d5d5 }); //white ish gray to finland
+let buttonbool = true
 
 //make cube loop puts each cube in an array for animastion later
 let se;
