@@ -17,19 +17,18 @@ document.body.appendChild(renderer.domElement);
 const controls = new OrbitControls (camera, renderer.domElement);
 
 const textureLoad = new THREE.TextureLoader().load("Resource/map (1)-noCircle.png");
-/* const textureLoad = new THREE.TextureLoader().load("Resource/Scandinavia_regions_map.png"); */
 /* const textureLoad = new THREE.TextureLoader().load("Resource/tex_DebugGrid.png"); */
 
 const seg = new THREE.BoxGeometry(0.2, 0.2, 0.2);
 const sef = new THREE.MeshBasicMaterial({ color: 0xecb920 }); //yellow mesh for sweden
 
-const nog = new THREE.BoxGeometry(0.2, 0.2, 0.2);
+const nog = new THREE.CapsuleGeometry(0.2, 0.2, 128, 128);
 const nof = new THREE.MeshBasicMaterial({ color: 0x2986cc }); //blue mesh for norway
 
-const dkg = new THREE.BoxGeometry(0.2, 0.2, 0.2);
+const dkg = new THREE.SphereGeometry(0.2, 0.2, 0.2);
 const dkf = new THREE.MeshBasicMaterial({ color: 0xf44336 }); //red for denmark
 
-const fig = new THREE.BoxGeometry(0.2, 0.2, 0.2);
+const fig = new THREE.ConeGeometry(0.2, 0.2, 128);
 const fif = new THREE.MeshBasicMaterial({ color: 0xd5d5d5 }); //white ish gray to finland
 
 //make cube loop puts each cube in an array for animastion later
@@ -99,9 +98,8 @@ cylinder.position.z = -24.7;
 scene.add(cylinder);
 
 camera.position.z = 10;
-camera.position.y = 0;
+camera.position.y = -20;
 camera.position.x = 0;
-camera.rotation.x = 0;
 
 //helpers
 /* const helper = new THREE.CameraHelper(camera);
