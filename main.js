@@ -14,7 +14,7 @@ const renderer = new THREE.WebGLRenderer({ antialiasing: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
-const controls = new OrbitControls (camera, renderer.domElement);
+const controls = new OrbitControls(camera, renderer.domElement);
 
 const textureLoad = new THREE.TextureLoader().load("Resource/map (1)-noCircle.png");
 /* const textureLoad = new THREE.TextureLoader().load("Resource/tex_DebugGrid.png"); */
@@ -60,8 +60,8 @@ for (let i = 0; i < populationSe; i++) {
 
 
 for (let j = 0; j < populationNo; j++) {
-  let xPos2 = THREE.MathUtils.randFloat(-5,-5);
-  let yPos2 = THREE.MathUtils.randFloat(4,4);
+  let xPos2 = THREE.MathUtils.randFloat(-5, -5);
+  let yPos2 = THREE.MathUtils.randFloat(4, 4);
   no = new THREE.Mesh(nog, nof);
   no.position.set(xPos2, yPos2, 0);
   scene.add(no);
@@ -161,13 +161,16 @@ const maxy = 6;
 const miny = -7.2;
 
 controls.autoRotate = true;
-controls.autoRotateSpeed = 0;
+controls.autoRotateSpeed = 1;
+controls.maxAzimuthAngle = [ - 2 * Math.PI, 2 * Math.PI ];
 
 function animate() {
   delta = clock.getDelta();
 
   //OrbitControlls update
   controls.update(delta);
+
+  console.log(controls.maxAzimuthAngle);
 
   //sweden animastion
   //loop makes it so animatese rotates and goes a slightly different direction until it hits one of the condition stoppers
@@ -230,6 +233,15 @@ function animate() {
       rotationsFi[i] += THREE.MathUtils.randFloat(-Math.PI / 3, Math.PI / 3); // Rotate between -45 and 45 degrees
     }
   }
+
+// Handle window resize
+window.addEventListener('resize', () => {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+});
+
+  camera.lookAt( scene.position );
   renderer.render(scene, camera);
   requestAnimationFrame(animate);
 }
