@@ -220,7 +220,7 @@ function animate() {
       rotationsNo[i] += THREE.MathUtils.randFloat(-Math.PI / 3, Math.PI / 3); // Rotate between -45 and 45 degrees
 
     }
-    //isolated cube
+    //isolated cube -- why is this comment here?
   }
   // denmark animastion
   for (let i = 0; i < animateDk.length; i++) {
@@ -266,7 +266,6 @@ window.addEventListener('resize', () => {
   camera.updateProjectionMatrix();
   renderer.setSize(window.innerWidth, window.innerHeight);
 });
-
   camera.lookAt( scene.position );
   renderer.render(scene, camera);
   requestAnimationFrame(animate);
