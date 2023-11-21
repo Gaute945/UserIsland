@@ -1,7 +1,13 @@
 body {
     margin: 0;
 }
-
+#eventbutton{
+    position: absolute;
+    background-color: red;
+    height: 6rem;
+    width: 12rem;
+    font-size: larger;
+}
 .outer-div {
     position: absolute;
     top: 0;

@@ -33,9 +33,21 @@ const fif = new THREE.MeshBasicMaterial({ color: 0xd5d5d5 }); //white ish gray t
 let buttonbool = true
 
 //make cube loop puts each cube in an array for animastion later
-let se;
-let animateSe = [];
-const populationSe = THREE.MathUtils.randFloat(1, 80);
+let se;//the cube
+let animateSe = [];//animation array
+
+let no;
+let animateNo = [];
+
+let dk;
+let animateDk = [];
+
+let fi;
+let animateFi = [];
+const populationSe = 0 //THREE.MathUtils.randFloat(1, 80);//amount of cubes
+const populationNo = 20 //THREE.MathUtils.randFloat(1, 50);
+const populationDk = 0 //THREE.MathUtils.randFloat(1, 120);
+const populationFi = 0 //THREE.MathUtils.randFloat(1, 30);
 
 for (let i = 0; i < populationSe; i++) {
   let xPos = THREE.MathUtils.randFloat(3.6, 3.6);//placement random spawn
@@ -46,10 +58,6 @@ for (let i = 0; i < populationSe; i++) {
   animateSe.push(se);
 }
 
-let no;
-let animateNo = [];
-
-const populationNo = THREE.MathUtils.randFloat(1, 50);
 
 for (let j = 0; j < populationNo; j++) {
   let xPos2 = THREE.MathUtils.randFloat(-5,-5);
@@ -60,10 +68,6 @@ for (let j = 0; j < populationNo; j++) {
   animateNo.push(no);
 }
 
-let dk;
-let animateDk = [];
-
-const populationDk = THREE.MathUtils.randFloat(1, 120);
 for (let j = 0; j < populationDk; j++) {
   let xPos3 = THREE.MathUtils.randFloat(5, 5);
   let yPos3 = THREE.MathUtils.randFloat(-5, -5);
@@ -73,9 +77,7 @@ for (let j = 0; j < populationDk; j++) {
   animateDk.push(dk);
 }
 
-let fi;
-let animateFi = [];
-const populationFi = THREE.MathUtils.randFloat(1, 30);
+
 for (let k = 0; k < populationFi; k++) {
   let xPos3 = THREE.MathUtils.randFloat(-5, -5);
   let yPos3 = THREE.MathUtils.randFloat(-5, -5);
@@ -231,5 +233,18 @@ function animate() {
   renderer.render(scene, camera);
   requestAnimationFrame(animate);
 }
+//eventbutton
+let btn_element = document.getElementById("eventbutton");
+const randCube = Math.floor(Math.random() * animateNo.length)//random cube out of animateNo
+const cubeSelc = animateNo[randCube]//cube selection
+btn_element.addEventListener("click", () => {
+
+ 
+
+  let liftHeight = 1;
+  cubeSelc.position.z += liftHeight;
+})
+
 
 animate();
+
