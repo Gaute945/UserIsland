@@ -22,8 +22,8 @@ const textureLoad = new THREE.TextureLoader().load("Resource/map (1)-noCircle.pn
 const seg = new THREE.BoxGeometry(0.2, 0.2, 0.2);
 const sef = new THREE.MeshBasicMaterial({ color: 0xecb920 }); //yellow mesh for sweden
 
-const nog = new THREE.CapsuleGeometry(0.2, 0.2, 128, 128);
-const nof = new THREE.MeshBasicMaterial({ color: 0x2986cc }); //blue mesh for norway
+const nog = new THREE.BoxGeometry(0.3, 0.3, 0.3);
+let nof; //blue mesh for norway
 
 const dkg = new THREE.SphereGeometry(0.2, 0.2, 0.2);
 const dkf = new THREE.MeshBasicMaterial({ color: 0xf44336 }); //red for denmark
@@ -62,6 +62,7 @@ for (let i = 0; i < populationSe; i++) {
 for (let j = 0; j < populationNo; j++) {
   let xPos2 = THREE.MathUtils.randFloat(-5, -5);
   let yPos2 = THREE.MathUtils.randFloat(4, 4);
+  nof = new THREE.MeshBasicMaterial({ color: Math.random() * 0xffffff });
   no = new THREE.Mesh(nog, nof);
   no.position.set(xPos2, yPos2, 0);
   scene.add(no);
@@ -160,7 +161,7 @@ const Rx = 7.7;
 const maxy = 6;
 const miny = -7.2;
 
-controls.autoRotate = true;
+controls.autoRotate = false;
 controls.autoRotateSpeed = 1;
 controls.maxAzimuthAngle = [ - 2 * Math.PI, 2 * Math.PI ];
 
@@ -201,7 +202,9 @@ function animate() {
       // Change direction and slightly rotate
       speedsNo[i] *= -1;
       rotationsNo[i] += THREE.MathUtils.randFloat(-Math.PI / 3, Math.PI / 3); // Rotate between -45 and 45 degrees
+
     }
+    //isolated cube
   }
   //denmark animastion
   for (let i = 0; i < animateDk.length; i++) {
@@ -233,6 +236,13 @@ function animate() {
       rotationsFi[i] += THREE.MathUtils.randFloat(-Math.PI / 3, Math.PI / 3); // Rotate between -45 and 45 degrees
     }
   }
+  //buttonexempt when z1
+  if (buttonevent = true) {
+
+    console.log("it work little")
+
+      cubeSelc.position.z -= 0.1; 
+  }
 
 // Handle window resize
 window.addEventListener('resize', () => {
@@ -245,18 +255,19 @@ window.addEventListener('resize', () => {
   renderer.render(scene, camera);
   requestAnimationFrame(animate);
 }
+
 //eventbutton
+let buttonevent = false;
 let btn_element = document.getElementById("eventbutton");
 const randCube = Math.floor(Math.random() * animateNo.length)//random cube out of animateNo
 const cubeSelc = animateNo[randCube]//cube selection
+let liftHeight = 2;
+
 btn_element.addEventListener("click", () => {
-
- 
-
-  let liftHeight = 1;
   cubeSelc.position.z += liftHeight;
 })
 
 
+//run functions
 animate();
 
