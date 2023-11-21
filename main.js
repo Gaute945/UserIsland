@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import { PerspectiveCamera } from "three.js";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 
 const scene = new THREE.Scene();
@@ -178,7 +179,7 @@ const miny = -7.2;
 
 controls.autoRotate = false;
 controls.autoRotateSpeed = 1;
-controls.maxAzimuthAngle = [ - 2 * Math.PI, 2 * Math.PI ];
+console.log(controls);
 
 function animate() {
   delta = clock.getDelta();
@@ -186,7 +187,7 @@ function animate() {
   // OrbitControlls update
   controls.update(delta);
 
-  plane.quaternion.copy(camera.quaternion);
+  plane.lookAt(camera.position);
 
   // sweden animastion
   // loop makes it so animatese rotates and goes a slightly different direction until it hits one of the condition stoppers
