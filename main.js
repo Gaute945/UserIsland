@@ -184,6 +184,25 @@ function animate() {
 
   plane.lookAt(camera.position);
 
+  /* function animate(aa) {
+    for (let i = 0; i < aa.length; i++) {
+      aa[i].position.x += speedsNo[i] * Math.cos(rotationsNo[i]) * delta;
+      aa[i].position.y += speedsNo[i] * Math.sin(rotationsNo[i]) * delta;
+  
+      if (animateNo[i].position.x > Rx || animateNo[i].position.x < Lx || animateNo[i].position.y > maxy || animateNo[i].position.y < miny
+      ) {
+        animateNo[i].position.x = Math.min(Rx, Math.max(Lx, animateNo[i].position.x));
+        animateNo[i].position.y = Math.min(maxy, Math.max(miny, animateNo[i].position.y));
+  
+        // Change direction and slightly rotate
+        speedsNo[i] *= -1;
+        rotationsNo[i] += THREE.MathUtils.randFloat(-Math.PI / 3, Math.PI / 3); // Rotate between -45 and 45 degrees
+  
+      }
+      //isolated cube -- why is this comment here?
+    }
+  } */
+
   // sweden animastion
   // loop makes it so animatese rotates and goes a slightly different direction until it hits one of the condition stoppers
   for (let i = 0; i < animateSe.length; i++) {
@@ -215,7 +234,7 @@ function animate() {
       rotationsNo[i] += THREE.MathUtils.randFloat(-Math.PI / 3, Math.PI / 3); // Rotate between -45 and 45 degrees
 
     }
-    //isolated cube
+    //isolated cube -- why is this comment here?
   }
   // denmark animastion
   for (let i = 0; i < animateDk.length; i++) {
@@ -259,7 +278,6 @@ window.addEventListener('resize', () => {
   camera.updateProjectionMatrix();
   renderer.setSize(window.innerWidth, window.innerHeight);
 });
-
   camera.lookAt( scene.position );
   renderer.render(scene, camera);
   requestAnimationFrame(animate);
@@ -276,7 +294,4 @@ btn_element.addEventListener("click", () => {
   cubeSelc.position.z += liftHeight;
 })
 
-
-//run functions
 animate();
-
