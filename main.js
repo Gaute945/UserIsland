@@ -31,7 +31,10 @@ const dkf = new THREE.MeshBasicMaterial({ color: 0xf44336 }); //red for denmark
 const fig = new THREE.ConeGeometry(0.2, 0.2, 128);
 const fif = new THREE.MeshBasicMaterial({ color: 0xd5d5d5 }); //white ish gray to finland
 
-let buttonbool = true; //why is this here?
+let buttonbool = true; //why is this here?   <---this comment is useless
+
+
+
 
 //make cube loop puts each cube in an array for animastion later
 let se;//the cube
@@ -45,10 +48,10 @@ let animateDk = [];
 
 let fi;
 let animateFi = [];
-const populationSe = 0 //THREE.MathUtils.randFloat(1, 80);//amount of cubes
-const populationNo = 20 //THREE.MathUtils.randFloat(1, 50);
-const populationDk = 0 //THREE.MathUtils.randFloat(1, 120);
-const populationFi = 0 //THREE.MathUtils.randFloat(1, 30);
+const populationSe = THREE.MathUtils.randFloat(1, 80);//amount of cubes
+const populationNo = THREE.MathUtils.randFloat(1, 50);
+const populationDk = THREE.MathUtils.randFloat(1, 120);
+const populationFi = THREE.MathUtils.randFloat(1, 30);
 
 for (let i = 0; i < populationSe; i++) {
   let xPos = THREE.MathUtils.randFloat(3.6, 3.6);// placement random spawn
