@@ -1,5 +1,4 @@
 import * as THREE from "three";
-import { PerspectiveCamera } from "three.js";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 
 const scene = new THREE.Scene();
@@ -31,11 +30,6 @@ const dkf = new THREE.MeshBasicMaterial({ color: 0xf44336 }); //red for denmark
 
 const fig = new THREE.ConeGeometry(0.2, 0.2, 128);
 const fif = new THREE.MeshBasicMaterial({ color: 0xd5d5d5 }); //white ish gray to finland
-
-let buttonbool = true; //why is this here?   <---this comment is useless
-
-
-
 
 //make cube loop puts each cube in an array for animastion later
 let se;//the cube
@@ -254,8 +248,6 @@ function animate() {
   }
   //buttonexempt when z1
   if (buttonevent = true) {
-
-    console.log("it work little")
 
       cubeSelc.position.z -= 0.1; 
   }
