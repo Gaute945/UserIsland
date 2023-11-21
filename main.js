@@ -174,8 +174,8 @@ const maxy = 6;
 const miny = -7.2;
 
 controls.autoRotate = true;
-controls.autoRotateSpeed = 0;
-controls.maxAzimuthAngle = [ - 2 * Math.PI, 2 * Math.PI ];
+controls.autoRotateSpeed = 1;
+console.log(controls);
 
 function animate() {
   delta = clock.getDelta();
