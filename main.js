@@ -1,3 +1,4 @@
+import { randomNormal } from "d3";
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 
@@ -19,19 +20,6 @@ const controls = new OrbitControls(camera, renderer.domElement);
 const textureLoad = new THREE.TextureLoader().load("Resource/map (1)-noCircle.png");
 /* const textureLoad = new THREE.TextureLoader().load("Resource/tex_DebugGrid.png"); */
 
-const seg = new THREE.BoxGeometry(0.2, 0.2, 0.2);
-const sef = new THREE.MeshBasicMaterial({ color: 0xecb920 }); //yellow mesh for sweden
-
-const nog = new THREE.BoxGeometry(0.3, 0.3, 0.3);
-let nof; //blue mesh for norway
-
-const dkg = new THREE.SphereGeometry(0.2, 0.2, 0.2);
-const dkf = new THREE.MeshBasicMaterial({ color: 0xf44336 }); //red for denmark
-
-const fig = new THREE.ConeGeometry(0.2, 0.2, 128);
-const fif = new THREE.MeshBasicMaterial({ color: 0xd5d5d5 }); //white ish gray to finland
-
-
 //make cube loop puts each cube in an array for animastion later
 let se;//the cube
 let animateSe = [];//animation array
@@ -44,26 +32,45 @@ let animateDk = [];
 
 let fi;
 let animateFi = [];
-const populationSe = THREE.MathUtils.randFloat(1, 80);//amount of cubes
-const populationNo = THREE.MathUtils.randFloat(1, 50);
-const populationDk = THREE.MathUtils.randFloat(1, 120);
-const populationFi = THREE.MathUtils.randFloat(1, 30);
+
+//amount of cubes
+const populationSe = THREE.MathUtils.randFloat(1, 50); // 80
+const populationNo = THREE.MathUtils.randFloat(1, 25); // 50
+const populationDk = THREE.MathUtils.randFloat(1, 50); // 120
+const populationFi = THREE.MathUtils.randFloat(1, 10); // 30
+
+const sef = new THREE.MeshBasicMaterial({ color: 0xecb920 }); //yellow mesh for sweden
+const box = new THREE.BoxGeometry(0.3, 0.3, 0.3);
+let nof; //blue mesh for norway
+const dkf = new THREE.MeshBasicMaterial({ color: 0xf44336 }); //red for denmark
+const fif = new THREE.MeshBasicMaterial({ color: 0xd5d5d5 }); //white ish gray to finland
+
+// function addBoxes(populationCountry) {
+//   const box = new THREE.BoxGeometry(0.2, 0.2, 0.2);
+//   for (let i = 0; i < populationCountry; i++) {
+//     let xPos = THREE.MathUtils.randFloat(3.6, 3.6);// placement random spawn
+//     let yPos = THREE.MathUtils.randFloat(4.5, 4.5);// placement random spawn
+//     a = new THREE.Mesh(box, sef);
+//     a.position.set(xPos, yPos, 0);
+//     scene.add(a);
+//     animateSe.push(a);
+//   }
+// }
 
 for (let i = 0; i < populationSe; i++) {
   let xPos = THREE.MathUtils.randFloat(3.6, 3.6);// placement random spawn
   let yPos = THREE.MathUtils.randFloat(4.5, 4.5);// placement random spawn
-  se = new THREE.Mesh(seg, sef);
+  se = new THREE.Mesh(box, sef);
   se.position.set(xPos, yPos, 0);
   scene.add(se);
   animateSe.push(se);
 }
 
-
 for (let j = 0; j < populationNo; j++) {
   let xPos2 = THREE.MathUtils.randFloat(-5, -5);
   let yPos2 = THREE.MathUtils.randFloat(4, 4);
   nof = new THREE.MeshBasicMaterial({ color: Math.random() * 0xffffff });
-  no = new THREE.Mesh(nog, nof);
+  no = new THREE.Mesh(box, nof);
   no.position.set(xPos2, yPos2, 0);
   scene.add(no);
   animateNo.push(no);
@@ -72,7 +79,7 @@ for (let j = 0; j < populationNo; j++) {
 for (let j = 0; j < populationDk; j++) {
   let xPos3 = THREE.MathUtils.randFloat(5, 5);
   let yPos3 = THREE.MathUtils.randFloat(-5, -5);
-  dk = new THREE.Mesh(dkg, dkf);
+  dk = new THREE.Mesh(box, dkf);
   dk.position.set(xPos3, yPos3, 0);
   scene.add(dk);
   animateDk.push(dk);
@@ -82,7 +89,7 @@ for (let j = 0; j < populationDk; j++) {
 for (let k = 0; k < populationFi; k++) {
   let xPos3 = THREE.MathUtils.randFloat(-5, -5);
   let yPos3 = THREE.MathUtils.randFloat(-5, -5);
-  fi = new THREE.Mesh(fig, fif);
+  fi = new THREE.Mesh(box, fif);
   fi.position.set(xPos3, yPos3, 0);
   scene.add(fi);
   animateFi.push(fi);
@@ -104,7 +111,7 @@ scene.add(cylinder);
 
 const pt = new THREE.TextureLoader().load("Resource/marioCastle.png");
 const pg = new THREE.PlaneGeometry(10, 10, 1, 1);
-const pm = new THREE.MeshBasicMaterial( {map: pt, transparent: true});
+const pm = new THREE.MeshBasicMaterial({ map: pt, transparent: true });
 const plane = new THREE.Mesh(pg, pm);
 plane.rotation.x = 149.21;
 scene.add(plane);
@@ -120,7 +127,7 @@ scene.add(helper); */
 // The X axis is red. The Y axis is green. The Z axis is blue.
 const axesHelper = new THREE.AxesHelper(100);
 scene.add(axesHelper);
- 
+
 // collision visualization for boxes
 const boksmap = new THREE.Mesh(
   new THREE.BoxGeometry(7, 3.5, 0),
@@ -145,26 +152,17 @@ let rotationsDk = [];
 let rotationsFi = [];
 // how fast will object go indevidually
 
-for (let i = 0; i < animateSe.length; i++) {
-  speedsSe[i] = THREE.MathUtils.randFloat(0.1, 2);
-  rotationsSe[i] = THREE.MathUtils.randFloat(0, Math.PI / 2); // Random rotation between 0 and 90 degrees
+function randRotate(animasteCountry, speedsCountry, rotationsCountry) {
+  for (let i = 0; i < animasteCountry.length; i++) {
+    speedsCountry[i] = THREE.MathUtils.randFloat(0.1, 2);
+    rotationsCountry[i] = THREE.MathUtils.randFloat(0, Math.PI / 2); // Random rotation between 0 and 90 degrees
+  }
 }
-/* for (let i = 0; i < animateSe.length; i++) {
-  speedsSe[i] = THREE.MathUtils.randFloat(0.1, 2);
-} why is this here? */
 
-for (let i = 0; i < animateNo.length; i++) {
-  speedsNo[i] = THREE.MathUtils.randFloat(0.1, 2);
-  rotationsNo[i] = THREE.MathUtils.randFloat(0, Math.PI / 2);
-}
-for (let i = 0; i < animateDk.length; i++) {
-  speedsDk[i] = THREE.MathUtils.randFloat(0.1, 2);
-  rotationsDk[i] = THREE.MathUtils.randFloat(0, Math.PI / 2);
-}
-for (let i = 0; i < animateFi.length; i++) {
-  speedsFi[i] = THREE.MathUtils.randFloat(0.1, 2);
-  rotationsFi[i] = THREE.MathUtils.randFloat(0, Math.PI / 2);
-}
+randRotate(animateSe, speedsSe, rotationsSe)
+randRotate(animateNo, speedsNo, rotationsNo)
+randRotate(animateDk, speedsDk, rotationsDk)
+randRotate(animateFi, speedsFi, rotationsFi)
 
 // for stop condition collision borders
 const Lx = -7.7;
@@ -219,6 +217,7 @@ function animate() {
       rotationsSe[i] += THREE.MathUtils.randFloat(-Math.PI / 3, Math.PI / 3); // Rotate between -45 and 45 degrees
     }
   }
+
   // Norway animastion
   for (let i = 0; i < animateNo.length; i++) {
     animateNo[i].position.x += speedsNo[i] * Math.cos(rotationsNo[i]) * delta;
@@ -269,16 +268,16 @@ function animate() {
   //buttonexempt when z1
   if (buttonevent = true) {
 
-      cubeSelc.position.z -= 0.1; 
+    cubeSelc.position.z -= 0.1;
   }
 
-// Handle window resize
-window.addEventListener('resize', () => {
-  camera.aspect = window.innerWidth / window.innerHeight;
-  camera.updateProjectionMatrix();
-  renderer.setSize(window.innerWidth, window.innerHeight);
-});
-  camera.lookAt( scene.position );
+  // Handle window resize
+  window.addEventListener('resize', () => {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+  });
+  camera.lookAt(scene.position);
   renderer.render(scene, camera);
   requestAnimationFrame(animate);
 }
