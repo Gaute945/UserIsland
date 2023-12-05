@@ -19,18 +19,12 @@ const controls = new OrbitControls(camera, renderer.domElement);
 const textureLoad = new THREE.TextureLoader().load("Resource/map (1)-noCircle.png");
 /* const textureLoad = new THREE.TextureLoader().load("Resource/tex_DebugGrid.png"); */
 
-//make cube loop puts each cube in an array for animastion later
-let se;//the cube
-let animateSe = [];//animation array
 
-let no;
-let animateNo = [];
+// speed, rotation and animation arrays | make cube loop puts each cube in an array for animastion later
+let [speedsSe, speedsNo, speedsDk, speedsFi, rotationsNo, rotationsSe, rotationsDk, rotationsFi, animateSe, animateNo, animateDk, animateFi] = [[], [], [], [], [], [], [], [], [], [], [], []];
 
-let dk;
-let animateDk = [];
-
-let fi;
-let animateFi = [];
+// country var
+let se, no, dk, fi, nof, delta;
 
 //amount of cubes
 const populationSe = THREE.MathUtils.randFloat(1, 50); // 80
@@ -40,7 +34,6 @@ const populationFi = THREE.MathUtils.randFloat(1, 10); // 30
 
 const sef = new THREE.MeshBasicMaterial({ color: 0xecb920 }); //yellow mesh for sweden
 const box = new THREE.BoxGeometry(0.3, 0.3, 0.3);
-let nof; //blue mesh for norway
 const dkf = new THREE.MeshBasicMaterial({ color: 0xf44336 }); //red for denmark
 const fif = new THREE.MeshBasicMaterial({ color: 0xd5d5d5 }); //white ish gray to finland
 
@@ -138,18 +131,6 @@ scene.add(boksmap);
 
 // delta time
 let clock = new THREE.Clock();
-let delta = 0;
-// speed arrays
-let speedsSe = [];
-let speedsNo = [];
-let speedsDk = [];
-let speedsFi = [];
-//rotation arrays
-let rotationsNo = [];
-let rotationsSe = [];
-let rotationsDk = [];
-let rotationsFi = [];
-// how fast will object go indevidually
 
 function randRotate(animasteCountry, speedsCountry, rotationsCountry) {
   for (let i = 0; i < animasteCountry.length; i++) {
@@ -196,7 +177,6 @@ function animate() {
         rotationsNo[i] += THREE.MathUtils.randFloat(-Math.PI / 3, Math.PI / 3); // Rotate between -45 and 45 degrees
   
       }
-      //isolated cube -- why is this comment here?
     }
   } */
 
