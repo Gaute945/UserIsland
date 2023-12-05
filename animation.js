@@ -1,13 +1,25 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 
-export function animateScene(plane, clock, animateSe, animateNo, animateDk, animateFi, speedsSe, speedsNo, speedsDk, speedsFi, rotationsSe, rotationsNo, rotationsDk, rotationsFi, controls, delta, Lx, Rx, maxy, miny, camera, scene, renderer) {
+export function animateScene(maxPlaneRotationZ, maxPlaneRotationX, maxPlaneRotationY, plane, clock, animateSe, animateNo, animateDk, animateFi, speedsSe, speedsNo, speedsDk, speedsFi, rotationsSe, rotationsNo, rotationsDk, rotationsFi, controls, delta, Lx, Rx, maxy, miny, camera, scene, renderer) {
     delta = clock.getDelta();
 
     // OrbitControlls update
     controls.update(delta);
 
-    plane.lookAt(camera.position);
+    const angleToCamera = Math.atan2(
+        camera.position.x - plane.position.x,
+        camera.position.z - plane.position.z
+    );
+
+    plane.rotation.y = angleToCamera;
+    
+    // plane.lookAt(camera.position);
+
+    // // Ensure the rotation stays within the defined limits
+    // plane.rotation.x = Math.max(-maxPlaneRotationX, Math.min(maxPlaneRotationX, plane.rotation.x));
+    // plane.rotation.y = Math.max(-maxPlaneRotationY, Math.min(maxPlaneRotationY, plane.rotation.y));
+    // plane.rotation.z = Math.max(-maxPlaneRotationZ, Math.min(maxPlaneRotationZ, plane.rotation.z));
 
     /* function animate(aa) {
       for (let i = 0; i < aa.length; i++) {
@@ -101,5 +113,5 @@ export function animateScene(plane, clock, animateSe, animateNo, animateDk, anim
 
     camera.lookAt(scene.position);
     renderer.render(scene, camera);
-    requestAnimationFrame(() => animateScene(plane, clock, animateSe, animateNo, animateDk, animateFi, speedsSe, speedsNo, speedsDk, speedsFi, rotationsSe, rotationsNo, rotationsDk, rotationsFi, controls, delta, Lx, Rx, maxy, miny, camera, scene, renderer));
+    requestAnimationFrame(() => animateScene(maxPlaneRotationZ, maxPlaneRotationX, maxPlaneRotationY, plane, clock, animateSe, animateNo, animateDk, animateFi, speedsSe, speedsNo, speedsDk, speedsFi, rotationsSe, rotationsNo, rotationsDk, rotationsFi, controls, delta, Lx, Rx, maxy, miny, camera, scene, renderer));
 }

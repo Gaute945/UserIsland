@@ -26,7 +26,7 @@ const textureLoad = new THREE.TextureLoader().load("Resource/map (1)-noCircle.pn
 // speed, rotation and animation arrays | make cube loop puts each cube in an array for animastion later
 let [speedsSe, speedsNo, speedsDk, speedsFi, rotationsNo, rotationsSe, rotationsDk, rotationsFi, animateSe, animateNo, animateDk, animateFi] = [[], [], [], [], [], [], [], [], [], [], [], []];
 
-//amount of cubes
+// amount of cubes
 const populationSe = THREE.MathUtils.randFloat(1, 50); // 80
 const populationNo = THREE.MathUtils.randFloat(1, 25); // 50
 const populationDk = THREE.MathUtils.randFloat(1, 50); // 120
@@ -77,6 +77,12 @@ const pm = new THREE.MeshBasicMaterial({ map: pt, transparent: true });
 const plane = new THREE.Mesh(pg, pm);
 plane.rotation.x = 149.21;
 scene.add(plane);
+plane.rotation.set(-5, 0, 0);
+
+// Set maximum rotation limits
+const maxPlaneRotationX = Math.PI / 1;
+const maxPlaneRotationY = Math.PI / 1;
+const maxPlaneRotationZ = Math.PI / 1;
 
 camera.position.z = 10;
 camera.position.y = -20;
@@ -84,6 +90,7 @@ camera.position.x = 0;
 
 // helpers
 // camera helper (black cross with yellow cam line, also blocks axes helper)
+// start of helpers
 // const helper = new THREE.CameraHelper(camera);
 // scene.add(helper);
 
@@ -124,4 +131,4 @@ const miny = -7.2;
 controls.autoRotate = false;
 controls.autoRotateSpeed = 1;
 
-animateScene(plane, clock, animateSe, animateNo, animateDk, animateFi, speedsSe, speedsNo, speedsDk, speedsFi, rotationsSe, rotationsNo, rotationsDk, rotationsFi, controls, delta, Lx, Rx, maxy, miny, camera, scene, renderer);
+animateScene(maxPlaneRotationZ, maxPlaneRotationY, maxPlaneRotationX, plane, clock, animateSe, animateNo, animateDk, animateFi, speedsSe, speedsNo, speedsDk, speedsFi, rotationsSe, rotationsNo, rotationsDk, rotationsFi, controls, delta, Lx, Rx, maxy, miny, camera, scene, renderer);
