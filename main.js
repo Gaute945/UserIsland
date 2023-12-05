@@ -1,5 +1,8 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+import { animateScene } from "./animation";
+
+const clock = new THREE.Clock();
 
 const scene = new THREE.Scene();
 
@@ -24,7 +27,7 @@ const textureLoad = new THREE.TextureLoader().load("Resource/map (1)-noCircle.pn
 let [speedsSe, speedsNo, speedsDk, speedsFi, rotationsNo, rotationsSe, rotationsDk, rotationsFi, animateSe, animateNo, animateDk, animateFi] = [[], [], [], [], [], [], [], [], [], [], [], []];
 
 // country var
-let se, no, dk, fi, nof, delta;
+let se, no, dk, fi, nof;
 
 //amount of cubes
 const populationSe = THREE.MathUtils.randFloat(1, 50); // 80
@@ -130,7 +133,7 @@ scene.add(boksmap);
 // end of helpers
 
 // delta time
-let clock = new THREE.Clock();
+let delta;
 
 function randRotate(animasteCountry, speedsCountry, rotationsCountry) {
   for (let i = 0; i < animasteCountry.length; i++) {
@@ -152,124 +155,5 @@ const miny = -7.2;
 
 controls.autoRotate = false;
 controls.autoRotateSpeed = 1;
-console.log(controls);
 
-function animate() {
-  delta = clock.getDelta();
-
-  // OrbitControlls update
-  controls.update(delta);
-
-  plane.lookAt(camera.position);
-
-  /* function animate(aa) {
-    for (let i = 0; i < aa.length; i++) {
-      aa[i].position.x += speedsNo[i] * Math.cos(rotationsNo[i]) * delta;
-      aa[i].position.y += speedsNo[i] * Math.sin(rotationsNo[i]) * delta;
-  
-      if (animateNo[i].position.x > Rx || animateNo[i].position.x < Lx || animateNo[i].position.y > maxy || animateNo[i].position.y < miny
-      ) {
-        animateNo[i].position.x = Math.min(Rx, Math.max(Lx, animateNo[i].position.x));
-        animateNo[i].position.y = Math.min(maxy, Math.max(miny, animateNo[i].position.y));
-  
-        // Change direction and slightly rotate
-        speedsNo[i] *= -1;
-        rotationsNo[i] += THREE.MathUtils.randFloat(-Math.PI / 3, Math.PI / 3); // Rotate between -45 and 45 degrees
-  
-      }
-    }
-  } */
-
-  // sweden animastion
-  // loop makes it so animatese rotates and goes a slightly different direction until it hits one of the condition stoppers
-  for (let i = 0; i < animateSe.length; i++) {
-    animateSe[i].position.x += speedsSe[i] * Math.cos(rotationsSe[i]) * delta;
-    animateSe[i].position.y += speedsSe[i] * Math.sin(rotationsSe[i]) * delta;
-
-    if (animateSe[i].position.x > Rx || animateSe[i].position.x < Lx || animateSe[i].position.y > maxy || animateSe[i].position.y < miny
-    ) {
-      animateSe[i].position.x = Math.min(Rx, Math.max(Lx, animateSe[i].position.x));
-      animateSe[i].position.y = Math.min(maxy, Math.max(miny, animateSe[i].position.y));
-
-      // Change direction and slightly rotate
-      speedsSe[i] *= -1;
-      rotationsSe[i] += THREE.MathUtils.randFloat(-Math.PI / 3, Math.PI / 3); // Rotate between -45 and 45 degrees
-    }
-  }
-
-  // Norway animastion
-  for (let i = 0; i < animateNo.length; i++) {
-    animateNo[i].position.x += speedsNo[i] * Math.cos(rotationsNo[i]) * delta;
-    animateNo[i].position.y += speedsNo[i] * Math.sin(rotationsNo[i]) * delta;
-
-    if (animateNo[i].position.x > Rx || animateNo[i].position.x < Lx || animateNo[i].position.y > maxy || animateNo[i].position.y < miny
-    ) {
-      animateNo[i].position.x = Math.min(Rx, Math.max(Lx, animateNo[i].position.x));
-      animateNo[i].position.y = Math.min(maxy, Math.max(miny, animateNo[i].position.y));
-
-      // Change direction and slightly rotate
-      speedsNo[i] *= -1;
-      rotationsNo[i] += THREE.MathUtils.randFloat(-Math.PI / 3, Math.PI / 3); // Rotate between -45 and 45 degrees
-
-    }
-    //isolated cube -- why is this comment here?
-  }
-  // denmark animastion
-  for (let i = 0; i < animateDk.length; i++) {
-    animateDk[i].position.x += speedsDk[i] * Math.cos(rotationsDk[i]) * delta;
-    animateDk[i].position.y += speedsDk[i] * Math.sin(rotationsDk[i]) * delta;
-
-    if (animateDk[i].position.x > Rx || animateDk[i].position.x < Lx || animateDk[i].position.y > maxy || animateDk[i].position.y < miny
-    ) {
-      animateDk[i].position.y = Math.min(maxy, Math.max(miny, animateDk[i].position.y));
-      animateDk[i].position.x = Math.min(Rx, Math.max(Lx, animateDk[i].position.x));
-
-      // Change direction and slightly rotate
-      speedsDk[i] *= -1;
-      rotationsDk[i] += THREE.MathUtils.randFloat(-Math.PI / 3, Math.PI / 3); // Rotate between -45 and 45 degrees
-    }
-  }
-  // finland animastion
-  for (let i = 0; i < animateFi.length; i++) {
-    animateFi[i].position.x += speedsFi[i] * Math.cos(rotationsFi[i]) * delta;
-    animateFi[i].position.y += speedsFi[i] * Math.sin(rotationsFi[i]) * delta;
-
-    if (animateFi[i].position.x > Rx || animateFi[i].position.x < Lx || animateFi[i].position.y > maxy || animateFi[i].position.y < miny
-    ) {
-      animateFi[i].position.y = Math.min(maxy, Math.max(miny, animateFi[i].position.y));
-      animateFi[i].position.x = Math.min(Rx, Math.max(Lx, animateFi[i].position.x));
-
-      // Change direction and slightly rotate
-      speedsFi[i] *= -1;
-      rotationsFi[i] += THREE.MathUtils.randFloat(-Math.PI / 3, Math.PI / 3); // Rotate between -45 and 45 degrees
-    }
-  }
-  //buttonexempt when z1
-  if (buttonevent = true) {
-
-    cubeSelc.position.z -= 0.1;
-  }
-
-  // Handle window resize
-  window.addEventListener('resize', () => {
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(window.innerWidth, window.innerHeight);
-  });
-  camera.lookAt(scene.position);
-  renderer.render(scene, camera);
-  requestAnimationFrame(animate);
-}
-
-//eventbutton
-let buttonevent = false;
-let btn_element = document.getElementById("eventbutton");
-const randCube = Math.floor(Math.random() * animateNo.length)//random cube out of animateNo
-const cubeSelc = animateNo[randCube]//cube selection
-let liftHeight = 2;
-
-btn_element.addEventListener("click", () => {
-  cubeSelc.position.z += liftHeight;
-})
-
-animate();
+animateScene(plane ,clock, animateSe, animateNo, animateDk, animateFi, speedsSe, speedsNo, speedsDk, speedsFi, rotationsSe, rotationsNo, rotationsDk, rotationsFi, controls, delta, Lx, Rx, maxy, miny, camera, scene, renderer);
