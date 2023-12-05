@@ -26,69 +26,36 @@ const textureLoad = new THREE.TextureLoader().load("Resource/map (1)-noCircle.pn
 // speed, rotation and animation arrays | make cube loop puts each cube in an array for animastion later
 let [speedsSe, speedsNo, speedsDk, speedsFi, rotationsNo, rotationsSe, rotationsDk, rotationsFi, animateSe, animateNo, animateDk, animateFi] = [[], [], [], [], [], [], [], [], [], [], [], []];
 
-// country var
-let se, no, dk, fi, nof;
-
 //amount of cubes
 const populationSe = THREE.MathUtils.randFloat(1, 50); // 80
 const populationNo = THREE.MathUtils.randFloat(1, 25); // 50
 const populationDk = THREE.MathUtils.randFloat(1, 50); // 120
 const populationFi = THREE.MathUtils.randFloat(1, 10); // 30
 
-const sef = new THREE.MeshBasicMaterial({ color: 0xecb920 }); //yellow mesh for sweden
 const box = new THREE.BoxGeometry(0.3, 0.3, 0.3);
-const dkf = new THREE.MeshBasicMaterial({ color: 0xf44336 }); //red for denmark
-const fif = new THREE.MeshBasicMaterial({ color: 0xd5d5d5 }); //white ish gray to finland
 
-// function addBoxes(populationCountry) {
-//   const box = new THREE.BoxGeometry(0.2, 0.2, 0.2);
-//   for (let i = 0; i < populationCountry; i++) {
-//     let xPos = THREE.MathUtils.randFloat(3.6, 3.6);// placement random spawn
-//     let yPos = THREE.MathUtils.randFloat(4.5, 4.5);// placement random spawn
-//     a = new THREE.Mesh(box, sef);
-//     a.position.set(xPos, yPos, 0);
-//     scene.add(a);
-//     animateSe.push(a);
-//   }
-// }
+const sef = new THREE.MeshBasicMaterial({ color: 0xecb920 }); // colored mesh for sweden
+const nof = new THREE.MeshBasicMaterial({ color: 0x009999 }); // colored mesh for norway
+const dkf = new THREE.MeshBasicMaterial({ color: 0xf44336 }); // colored mesh for denmark
+const fif = new THREE.MeshBasicMaterial({ color: 0xd5d5d5 }); // colored mesh for finland
 
-for (let i = 0; i < populationSe; i++) {
-  let xPos = THREE.MathUtils.randFloat(3.6, 3.6);// placement random spawn
-  let yPos = THREE.MathUtils.randFloat(4.5, 4.5);// placement random spawn
-  se = new THREE.Mesh(box, sef);
-  se.position.set(xPos, yPos, 0);
-  scene.add(se);
-  animateSe.push(se);
+function createMeshes(population, material, geometry, positionArray, scene, animateArray) {
+  for (let i = 0; i < population; i++) {
+    let xPos = THREE.MathUtils.randFloat(positionArray[0], positionArray[1]);
+    let yPos = THREE.MathUtils.randFloat(positionArray[2], positionArray[3]);
+
+    const mesh = new THREE.Mesh(geometry, material);
+    mesh.position.set(xPos, yPos, 0);
+    scene.add(mesh);
+    animateArray.push(mesh);
+  }
 }
 
-for (let j = 0; j < populationNo; j++) {
-  let xPos2 = THREE.MathUtils.randFloat(-5, -5);
-  let yPos2 = THREE.MathUtils.randFloat(4, 4);
-  nof = new THREE.MeshBasicMaterial({ color: Math.random() * 0xffffff });
-  no = new THREE.Mesh(box, nof);
-  no.position.set(xPos2, yPos2, 0);
-  scene.add(no);
-  animateNo.push(no);
-}
+createMeshes(populationSe, sef, box, [3.6, 3.6, 4.5, 4.5], scene, animateSe);
+createMeshes(populationNo, nof, box, [-5, -5, 4, 4], scene, animateNo);
+createMeshes(populationDk, dkf, box, [5, 5, -5, -5], scene, animateDk);
+createMeshes(populationFi, fif, box, [-5, -5, -5, -5], scene, animateFi);
 
-for (let j = 0; j < populationDk; j++) {
-  let xPos3 = THREE.MathUtils.randFloat(5, 5);
-  let yPos3 = THREE.MathUtils.randFloat(-5, -5);
-  dk = new THREE.Mesh(box, dkf);
-  dk.position.set(xPos3, yPos3, 0);
-  scene.add(dk);
-  animateDk.push(dk);
-}
-
-
-for (let k = 0; k < populationFi; k++) {
-  let xPos3 = THREE.MathUtils.randFloat(-5, -5);
-  let yPos3 = THREE.MathUtils.randFloat(-5, -5);
-  fi = new THREE.Mesh(box, fif);
-  fi.position.set(xPos3, yPos3, 0);
-  scene.add(fi);
-  animateFi.push(fi);
-}
 
 document.getElementById("no").innerHTML = "No " + Math.ceil(populationNo);
 document.getElementById("se").innerHTML = "Se " + Math.ceil(populationSe);
@@ -116,8 +83,9 @@ camera.position.y = -20;
 camera.position.x = 0;
 
 // helpers
-/* const helper = new THREE.CameraHelper(camera);
-scene.add(helper); */
+// camera helper (black cross with yellow cam line, also blocks axes helper)
+// const helper = new THREE.CameraHelper(camera);
+// scene.add(helper);
 
 // The X axis is red. The Y axis is green. The Z axis is blue.
 const axesHelper = new THREE.AxesHelper(100);
@@ -156,4 +124,4 @@ const miny = -7.2;
 controls.autoRotate = false;
 controls.autoRotateSpeed = 1;
 
-animateScene(plane ,clock, animateSe, animateNo, animateDk, animateFi, speedsSe, speedsNo, speedsDk, speedsFi, rotationsSe, rotationsNo, rotationsDk, rotationsFi, controls, delta, Lx, Rx, maxy, miny, camera, scene, renderer);
+animateScene(plane, clock, animateSe, animateNo, animateDk, animateFi, speedsSe, speedsNo, speedsDk, speedsFi, rotationsSe, rotationsNo, rotationsDk, rotationsFi, controls, delta, Lx, Rx, maxy, miny, camera, scene, renderer);
