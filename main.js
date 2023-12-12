@@ -4,6 +4,7 @@ import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
 import { animateScene } from "./animation";
 
+const appmode = "";
 
 const clock = new THREE.Clock();
 
@@ -22,9 +23,63 @@ document.body.appendChild(renderer.domElement);
 
 const controls = new OrbitControls(camera, renderer.domElement);
 
-const textureLoad = new THREE.TextureLoader().load("Resource/map (1)-noCircle.png");
-/* const textureLoad = new THREE.TextureLoader().load("Resource/tex_DebugGrid.png"); */
+let textureLoad
 
+switch (appmode) {
+  case "prod":
+    // christmas map
+    textureLoad = new THREE.TextureLoader().load("Resource/a1ebabf8-049a-4983-9b33-5af273a03605.jpeg");
+
+    controls.autoRotate = true;
+    break;
+
+  case "debug":
+    // debug map
+    textureLoad = new THREE.TextureLoader().load("Resource/tex_DebugGrid.png");
+
+    // helpers
+    // camera helper (black cross with yellow cam line, also blocks axes helper)
+    // start of helpers
+    const helper = new THREE.CameraHelper(camera);
+    scene.add(helper);
+
+    // The X axis is red. The Y axis is green. The Z axis is blue.
+    const axesHelper = new THREE.AxesHelper(100);
+    scene.add(axesHelper);
+
+    // collision visualization for boxes
+    const boksmap = new THREE.Mesh(
+      new THREE.BoxGeometry(7, 3.5, 0),
+      new THREE.MeshBasicMaterial({ color: 0xff2d00, wireframe: true })
+    );
+    boksmap.position.set(3.6, 4.3, 0);
+    scene.add(boksmap);
+    break;
+
+  default:
+    // normal map
+    textureLoad = new THREE.TextureLoader().load("Resource/map (1)-noCircle.png");
+    break;
+}
+
+// helpers
+// camera helper (black cross with yellow cam line, also blocks axes helper)
+// start of helpers
+// const helper = new THREE.CameraHelper(camera);
+// scene.add(helper);
+
+// // The X axis is red. The Y axis is green. The Z axis is blue.
+// const axesHelper = new THREE.AxesHelper(100);
+// scene.add(axesHelper);
+
+// // collision visualization for boxes
+// const boksmap = new THREE.Mesh(
+//   new THREE.BoxGeometry(7, 3.5, 0),
+//   new THREE.MeshBasicMaterial({ color: 0xff2d00, wireframe: true })
+// );
+// boksmap.position.set(3.6, 4.3, 0);
+// scene.add(boksmap);
+//end of helpers
 
 // speed, rotation and animation arrays | make cube loop puts each cube in an array for animastion later
 let [speedsSe, speedsNo, speedsDk, speedsFi, rotationsNo, rotationsSe, rotationsDk, rotationsFi, animateSe, animateNo, animateDk, animateFi] = [[], [], [], [], [], [], [], [], [], [], [], []];
@@ -92,25 +147,6 @@ camera.position.z = 10;
 camera.position.y = -20;
 camera.position.x = 0;
 
-// helpers
-// camera helper (black cross with yellow cam line, also blocks axes helper)
-// start of helpers
-// const helper = new THREE.CameraHelper(camera);
-// scene.add(helper);
-
-// The X axis is red. The Y axis is green. The Z axis is blue.
-const axesHelper = new THREE.AxesHelper(100);
-scene.add(axesHelper);
-
-// collision visualization for boxes
-const boksmap = new THREE.Mesh(
-  new THREE.BoxGeometry(7, 3.5, 0),
-  new THREE.MeshBasicMaterial({ color: 0xff2d00, wireframe: true })
-);
-boksmap.position.set(3.6, 4.3, 0);
-scene.add(boksmap);
-// end of helpers
-
 // delta time
 let delta;
 
@@ -155,7 +191,6 @@ const Rx = 7.7;
 const maxy = 6;
 const miny = -7.2;
 
-controls.autoRotate = false;
 controls.autoRotateSpeed = 1;
 
 animateScene(maxPlaneRotationZ, maxPlaneRotationY, maxPlaneRotationX, plane, clock, animateSe, animateNo, animateDk, animateFi, speedsSe, speedsNo, speedsDk, speedsFi, rotationsSe, rotationsNo, rotationsDk, rotationsFi, controls, delta, Lx, Rx, maxy, miny, camera, scene, renderer);
