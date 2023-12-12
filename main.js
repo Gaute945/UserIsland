@@ -4,7 +4,7 @@ import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
 import { animateScene } from "./animation";
 
-const appmode = "";
+const appmode = "prod";
 
 const clock = new THREE.Clock();
 
@@ -30,7 +30,7 @@ switch (appmode) {
     // christmas map
     textureLoad = new THREE.TextureLoader().load("Resource/a1ebabf8-049a-4983-9b33-5af273a03605.jpeg");
 
-    controls.autoRotate = true;
+    controls.autoRotate = false;
     break;
 
   case "debug":
@@ -67,7 +67,6 @@ switch (appmode) {
 // start of helpers
 // const helper = new THREE.CameraHelper(camera);
 // scene.add(helper);
-
 // // The X axis is red. The Y axis is green. The Z axis is blue.
 // const axesHelper = new THREE.AxesHelper(100);
 // scene.add(axesHelper);
@@ -97,7 +96,7 @@ const sef = new THREE.MeshBasicMaterial({ color: 0xecb920 }); // colored mesh fo
 const nof = new THREE.MeshBasicMaterial({ color: 0x009999 }); // colored mesh for norway
 const dkf = new THREE.MeshBasicMaterial({ color: 0xf44336 }); // colored mesh for denmark
 const fif = new THREE.MeshBasicMaterial({ color: 0xd5d5d5 }); // colored mesh for finland
-
+//create cubes placement and how many
 function createMeshes(population, material, geometry, positionArray, scene, animateArray) {
   for (let i = 0; i < population; i++) {
     let xPos = THREE.MathUtils.randFloat(positionArray[0], positionArray[1]);
@@ -179,10 +178,11 @@ loader.load('Resource/islandswall.glb', (gltf) => {
 
   tracedModel.position.set(xTM, yTM, zTM);
   tracedModel.rotation.set(rTMx, rTMy, rTMz);
-  tracedModel.scale.multiplyScalar(4);
+  tracedModel.scale.set(4.7,6,6)
+/*   tracedModel.scale.multiplyScalar(6); */
 });
 
-let xTM = 0, yTM = 0, zTM = -6.6, rTMx = 7.8, rTMy = 6.4, rTMz = 0
+let xTM = -0.2, yTM = 0.2, zTM = -10.48, rTMx = 1.554, rTMy = 5 -0.3, rTMz = 0
 
 
 // for stop condition collision borders
