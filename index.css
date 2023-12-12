@@ -1,7 +1,7 @@
 body {
   margin: 0;
 }
-#eventbutton {
+#eventButton {
   position: absolute;
   background-color: red;
   height: 6rem;

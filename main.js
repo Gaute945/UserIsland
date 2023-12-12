@@ -2,7 +2,14 @@ import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 
+// user docs
 import { animateScene } from "./animation";
+import { makeCubes } from "./cubeClass";
+
+makeCubes("name", 255, "ca", false);
+
+console.log(name);
+console.log(name[55]);
 
 const appMode = "prod";
 
@@ -48,7 +55,6 @@ for (let i = 0; i < snowAmount; i++) {
   const z = (Math.random() - 0.5) * 25;
   snowflakeVertices.push(x, y, z);
 }
-console.log(snowAmount);
 
 // Set the snowflake vertices to the geometry
 snowflakeGeometry.setAttribute(
@@ -243,7 +249,6 @@ loader.load("Resource/islandsWall.glb", (gltf) => {
   tracedModel.rotation.set(rTMx, rTMy, rTMz);
   tracedModel.scale.set(4.7, 6, 6);
   /*   tracedModel.scale.multiplyScalar(6); */
-  console.log(tracedModel);
 });
 
 let xTM = -0.2,
