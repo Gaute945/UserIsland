@@ -1,6 +1,6 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
-import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 
 import { animateScene } from "./animation";
 
@@ -32,11 +32,14 @@ const controls = new OrbitControls(camera, renderer.domElement);
 
 // Create snowflake geometry and material
 const snowflakeGeometry = new THREE.BufferGeometry();
-const snowflakeMaterial = new THREE.PointsMaterial({ size: 0.05, color: 0xffffff });
+const snowflakeMaterial = new THREE.PointsMaterial({
+  size: 0.05,
+  color: 0xffffff,
+});
 
 // Create an array to store snowflake positions
 const snowflakeVertices = [];
-const snowAmmount = getRandomInt (1, 50000);
+const snowAmmount = getRandomInt(1, 50000);
 
 // Populate the array with random snowflake positions
 for (let i = 0; i < snowAmmount; i++) {
@@ -48,21 +51,25 @@ for (let i = 0; i < snowAmmount; i++) {
 console.log(snowAmmount);
 
 // Set the snowflake vertices to the geometry
-snowflakeGeometry.setAttribute('position', new THREE.Float32BufferAttribute(snowflakeVertices, 3));
+snowflakeGeometry.setAttribute(
+  "position",
+  new THREE.Float32BufferAttribute(snowflakeVertices, 3)
+);
 
 // Create the snowflake points
 const snowflakes = new THREE.Points(snowflakeGeometry, snowflakeMaterial);
 
-let textureLoad
+let textureLoad;
 
 switch (appmode) {
   case "prod":
-
     // Add snowflakes to the scene
     scene.add(snowflakes);
 
     // christmas map
-    textureLoad = new THREE.TextureLoader().load("Resource/a1ebabf8-049a-4983-9b33-5af273a03605.jpeg");
+    textureLoad = new THREE.TextureLoader().load(
+      "Resource/a1ebabf8-049a-4983-9b33-5af273a03605.jpeg"
+    );
 
     // controls.autoRotate = true;
     break;
@@ -92,7 +99,9 @@ switch (appmode) {
 
   default:
     // normal map
-    textureLoad = new THREE.TextureLoader().load("Resource/map (1)-noCircle.png");
+    textureLoad = new THREE.TextureLoader().load(
+      "Resource/map (1)-noCircle.png"
+    );
     break;
 }
 
@@ -115,7 +124,20 @@ switch (appmode) {
 //end of helpers
 
 // speed, rotation and animation arrays | make cube loop puts each cube in an array for animastion later
-let [speedsSe, speedsNo, speedsDk, speedsFi, rotationsNo, rotationsSe, rotationsDk, rotationsFi, animateSe, animateNo, animateDk, animateFi] = [[], [], [], [], [], [], [], [], [], [], [], []];
+let [
+  speedsSe,
+  speedsNo,
+  speedsDk,
+  speedsFi,
+  rotationsNo,
+  rotationsSe,
+  rotationsDk,
+  rotationsFi,
+  animateSe,
+  animateNo,
+  animateDk,
+  animateFi,
+] = [[], [], [], [], [], [], [], [], [], [], [], []];
 
 // amount of cubes
 const populationSe = THREE.MathUtils.randFloat(1, 50); // 80
@@ -123,15 +145,21 @@ const populationNo = THREE.MathUtils.randFloat(1, 25); // 50
 const populationDk = THREE.MathUtils.randFloat(1, 50); // 120
 const populationFi = THREE.MathUtils.randFloat(1, 10); // 30
 
-
 const box = new THREE.BoxGeometry(0.3, 0.3, 0.3);
 
 const sef = new THREE.MeshBasicMaterial({ color: 0xecb920 }); // colored mesh for sweden
 const nof = new THREE.MeshBasicMaterial({ color: 0x009999 }); // colored mesh for norway
 const dkf = new THREE.MeshBasicMaterial({ color: 0xf44336 }); // colored mesh for denmark
 const fif = new THREE.MeshBasicMaterial({ color: 0xd5d5d5 }); // colored mesh for finland
-//create cubes placement and how many
-function createMeshes(population, material, geometry, positionArray, scene, animateArray) {
+
+function createMeshes(
+  population,
+  material,
+  geometry,
+  positionArray,
+  scene,
+  animateArray
+) {
   for (let i = 0; i < population; i++) {
     let xPos = THREE.MathUtils.randFloat(positionArray[0], positionArray[1]);
     let yPos = THREE.MathUtils.randFloat(positionArray[2], positionArray[3]);
@@ -148,7 +176,6 @@ createMeshes(populationNo, nof, box, [-5, -5, 4, 4], scene, animateNo);
 createMeshes(populationDk, dkf, box, [5, 5, -5, -5], scene, animateDk);
 createMeshes(populationFi, fif, box, [-5, -5, -5, -5], scene, animateFi);
 
-
 document.getElementById("no").innerHTML = "No " + Math.ceil(populationNo);
 document.getElementById("se").innerHTML = "Se " + Math.ceil(populationSe);
 document.getElementById("dk").innerHTML = "Dk " + Math.ceil(populationDk);
@@ -163,7 +190,7 @@ cylinder.rotation.y = 0;
 cylinder.position.z = -24.9;
 scene.add(cylinder);
 
-const pt = new THREE.TextureLoader().load(/* "Resource/marioCastle.png" */);//undo comment to get mario castle
+const pt = new THREE.TextureLoader().load(/* "Resource/marioCastle.png" */); //undo comment to get mario castle
 const pg = new THREE.PlaneGeometry(10, 10, 1, 1);
 const pm = new THREE.MeshBasicMaterial({ map: pt, transparent: true });
 const plane = new THREE.Mesh(pg, pm);
@@ -190,18 +217,18 @@ function randRotate(animasteCountry, speedsCountry, rotationsCountry) {
   }
 }
 
-randRotate(animateSe, speedsSe, rotationsSe)
-randRotate(animateNo, speedsNo, rotationsNo)
-randRotate(animateDk, speedsDk, rotationsDk)
-randRotate(animateFi, speedsFi, rotationsFi)
+randRotate(animateSe, speedsSe, rotationsSe);
+randRotate(animateNo, speedsNo, rotationsNo);
+randRotate(animateDk, speedsDk, rotationsDk);
+randRotate(animateFi, speedsFi, rotationsFi);
 
 //GLB loader for traced island model
 const loader = new GLTFLoader();
 
-loader.load('Resource/islandswall.glb', (gltf) => {
+loader.load("Resource/islandswall.glb", (gltf) => {
   const tracedModel = gltf.scene;
   
-  
+
   // apply color to GLB model
   const material = new THREE.MeshBasicMaterial({ color: 0xffffff }); // Replace 0xff0000 with your desired color
   tracedModel.material = material;
@@ -220,8 +247,12 @@ loader.load('Resource/islandswall.glb', (gltf) => {
 console.log(tracedModel)
 });
 
-let xTM = -0.2, yTM = 0.2, zTM = -10.48, rTMx = 1.554, rTMy = 5 -0.3, rTMz = 0
-
+let xTM = 0,
+  yTM = 0,
+  zTM = -6.6,
+  rTMx = 7.8,
+  rTMy = 6.4,
+  rTMz = 0;
 
 // for stop condition collision borders
 const Lx = -7.7;
@@ -231,4 +262,32 @@ const miny = -7.2;
 
 controls.autoRotateSpeed = 1;
 
-animateScene(snowflakes, maxPlaneRotationZ, maxPlaneRotationY, maxPlaneRotationX, plane, clock, animateSe, animateNo, animateDk, animateFi, speedsSe, speedsNo, speedsDk, speedsFi, rotationsSe, rotationsNo, rotationsDk, rotationsFi, controls, delta, Lx, Rx, maxy, miny, camera, scene, renderer);
+animateScene(
+  snowflakes,
+  maxPlaneRotationZ,
+  maxPlaneRotationY,
+  maxPlaneRotationX,
+  plane,
+  clock,
+  animateSe,
+  animateNo,
+  animateDk,
+  animateFi,
+  speedsSe,
+  speedsNo,
+  speedsDk,
+  speedsFi,
+  rotationsSe,
+  rotationsNo,
+  rotationsDk,
+  rotationsFi,
+  controls,
+  delta,
+  Lx,
+  Rx,
+  maxy,
+  miny,
+  camera,
+  scene,
+  renderer
+);
