@@ -110,7 +110,6 @@ switch (appmode) {
 // start of helpers
 // const helper = new THREE.CameraHelper(camera);
 // scene.add(helper);
-
 // // The X axis is red. The Y axis is green. The Z axis is blue.
 // const axesHelper = new THREE.AxesHelper(100);
 // scene.add(axesHelper);
@@ -230,17 +229,21 @@ loader.load("Resource/islandswall.glb", (gltf) => {
   const tracedModel = gltf.scene;
 
   // apply color to GLB model
-  const matTracedM = new THREE.MeshBasicMaterial({ color: 0xffffff }); // Replace 0xff0000 with your desired color
-  tracedModel.matTracedM = matTracedM;
+  const material = new THREE.MeshBasicMaterial({ color: 0xffffff }); // Replace 0xff0000 with your desired color
+  tracedModel.material = material;
   tracedModel.traverse((node) => {
-    node.material = matTracedM;
+    node.material = material;
+    material.transparent = true
+    material.opacity = 0.5
   });
 
   scene.add(tracedModel);
 
   tracedModel.position.set(xTM, yTM, zTM);
   tracedModel.rotation.set(rTMx, rTMy, rTMz);
-  tracedModel.scale.multiplyScalar(4);
+  tracedModel.scale.set(4.7,6,6)
+/*   tracedModel.scale.multiplyScalar(6); */
+console.log(tracedModel)
 });
 
 let xTM = 0,
