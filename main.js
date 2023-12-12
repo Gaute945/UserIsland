@@ -4,7 +4,14 @@ import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
 import { animateScene } from "./animation";
 
-const appmode = "prod";
+const appmode = "prodprod";
+
+// Function to generate a random integer between min and max (inclusive)
+function getRandomInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
 
 const clock = new THREE.Clock();
 
@@ -23,14 +30,41 @@ document.body.appendChild(renderer.domElement);
 
 const controls = new OrbitControls(camera, renderer.domElement);
 
+// Create snowflake geometry and material
+const snowflakeGeometry = new THREE.BufferGeometry();
+const snowflakeMaterial = new THREE.PointsMaterial({ size: 0.05, color: 0xffffff });
+
+// Create an array to store snowflake positions
+const snowflakeVertices = [];
+const snowAmmount = getRandomInt (1, 50000);
+
+// Populate the array with random snowflake positions
+for (let i = 0; i < snowAmmount; i++) {
+  const x = (Math.random() - 0.5) * 25;
+  const y = (Math.random() - 0.5) * 25;
+  const z = (Math.random() - 0.5) * 25;
+  snowflakeVertices.push(x, y, z);
+}
+console.log(snowAmmount);
+
+// Set the snowflake vertices to the geometry
+snowflakeGeometry.setAttribute('position', new THREE.Float32BufferAttribute(snowflakeVertices, 3));
+
+// Create the snowflake points
+const snowflakes = new THREE.Points(snowflakeGeometry, snowflakeMaterial);
+
 let textureLoad
 
 switch (appmode) {
   case "prod":
+
+    // Add snowflakes to the scene
+    scene.add(snowflakes);
+
     // christmas map
     textureLoad = new THREE.TextureLoader().load("Resource/a1ebabf8-049a-4983-9b33-5af273a03605.jpeg");
 
-    controls.autoRotate = false;
+    // controls.autoRotate = true;
     break;
 
   case "debug":
@@ -193,4 +227,4 @@ const miny = -7.2;
 
 controls.autoRotateSpeed = 1;
 
-animateScene(maxPlaneRotationZ, maxPlaneRotationY, maxPlaneRotationX, plane, clock, animateSe, animateNo, animateDk, animateFi, speedsSe, speedsNo, speedsDk, speedsFi, rotationsSe, rotationsNo, rotationsDk, rotationsFi, controls, delta, Lx, Rx, maxy, miny, camera, scene, renderer);
+animateScene(snowflakes, maxPlaneRotationZ, maxPlaneRotationY, maxPlaneRotationX, plane, clock, animateSe, animateNo, animateDk, animateFi, speedsSe, speedsNo, speedsDk, speedsFi, rotationsSe, rotationsNo, rotationsDk, rotationsFi, controls, delta, Lx, Rx, maxy, miny, camera, scene, renderer);
