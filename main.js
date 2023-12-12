@@ -1,6 +1,9 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+
 import { animateScene } from "./animation";
+
 
 const clock = new THREE.Clock();
 
@@ -31,6 +34,7 @@ const populationSe = THREE.MathUtils.randFloat(1, 50); // 80
 const populationNo = THREE.MathUtils.randFloat(1, 25); // 50
 const populationDk = THREE.MathUtils.randFloat(1, 50); // 120
 const populationFi = THREE.MathUtils.randFloat(1, 10); // 30
+
 
 const box = new THREE.BoxGeometry(0.3, 0.3, 0.3);
 
@@ -71,7 +75,7 @@ cylinder.rotation.y = 0;
 cylinder.position.z = -24.9;
 scene.add(cylinder);
 
-const pt = new THREE.TextureLoader().load("Resource/marioCastle.png");
+const pt = new THREE.TextureLoader().load(/* "Resource/marioCastle.png" */);//undo comment to get mario castle
 const pg = new THREE.PlaneGeometry(10, 10, 1, 1);
 const pm = new THREE.MeshBasicMaterial({ map: pt, transparent: true });
 const plane = new THREE.Mesh(pg, pm);
@@ -121,6 +125,29 @@ randRotate(animateSe, speedsSe, rotationsSe)
 randRotate(animateNo, speedsNo, rotationsNo)
 randRotate(animateDk, speedsDk, rotationsDk)
 randRotate(animateFi, speedsFi, rotationsFi)
+
+//GLB loader for traced island model
+const loader = new GLTFLoader();
+
+loader.load('Resource/islandswall.glb', (gltf) => {
+  const tracedModel = gltf.scene;
+  
+  // apply color to GLB model
+  const matTracedM = new THREE.MeshBasicMaterial({ color: 0xffffff }); // Replace 0xff0000 with your desired color
+  tracedModel.matTracedM = matTracedM;
+  tracedModel.traverse((node) => {
+    node.material = matTracedM;
+  });
+
+  scene.add(tracedModel);
+
+  tracedModel.position.set(xTM, yTM, zTM);
+  tracedModel.rotation.set(rTMx, rTMy, rTMz);
+  tracedModel.scale.multiplyScalar(4);
+});
+
+let xTM = 0, yTM = 0, zTM = -6.6, rTMx = 7.8, rTMy = 6.4, rTMz = 0
+
 
 // for stop condition collision borders
 const Lx = -7.7;
