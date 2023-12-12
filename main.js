@@ -4,7 +4,7 @@ import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 
 import { animateScene } from "./animation";
 
-const appmode = "prod";
+const appMode = "prod";
 
 // Function to generate a random integer between min and max (inclusive)
 function getRandomInt(min, max) {
@@ -39,16 +39,16 @@ const snowflakeMaterial = new THREE.PointsMaterial({
 
 // Create an array to store snowflake positions
 const snowflakeVertices = [];
-const snowAmmount = getRandomInt(1, 50000);
+const snowAmount = getRandomInt(1, 50000);
 
 // Populate the array with random snowflake positions
-for (let i = 0; i < snowAmmount; i++) {
+for (let i = 0; i < snowAmount; i++) {
   const x = (Math.random() - 0.5) * 25;
   const y = (Math.random() - 0.5) * 25;
   const z = (Math.random() - 0.5) * 25;
   snowflakeVertices.push(x, y, z);
 }
-console.log(snowAmmount);
+console.log(snowAmount);
 
 // Set the snowflake vertices to the geometry
 snowflakeGeometry.setAttribute(
@@ -61,7 +61,7 @@ const snowflakes = new THREE.Points(snowflakeGeometry, snowflakeMaterial);
 
 let textureLoad;
 
-switch (appmode) {
+switch (appMode) {
   case "prod":
     // Add snowflakes to the scene
     scene.add(snowflakes);
@@ -89,12 +89,12 @@ switch (appmode) {
     scene.add(axesHelper);
 
     // collision visualization for boxes
-    const boksmap = new THREE.Mesh(
+    const booksMap = new THREE.Mesh(
       new THREE.BoxGeometry(7, 3.5, 0),
       new THREE.MeshBasicMaterial({ color: 0xff2d00, wireframe: true })
     );
-    boksmap.position.set(3.6, 4.3, 0);
-    scene.add(boksmap);
+    booksMap.position.set(3.6, 4.3, 0);
+    scene.add(booksMap);
     break;
 
   default:
@@ -115,15 +115,15 @@ switch (appmode) {
 // scene.add(axesHelper);
 
 // // collision visualization for boxes
-// const boksmap = new THREE.Mesh(
+// const booksMap = new THREE.Mesh(
 //   new THREE.BoxGeometry(7, 3.5, 0),
 //   new THREE.MeshBasicMaterial({ color: 0xff2d00, wireframe: true })
 // );
-// boksmap.position.set(3.6, 4.3, 0);
-// scene.add(boksmap);
+// booksMap.position.set(3.6, 4.3, 0);
+// scene.add(booksMap);
 //end of helpers
 
-// speed, rotation and animation arrays | make cube loop puts each cube in an array for animastion later
+// speed, rotation and animation arrays | make cube loop puts each cube in an array for animation later
 let [
   speedsSe,
   speedsNo,
@@ -210,8 +210,8 @@ camera.position.x = 0;
 // delta time
 let delta;
 
-function randRotate(animasteCountry, speedsCountry, rotationsCountry) {
-  for (let i = 0; i < animasteCountry.length; i++) {
+function randRotate(animateCountry, speedsCountry, rotationsCountry) {
+  for (let i = 0; i < animateCountry.length; i++) {
     speedsCountry[i] = THREE.MathUtils.randFloat(0.1, 2);
     rotationsCountry[i] = THREE.MathUtils.randFloat(0, Math.PI / 2); // Random rotation between 0 and 90 degrees
   }
@@ -225,7 +225,7 @@ randRotate(animateFi, speedsFi, rotationsFi);
 //GLB loader for traced island model
 const loader = new GLTFLoader();
 
-loader.load("Resource/islandswall.glb", (gltf) => {
+loader.load("Resource/islandsWall.glb", (gltf) => {
   const tracedModel = gltf.scene;
 
   // apply color to GLB model

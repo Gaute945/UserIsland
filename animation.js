@@ -32,7 +32,7 @@ export function animateScene(
 ) {
   delta = clock.getDelta();
 
-  // OrbitControlls update
+  // OrbitControls update
   controls.update(delta);
 
   const angleToCamera = Math.atan2(
@@ -70,8 +70,7 @@ export function animateScene(
       }
     } */
 
-  // sweden animastion
-  // loop makes it so animatese rotates and goes a slightly different direction until it hits one of the condition stoppers
+  // sweden animation
   for (let i = 0; i < animateSe.length; i++) {
     animateSe[i].position.x += speedsSe[i] * Math.cos(rotationsSe[i]) * delta;
     animateSe[i].position.y += speedsSe[i] * Math.sin(rotationsSe[i]) * delta;
@@ -97,7 +96,7 @@ export function animateScene(
     }
   }
 
-  // Norway animastion
+  // Norway animation
   for (let i = 0; i < animateNo.length; i++) {
     animateNo[i].position.x += speedsNo[i] * Math.cos(rotationsNo[i]) * delta;
     animateNo[i].position.y += speedsNo[i] * Math.sin(rotationsNo[i]) * delta;
@@ -123,7 +122,7 @@ export function animateScene(
     }
   }
 
-  // denmark animastion
+  // denmark animation
   for (let i = 0; i < animateDk.length; i++) {
     animateDk[i].position.x += speedsDk[i] * Math.cos(rotationsDk[i]) * delta;
     animateDk[i].position.y += speedsDk[i] * Math.sin(rotationsDk[i]) * delta;
@@ -149,7 +148,7 @@ export function animateScene(
     }
   }
 
-  // finland animastion
+  // finland animation
   for (let i = 0; i < animateFi.length; i++) {
     animateFi[i].position.x += speedsFi[i] * Math.cos(rotationsFi[i]) * delta;
     animateFi[i].position.y += speedsFi[i] * Math.sin(rotationsFi[i]) * delta;
