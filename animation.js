@@ -1,7 +1,7 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 
-export function animateScene(maxPlaneRotationZ, maxPlaneRotationX, maxPlaneRotationY, plane, clock, animateSe, animateNo, animateDk, animateFi, speedsSe, speedsNo, speedsDk, speedsFi, rotationsSe, rotationsNo, rotationsDk, rotationsFi, controls, delta, Lx, Rx, maxy, miny, camera, scene, renderer) {
+export function animateScene(snowflakes, maxPlaneRotationZ, maxPlaneRotationX, maxPlaneRotationY, plane, clock, animateSe, animateNo, animateDk, animateFi, speedsSe, speedsNo, speedsDk, speedsFi, rotationsSe, rotationsNo, rotationsDk, rotationsFi, controls, delta, Lx, Rx, maxy, miny, camera, scene, renderer) {
     delta = clock.getDelta();
 
     // OrbitControlls update
@@ -13,6 +13,9 @@ export function animateScene(maxPlaneRotationZ, maxPlaneRotationX, maxPlaneRotat
     );
 
     plane.rotation.y = angleToCamera;
+
+    // Rotate the snowflakes
+    snowflakes.rotation.y += 0.001;
     
     // plane.lookAt(camera.position);
 
@@ -71,7 +74,6 @@ export function animateScene(maxPlaneRotationZ, maxPlaneRotationX, maxPlaneRotat
             rotationsNo[i] += THREE.MathUtils.randFloat(-Math.PI / 3, Math.PI / 3); // Rotate between -45 and 45 degrees
 
         }
-        //isolated cube -- why is this comment here?
     }
     // denmark animastion
     for (let i = 0; i < animateDk.length; i++) {
@@ -113,5 +115,5 @@ export function animateScene(maxPlaneRotationZ, maxPlaneRotationX, maxPlaneRotat
 
     camera.lookAt(scene.position);
     renderer.render(scene, camera);
-    requestAnimationFrame(() => animateScene(maxPlaneRotationZ, maxPlaneRotationX, maxPlaneRotationY, plane, clock, animateSe, animateNo, animateDk, animateFi, speedsSe, speedsNo, speedsDk, speedsFi, rotationsSe, rotationsNo, rotationsDk, rotationsFi, controls, delta, Lx, Rx, maxy, miny, camera, scene, renderer));
+    requestAnimationFrame(() => animateScene(snowflakes, maxPlaneRotationZ, maxPlaneRotationX, maxPlaneRotationY, plane, clock, animateSe, animateNo, animateDk, animateFi, speedsSe, speedsNo, speedsDk, speedsFi, rotationsSe, rotationsNo, rotationsDk, rotationsFi, controls, delta, Lx, Rx, maxy, miny, camera, scene, renderer));
 }
