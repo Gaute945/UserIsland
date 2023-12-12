@@ -201,6 +201,7 @@ const loader = new GLTFLoader();
 loader.load('Resource/islandswall.glb', (gltf) => {
   const tracedModel = gltf.scene;
   
+  
   // apply color to GLB model
   const material = new THREE.MeshBasicMaterial({ color: 0xffffff }); // Replace 0xff0000 with your desired color
   tracedModel.material = material;
