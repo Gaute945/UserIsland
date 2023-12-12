@@ -4,7 +4,7 @@ import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
 import { animateScene } from "./animation";
 
-const appmode = "prodprod";
+const appmode = "prod";
 
 // Function to generate a random integer between min and max (inclusive)
 function getRandomInt(min, max) {
@@ -202,10 +202,12 @@ loader.load('Resource/islandswall.glb', (gltf) => {
   const tracedModel = gltf.scene;
   
   // apply color to GLB model
-  const matTracedM = new THREE.MeshBasicMaterial({ color: 0xffffff }); // Replace 0xff0000 with your desired color
-  tracedModel.matTracedM = matTracedM;
+  const material = new THREE.MeshBasicMaterial({ color: 0xffffff }); // Replace 0xff0000 with your desired color
+  tracedModel.material = material;
   tracedModel.traverse((node) => {
-    node.material = matTracedM;
+    node.material = material;
+    material.transparent = true
+    material.opacity = 0.5
   });
 
   scene.add(tracedModel);
@@ -214,6 +216,7 @@ loader.load('Resource/islandswall.glb', (gltf) => {
   tracedModel.rotation.set(rTMx, rTMy, rTMz);
   tracedModel.scale.set(4.7,6,6)
 /*   tracedModel.scale.multiplyScalar(6); */
+console.log(tracedModel)
 });
 
 let xTM = -0.2, yTM = 0.2, zTM = -10.48, rTMx = 1.554, rTMy = 5 -0.3, rTMz = 0
