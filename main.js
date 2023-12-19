@@ -4,12 +4,6 @@ import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 
 // user docs
 import { animateScene } from "./animation";
-import { makeCubes } from "./cubeClass";
-
-makeCubes("name", 255, "ca", false);
-
-console.log(name);
-console.log(name[55]);
 
 const appMode = "prod";
 
