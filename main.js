@@ -126,19 +126,21 @@ switch (appMode) {
 
 // speed, rotation and animation arrays | make cube loop puts each ube in an array for animation later
 let [
-	speedsSe,
-	speedsNo,
-	speedsDk,
-	speedsFi,
-	rotationsNo,
-	rotationsSe,
-	rotationsDk,
-	rotationsFi,
-	animateSe,
-	animateNo,
-	animateDk,
-	animateFi,
-] = [[], [], [], [], [], [], [], [], [], [], [], []];
+  speedsSe,
+  speedsNo,
+  speedsDk,
+  speedsFi,
+  rotationsNo,
+  rotationsSe,
+  rotationsDk,
+  rotationsFi,
+  animateSe,
+  animateNo,
+  animateDk,
+  animateFi,
+  BoundingBArray,
+  
+] = [[], [], [], [], [], [], [], [], [], [], [], [],[]];
 
 // amount of cubes
 const populationSe = THREE.MathUtils.randFloat(1, 50); // 80
@@ -155,23 +157,30 @@ const fif = new THREE.MeshBasicMaterial({ color: 0xd5d5d5 }); // colored mesh fo
 
 //create cubes placement and how many
 function createMeshes(
-	population,
-	material,
-	geometry,
-	positionArray,
-	scene,
-	animateArray
-) {
-	for (let i = 0; i < population; i++) {
-		let xPos = THREE.MathUtils.randFloat(positionArray[0], positionArray[1]);
-		let yPos = THREE.MathUtils.randFloat(positionArray[2], positionArray[3]);
+  population,
+  material,
+  geometry,
+  positionArray,
+  scene,
+  animateArray,
 
-		const mesh = new THREE.Mesh(geometry, material);
-		mesh.position.set(xPos, yPos, 0);
-		scene.add(mesh);
-		animateArray.push(mesh);
-	}
-}
+) {
+  for (let i = 0; i < population; i++) {
+    let xPos = THREE.MathUtils.randFloat(positionArray[0], positionArray[1]);
+    let yPos = THREE.MathUtils.randFloat(positionArray[2], positionArray[3]);
+    const mesh = new THREE.Mesh(geometry, material);
+    mesh.position.set(xPos, yPos, 0);
+
+    //box3 bounding box
+    const BoundingB = new THREE.Box3(new THREE.Vector3(), new THREE.Vector3);
+    BoundingB.setFromObject(mesh);
+
+    scene.add(mesh);
+    animateArray.push(mesh);
+    BoundingBArray.push(BoundingB);
+
+  };
+};
 
 let gltfModel;
 
@@ -239,14 +248,19 @@ randRotate(animateFi, speedsFi, rotationsFi);
 loader.load("Resource/islandsWall.glb", (gltf) => {
 	const tracedModel = gltf.scene;
 
-	// apply color to GLB model
-	const material = new THREE.MeshBasicMaterial({ color: 0xffffff }); // Replace 0xff0000 with your desired color
-	tracedModel.material = material;
-	tracedModel.traverse((node) => {
-		node.material = material;
-		material.transparent = true;
-		material.opacity = 0.5;
-	});
+  // apply color to GLB model
+  const material = new THREE.MeshBasicMaterial({ color: 0xffffff }); // Replace 0xff0000 with your desired color
+  tracedModel.material = material;
+  console.log(tracedModel)
+  tracedModel.traverse((node) => {
+    node.material = material;
+    material.transparent = true;
+    material.opacity = 0.5;
+  });
+
+
+
+
 
 	scene.add(tracedModel);
 
@@ -270,33 +284,33 @@ const maxy = 6;
 const miny = -7.2;
 
 controls.autoRotateSpeed = 1;
-
 animateScene(
-	snowflakes,
-	maxPlaneRotationZ,
-	maxPlaneRotationY,
-	maxPlaneRotationX,
-	plane,
-	clock,
-	animateSe,
-	animateNo,
-	animateDk,
-	animateFi,
-	speedsSe,
-	speedsNo,
-	speedsDk,
-	speedsFi,
-	rotationsSe,
-	rotationsNo,
-	rotationsDk,
-	rotationsFi,
-	controls,
-	delta,
-	Lx,
-	Rx,
-	maxy,
-	miny,
-	camera,
-	scene,
-	renderer
+  snowflakes,
+  maxPlaneRotationZ,
+  maxPlaneRotationY,
+  maxPlaneRotationX,
+  plane,
+  clock,
+  animateSe,
+  animateNo,
+  animateDk,
+  animateFi,
+  speedsSe,
+  speedsNo,
+  speedsDk,
+  speedsFi,
+  rotationsSe,
+  rotationsNo,
+  rotationsDk,
+  rotationsFi,
+  controls,
+  delta,
+  Lx,
+  Rx,
+  maxy,
+  miny,
+  camera,
+  scene,
+  renderer,
+  BoundingBArray,
 );
