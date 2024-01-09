@@ -180,34 +180,17 @@ function createMeshes(
 
   };
 };
-loader.load(
-	// resource URL
-	"Resource/simple_human/scene.gltf",
-	// called when the resource is loaded
-	function ( gltf ) {
 
-		scene.add( gltf.scene );
+let gltfModel;
 
-		gltf.animations; // Array<THREE.AnimationClip>
-		gltf.scene; // THREE.Group
-		gltf.scenes; // Array<THREE.Group>
-		gltf.cameras; // Array<THREE.Camera>
-		gltf.asset; // Object
+loader.load('Resource/simple_human/scene.gltf', (gltf) => {
+    gltfModel = gltf.scene;
+    
+    gltfModel.rotation.set(Math.PI / 2, 0, 0);
+    gltfModel.scale.set(0.5, 0.5, 0.5);
 
-	},
-	// called while loading is progressing
-	function ( xhr ) {
-
-		console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
-
-	},
-	// called when loading has errors
-	function ( error ) {
-
-		console.log( 'An error happened' );
-
-	}
-);
+    scene.add(gltfModel);
+});
 
 createMeshes(populationSe, sef, box, [3.6, 3.6, 4.5, 4.5], scene, animateSe);
 createMeshes(populationNo, nof, box, [-5, -5, 4, 4], scene, animateNo);
