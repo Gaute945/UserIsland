@@ -5,7 +5,8 @@ import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 // user docs
 import { animateScene } from "./animation";
 
-const appMode = "prod";
+const loader = new GLTFLoader();
+const appMode = "";
 
 // Function to generate a random integer between min and max (inclusive)
 function getRandomInt(min, max) {
@@ -62,7 +63,7 @@ const snowflakes = new THREE.Points(snowflakeGeometry, snowflakeMaterial);
 let textureLoad;
 
 switch (appMode) {
-  case "prod":
+  case "christmas":
     // Add snowflakes to the scene
     scene.add(snowflakes);
 
@@ -123,7 +124,7 @@ switch (appMode) {
 // scene.add(booksMap);
 //end of helpers
 
-// speed, rotation and animation arrays | make cube loop puts each cube in an array for animation later
+// speed, rotation and animation arrays | make cube loop puts each ube in an array for animation later
 let [
   speedsSe,
   speedsNo,
@@ -168,8 +169,37 @@ function createMeshes(
     mesh.position.set(xPos, yPos, 0);
     scene.add(mesh);
     animateArray.push(mesh);
-  }
-}
+  };
+};
+
+loader.load(
+	// resource URL
+	"Resource/simple_human/scene.gltf",
+	// called when the resource is loaded
+	function ( gltf ) {
+
+		scene.add( gltf.scene );
+
+		gltf.animations; // Array<THREE.AnimationClip>
+		gltf.scene; // THREE.Group
+		gltf.scenes; // Array<THREE.Group>
+		gltf.cameras; // Array<THREE.Camera>
+		gltf.asset; // Object
+
+	},
+	// called while loading is progressing
+	function ( xhr ) {
+
+		console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+
+	},
+	// called when loading has errors
+	function ( error ) {
+
+		console.log( 'An error happened' );
+
+	}
+);
 
 createMeshes(populationSe, sef, box, [3.6, 3.6, 4.5, 4.5], scene, animateSe);
 createMeshes(populationNo, nof, box, [-5, -5, 4, 4], scene, animateNo);
@@ -190,7 +220,7 @@ cylinder.rotation.y = 0;
 cylinder.position.z = -24.9;
 scene.add(cylinder);
 
-const pt = new THREE.TextureLoader().load(/* "Resource/marioCastle.png" */); //undo comment to get mario castle
+const pt = new THREE.TextureLoader().load(/*"Resource/marioCastle.png"*/); //undo comment to get mario castle
 const pg = new THREE.PlaneGeometry(10, 10, 1, 1);
 const pm = new THREE.MeshBasicMaterial({ map: pt, transparent: true });
 const plane = new THREE.Mesh(pg, pm);
@@ -221,9 +251,6 @@ randRotate(animateSe, speedsSe, rotationsSe);
 randRotate(animateNo, speedsNo, rotationsNo);
 randRotate(animateDk, speedsDk, rotationsDk);
 randRotate(animateFi, speedsFi, rotationsFi);
-
-//GLB loader for traced island model
-const loader = new GLTFLoader();
 
 loader.load("Resource/islandsWall.glb", (gltf) => {
   const tracedModel = gltf.scene;
