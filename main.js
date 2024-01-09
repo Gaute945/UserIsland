@@ -138,7 +138,9 @@ let [
   animateNo,
   animateDk,
   animateFi,
-] = [[], [], [], [], [], [], [], [], [], [], [], []];
+  BoundingBArray,
+  
+] = [[], [], [], [], [], [], [], [], [], [], [], [],[]];
 
 // amount of cubes
 const populationSe = THREE.MathUtils.randFloat(1, 50); // 80
@@ -159,19 +161,25 @@ function createMeshes(
   geometry,
   positionArray,
   scene,
-  animateArray
+  animateArray,
+
 ) {
   for (let i = 0; i < population; i++) {
     let xPos = THREE.MathUtils.randFloat(positionArray[0], positionArray[1]);
     let yPos = THREE.MathUtils.randFloat(positionArray[2], positionArray[3]);
-
     const mesh = new THREE.Mesh(geometry, material);
     mesh.position.set(xPos, yPos, 0);
+
+    //box3 bounding box
+    const BoundingB = new THREE.Box3(new THREE.Vector3(), new THREE.Vector3);
+    BoundingB.setFromObject(mesh);
+
     scene.add(mesh);
     animateArray.push(mesh);
+    BoundingBArray.push(BoundingB);
+
   };
 };
-
 loader.load(
 	// resource URL
 	"Resource/simple_human/scene.gltf",
@@ -314,5 +322,6 @@ animateScene(
   miny,
   camera,
   scene,
-  renderer
+  renderer,
+  BoundingBArray,
 );

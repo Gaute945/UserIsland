@@ -28,7 +28,8 @@ export function animateScene(
   miny,
   camera,
   scene,
-  renderer
+  renderer,
+  BoundingBArray
 ) {
   delta = clock.getDelta();
 
@@ -39,7 +40,6 @@ export function animateScene(
     camera.position.x - plane.position.x,
     camera.position.z - plane.position.z
   );
-
   plane.rotation.y = angleToCamera;
 
   // Rotate the snowflakes
