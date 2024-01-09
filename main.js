@@ -249,11 +249,16 @@ loader.load("Resource/islandsWall.glb", (gltf) => {
   // apply color to GLB model
   const material = new THREE.MeshBasicMaterial({ color: 0xffffff }); // Replace 0xff0000 with your desired color
   tracedModel.material = material;
+  console.log(tracedModel)
   tracedModel.traverse((node) => {
     node.material = material;
     material.transparent = true;
     material.opacity = 0.5;
   });
+
+
+
+
 
   scene.add(tracedModel);
 
@@ -277,7 +282,6 @@ const maxy = 6;
 const miny = -7.2;
 
 controls.autoRotateSpeed = 1;
-
 animateScene(
   snowflakes,
   maxPlaneRotationZ,
