@@ -1,6 +1,5 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
-
 export function animateScene(
   snowflakes,
   maxPlaneRotationZ,
@@ -69,11 +68,15 @@ export function animateScene(
         }
       }
     } */
-
+  
   // sweden animation
+
   for (let i = 0; i < animateSe.length; i++) {
     animateSe[i].position.x += speedsSe[i] * Math.cos(rotationsSe[i]) * delta;
     animateSe[i].position.y += speedsSe[i] * Math.sin(rotationsSe[i]) * delta;
+
+    //update position of boundingbarray
+    BoundingBArray[i].copy(animateSe[i].geometry.boundingBox).applyMatrix4(animateSe[i].matrixWorld);
 
     if (
       animateSe[i].position.x > Rx ||
@@ -95,11 +98,11 @@ export function animateScene(
       rotationsSe[i] += THREE.MathUtils.randFloat(-Math.PI / 3, Math.PI / 3); // Rotate between -45 and 45 degrees
     }
   }
-
   // Norway animation
   for (let i = 0; i < animateNo.length; i++) {
     animateNo[i].position.x += speedsNo[i] * Math.cos(rotationsNo[i]) * delta;
     animateNo[i].position.y += speedsNo[i] * Math.sin(rotationsNo[i]) * delta;
+    
 
     if (
       animateNo[i].position.x > Rx ||
@@ -173,7 +176,7 @@ export function animateScene(
       rotationsFi[i] += THREE.MathUtils.randFloat(-Math.PI / 3, Math.PI / 3); // Rotate between -45 and 45 degrees
     }
   }
-
+  
   // Handle window resize
   window.addEventListener("resize", () => {
     camera.aspect = window.innerWidth / window.innerHeight;
@@ -211,7 +214,9 @@ export function animateScene(
       miny,
       camera,
       scene,
-      renderer
+      renderer,
+      BoundingBArray
     )
   );
 }
+

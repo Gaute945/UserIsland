@@ -139,8 +139,7 @@ let [
   animateDk,
   animateFi,
   BoundingBArray,
-  
-] = [[], [], [], [], [], [], [], [], [], [], [], [],[]];
+] = [[], [], [], [], [], [], [], [], [], [], [], [], []];
 
 // amount of cubes
 const populationSe = THREE.MathUtils.randFloat(1, 50); // 80
@@ -162,7 +161,7 @@ function createMeshes(
   positionArray,
   scene,
   animateArray,
-
+  //BoundingBArray,
 ) {
   for (let i = 0; i < population; i++) {
     let xPos = THREE.MathUtils.randFloat(positionArray[0], positionArray[1]);
@@ -171,13 +170,12 @@ function createMeshes(
     mesh.position.set(xPos, yPos, 0);
 
     //box3 bounding box
-    const BoundingB = new THREE.Box3(new THREE.Vector3(), new THREE.Vector3);
+    const BoundingB = new THREE.Box3(new THREE.Vector3(), new THREE.Vector3());
     BoundingB.setFromObject(mesh);
 
     scene.add(mesh);
     animateArray.push(mesh);
     BoundingBArray.push(BoundingB);
-
   };
 };
 
@@ -192,10 +190,10 @@ loader.load('Resource/simple_human/scene.gltf', (gltf) => {
     scene.add(gltfModel);
 });
 
-createMeshes(populationSe, sef, box, [3.6, 3.6, 4.5, 4.5], scene, animateSe);
-createMeshes(populationNo, nof, box, [-5, -5, 4, 4], scene, animateNo);
-createMeshes(populationDk, dkf, box, [5, 5, -5, -5], scene, animateDk);
-createMeshes(populationFi, fif, box, [-5, -5, -5, -5], scene, animateFi);
+createMeshes(populationSe, sef, box, [3.6, 3.6, 4.5, 4.5], scene, animateSe, BoundingBArray);
+createMeshes(populationNo, nof, box, [-5, -5, 4, 4], scene, animateNo,BoundingBArray);
+createMeshes(populationDk, dkf, box, [5, 5, -5, -5], scene, animateDk),BoundingBArray;
+createMeshes(populationFi, fif, box, [-5, -5, -5, -5], scene, animateFi),BoundingBArray;
 
 document.getElementById("no").innerHTML = "No " + Math.ceil(populationNo);
 document.getElementById("se").innerHTML = "Se " + Math.ceil(populationSe);
@@ -257,9 +255,6 @@ loader.load("Resource/islandsWall.glb", (gltf) => {
   });
 
 
-
-
-
   scene.add(tracedModel);
 
   tracedModel.position.set(xTM, yTM, zTM);
@@ -310,5 +305,5 @@ animateScene(
   camera,
   scene,
   renderer,
-  BoundingBArray,
+  BoundingBArray
 );
