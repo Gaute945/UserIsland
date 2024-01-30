@@ -51,34 +51,21 @@ export function animateScene(
 	}
 
   // sweden animation
-	for (let i = 0; i < animateSe.length; i++) {
-		animateSe[i].position.x += speedsSe[i] * Math.cos(rotationsSe[i]) * delta;
-		animateSe[i].position.y += speedsSe[i] * Math.sin(rotationsSe[i]) * delta;
+/*    for (let i = 0; i < animateSe.length; i++) {
+    animateSe[i].position.x += speedsSe[i] * Math.cos(rotationsSe[i]) * delta;
+    animateSe[i].position.y += speedsSe[i] * Math.sin(rotationsSe[i]) * delta;
 
-    // update position of bounding barrier
-		boundingSe[i]
-			.copy(animateSe[i].geometry.boundingBox)
-			.applyMatrix4(animateSe[i].matrixWorld);
-		if (
-			animateSe[i].position.x > Rx ||
-			animateSe[i].position.x < Lx ||
-			animateSe[i].position.y > maxy ||
-			animateSe[i].position.y < miny
-		) {
-			animateSe[i].position.x = Math.min(
-				Rx,
-				Math.max(Lx, animateSe[i].position.x)
-			);
-			animateSe[i].position.y = Math.min(
-				maxy,
-				Math.max(miny, animateSe[i].position.y)
-			);
+    //update position of boundingbarray
+    boundingSe[i].copy(animateSe[i].geometry.boundingBox).applyMatrix4(animateSe[i].matrixWorld);
+    for (let j = 0; j < animateSe.length; j++) {
+      if (i !== j && boundingSe[i].intersectsBox(boundingSe[j])) {
+          // Cubes i and j intersect, so change their directions
+          speedsSe[i] = -speedsSe[i];
+          speedsSe[j] = -speedsSe[j];
+      }
+  }
 
-      // Change direction and slightly rotate
-			speedsSe[i] *= -1;
-			rotationsSe[i] += THREE.MathUtils.randFloat(-Math.PI / 3, Math.PI / 3); // Rotate between -45 and 45 degrees
-		}
-	}
+  }  */
 
   // Norway animation
 	for (let i = 0; i < animateNo.length; i++) {
