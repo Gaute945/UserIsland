@@ -142,17 +142,46 @@ let [
 ] = [[], [], [], [], [], [], [], [], [], [], [], [], []];
 
 // amount of cubes
-const populationSe = THREE.MathUtils.randFloat(1, 50); // 80
-const populationNo = THREE.MathUtils.randFloat(1, 25); // 50
-const populationDk = THREE.MathUtils.randFloat(1, 50); // 120
-const populationFi = THREE.MathUtils.randFloat(1, 10); // 30
+let populationSe;
+let populationNo;
+let populationDk;
+let populationFi;
 
-const box = new THREE.BoxGeometry(0.3, 0.3, 0.3);
+async function fetchApi() {
+	try {
+		const data = await fetch("http://localhost:3000/api/users");
+		console.log(data);
+		let json = await data.json();
+		console.log(data);
+		populationSe = json[0].number;
+		populationNo = json[1].number;
+		populationDk = json[2].number;
+		populationFi = json[3].number;
+		console.log(populationDk);
 
-const sef = new THREE.MeshBasicMaterial({ color: 0xecb920 }); // colored mesh for sweden
-const nof = new THREE.MeshBasicMaterial({ color: 0x009999 }); // colored mesh for norway
-const dkf = new THREE.MeshBasicMaterial({ color: 0xf44336 }); // colored mesh for denmark
-const fif = new THREE.MeshBasicMaterial({ color: 0xd5d5d5 }); // colored mesh for finland
+		// rest
+		const sef = new THREE.MeshBasicMaterial({ color: 0xecb920 }); // colored mesh for sweden
+		const nof = new THREE.MeshBasicMaterial({ color: 0x009999 }); // colored mesh for norway
+		const dkf = new THREE.MeshBasicMaterial({ color: 0xf44336 }); // colored mesh for denmark
+		const fif = new THREE.MeshBasicMaterial({ color: 0xd5d5d5 }); // colored mesh for finland
+
+    const box = new THREE.BoxGeometry(0.3, 0.3, 0.3);
+
+		createMeshes(populationSe, sef, box, [3.6, 3.6, 4.5, 4.5], scene, animateSe, BoundingBArray);
+		createMeshes(populationNo, nof, box, [-5, -5, 4, 4], scene, animateNo, BoundingBArray);
+		createMeshes(populationDk, dkf, box, [5, 5, -5, -5], scene, animateDk),BoundingBArray;
+		createMeshes(populationFi, fif, box, [-5, -5, -5, -5], scene, animateFi),BoundingBArray;
+
+		document.getElementById("no").innerHTML = "No " + Math.ceil(populationNo);
+		document.getElementById("se").innerHTML = "Se " + Math.ceil(populationSe);
+		document.getElementById("dk").innerHTML = "Dk " + Math.ceil(populationDk);
+		document.getElementById("fi").innerHTML = "Fi " + Math.ceil(populationFi);
+	} catch (error) {
+		console.error(error);
+	}
+}
+
+await fetchApi();
 
 //create cubes placement and how many
 function createMeshes(
@@ -188,18 +217,7 @@ loader.load("Resource/simple_human/scene.gltf", (gltf) => {
 	gltfModel.scale.set(0.5, 0.5, 0.5);
 
 	scene.add(gltfModel);
-	console.log(gltfModel);
 });
-
-createMeshes(populationSe, sef, box, [3.6, 3.6, 4.5, 4.5], scene, animateSe, BoundingBArray);
-createMeshes(populationNo, nof, box, [-5, -5, 4, 4], scene, animateNo,BoundingBArray);
-createMeshes(populationDk, dkf, box, [5, 5, -5, -5], scene, animateDk),BoundingBArray;
-createMeshes(populationFi, fif, box, [-5, -5, -5, -5], scene, animateFi),BoundingBArray;
-
-document.getElementById("no").innerHTML = "No " + Math.ceil(populationNo);
-document.getElementById("se").innerHTML = "Se " + Math.ceil(populationSe);
-document.getElementById("dk").innerHTML = "Dk " + Math.ceil(populationDk);
-document.getElementById("fi").innerHTML = "Fi " + Math.ceil(populationFi);
 
 const cylG = new THREE.CylinderGeometry(12, 13, 49, 128);
 const cylM = new THREE.MeshBasicMaterial({ map: textureLoad });
@@ -248,7 +266,6 @@ loader.load("Resource/islandsWall.glb", (gltf) => {
   // apply color to GLB model
   const material = new THREE.MeshBasicMaterial({ color: 0xffffff }); // Replace 0xff0000 with your desired color
   tracedModel.material = material;
-  console.log(tracedModel)
   tracedModel.traverse((node) => {
     node.material = material;
     material.transparent = true;
