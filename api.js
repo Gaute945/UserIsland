@@ -1,5 +1,5 @@
 const express = require("express");
-const cors = require('cors');
+const cors = require("cors");
 
 function getRandomNumber(min, max) {
 	return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -14,8 +14,7 @@ app.use(cors());
 app.use(express.json());
 
 app.get("/api/users", (req, res) => {
-	
-  const dataStore = [
+	const dataStore = [
 		{ id: "se", number: getRandomNumber(1, 50) },
 		{ id: "no", number: getRandomNumber(1, 25) },
 		{ id: "dk", number: getRandomNumber(1, 50) },
