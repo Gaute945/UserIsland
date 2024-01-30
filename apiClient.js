@@ -1,4 +1,4 @@
-let data
+let data;
 
 async function fetchApi() {
 	const response = await fetch("http://localhost:3000/api/users");
@@ -11,9 +11,8 @@ async function fetchAndDo() {
 	await fetchApi();
 }
 
-(async() => {
+(async () => {
 	await fetchAndDo();
-	console.log(data[0].number);
 })();
 
 fetchAndDo();
