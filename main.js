@@ -75,29 +75,6 @@ switch (appMode) {
 		// controls.autoRotate = true;
 		break;
 
-	case "debug":
-		// debug map
-		textureLoad = new THREE.TextureLoader().load("Resource/tex_DebugGrid.png");
-
-		// helpers
-		// camera helper (black cross with yellow cam line, also blocks axes helper)
-		// start of helpers
-		const helper = new THREE.CameraHelper(camera);
-		scene.add(helper);
-
-		// The X axis is red. The Y axis is green. The Z axis is blue.
-		const axesHelper = new THREE.AxesHelper(100);
-		scene.add(axesHelper);
-
-		// collision visualization for boxes
-		const booksMap = new THREE.Mesh(
-			new THREE.BoxGeometry(7, 3.5, 0),
-			new THREE.MeshBasicMaterial({ color: 0xff2d00, wireframe: true })
-		);
-		booksMap.position.set(3.6, 4.3, 0);
-		scene.add(booksMap);
-		break;
-
 	default:
 		// normal map
 		textureLoad = new THREE.TextureLoader().load(
@@ -124,24 +101,22 @@ switch (appMode) {
 // scene.add(booksMap);
 //end of helpers
 
-// speed, rotation and animation arrays | make cube loop puts each ube in an array for animation later
 let [
-  speedsSe,
-  speedsNo,
-  speedsDk,
-  speedsFi,
-  rotationsNo,
-  rotationsSe,
-  rotationsDk,
-  rotationsFi,
-  animateSe,
-  animateNo,
-  animateDk,
-  animateFi,
-  BoundingBArray,
+	speedsSe,
+	speedsNo,
+	speedsDk,
+	speedsFi,
+	rotationsNo,
+	rotationsSe,
+	rotationsDk,
+	rotationsFi,
+	animateSe,
+	animateNo,
+	animateDk,
+	animateFi,
+	BoundingBArray,
 ] = [[], [], [], [], [], [], [], [], [], [], [], [], []];
 
-// amount of cubes
 let populationSe;
 let populationNo;
 let populationDk;
@@ -150,27 +125,23 @@ let populationFi;
 async function fetchApi() {
 	try {
 		const data = await fetch("http://localhost:3000/api/users");
-		console.log(data);
 		let json = await data.json();
-		console.log(data);
 		populationSe = json[0].number;
 		populationNo = json[1].number;
 		populationDk = json[2].number;
 		populationFi = json[3].number;
-		console.log(populationDk);
 
-		// rest
 		const sef = new THREE.MeshBasicMaterial({ color: 0xecb920 }); // colored mesh for sweden
 		const nof = new THREE.MeshBasicMaterial({ color: 0x009999 }); // colored mesh for norway
 		const dkf = new THREE.MeshBasicMaterial({ color: 0xf44336 }); // colored mesh for denmark
 		const fif = new THREE.MeshBasicMaterial({ color: 0xd5d5d5 }); // colored mesh for finland
 
-    const box = new THREE.BoxGeometry(0.3, 0.3, 0.3);
+		const box = new THREE.BoxGeometry(0.3, 0.3, 0.3);
 
 		createMeshes(populationSe, sef, box, [3.6, 3.6, 4.5, 4.5], scene, animateSe, BoundingBArray);
 		createMeshes(populationNo, nof, box, [-5, -5, 4, 4], scene, animateNo, BoundingBArray);
-		createMeshes(populationDk, dkf, box, [5, 5, -5, -5], scene, animateDk),BoundingBArray;
-		createMeshes(populationFi, fif, box, [-5, -5, -5, -5], scene, animateFi),BoundingBArray;
+		createMeshes(populationDk, dkf, box, [5, 5, -5, -5], scene, animateDk), BoundingBArray;
+		createMeshes(populationFi, fif, box, [-5, -5, -5, -5], scene, animateFi), BoundingBArray;
 
 		document.getElementById("no").innerHTML = "No " + Math.ceil(populationNo);
 		document.getElementById("se").innerHTML = "Se " + Math.ceil(populationSe);
@@ -183,41 +154,29 @@ async function fetchApi() {
 
 await fetchApi();
 
-//create cubes placement and how many
 function createMeshes(
-  population,
-  material,
-  geometry,
-  positionArray,
-  scene,
-  animateArray
+	population,
+	material,
+	geometry,
+	positionArray,
+	scene,
+	animateArray
 ) {
-  for (let i = 0; i < population; i++) {
-    let xPos = THREE.MathUtils.randFloat(positionArray[0], positionArray[1]);
-    let yPos = THREE.MathUtils.randFloat(positionArray[2], positionArray[3]);
-    const mesh = new THREE.Mesh(geometry, material);
-    mesh.position.set(xPos, yPos, 0);
+	for (let i = 0; i < population; i++) {
+		let xPos = THREE.MathUtils.randFloat(positionArray[0], positionArray[1]);
+		let yPos = THREE.MathUtils.randFloat(positionArray[2], positionArray[3]);
+		const mesh = new THREE.Mesh(geometry, material);
+		mesh.position.set(xPos, yPos, 0);
 
-    //box3 bounding box
-    const BoundingB = new THREE.Box3(new THREE.Vector3(), new THREE.Vector3());
-    BoundingB.setFromObject(mesh);
+		//box3 bounding box
+		const BoundingB = new THREE.Box3(new THREE.Vector3(), new THREE.Vector3());
+		BoundingB.setFromObject(mesh);
 
-    scene.add(mesh);
-    animateArray.push(mesh);
-    BoundingBArray.push(BoundingB);
-  };
-};
-
-let gltfModel;
-
-loader.load("Resource/simple_human/scene.gltf", (gltf) => {
-	gltfModel = gltf.scene;
-
-	gltfModel.rotation.set(Math.PI / 2, 0, 0);
-	gltfModel.scale.set(0.5, 0.5, 0.5);
-
-	scene.add(gltfModel);
-});
+		scene.add(mesh);
+		animateArray.push(mesh);
+		BoundingBArray.push(BoundingB);
+	}
+}
 
 const cylG = new THREE.CylinderGeometry(12, 13, 49, 128);
 const cylM = new THREE.MeshBasicMaterial({ map: textureLoad });
@@ -227,19 +186,6 @@ cylinder.rotation.x = 1.555;
 cylinder.rotation.y = 0;
 cylinder.position.z = -24.9;
 scene.add(cylinder);
-
-const pt = new THREE.TextureLoader().load(/*"Resource/marioCastle.png"*/); //undo comment to get mario castle
-const pg = new THREE.PlaneGeometry(10, 10, 1, 1);
-const pm = new THREE.MeshBasicMaterial({ map: pt, transparent: true });
-const plane = new THREE.Mesh(pg, pm);
-plane.rotation.x = 149.21;
-scene.add(plane);
-plane.rotation.set(-5, 0, 0);
-
-// Set maximum rotation limits
-const maxPlaneRotationX = Math.PI / 1;
-const maxPlaneRotationY = Math.PI / 1;
-const maxPlaneRotationZ = Math.PI / 1;
 
 camera.position.z = 10;
 camera.position.y = -20;
@@ -263,22 +209,21 @@ randRotate(animateFi, speedsFi, rotationsFi);
 loader.load("Resource/islandsWall.glb", (gltf) => {
 	const tracedModel = gltf.scene;
 
-  // apply color to GLB model
-  const material = new THREE.MeshBasicMaterial({ color: 0xffffff }); // Replace 0xff0000 with your desired color
-  tracedModel.material = material;
-  tracedModel.traverse((node) => {
-    node.material = material;
-    material.transparent = true;
-    material.opacity = 0.5;
-  });
-
+	// apply color to GLB model
+	const material = new THREE.MeshBasicMaterial({ color: 0xffffff }); // Replace 0xff0000 with your desired color
+	tracedModel.material = material;
+	tracedModel.traverse((node) => {
+		node.material = material;
+		material.transparent = true;
+		material.opacity = 0.5;
+	});
 
 	scene.add(tracedModel);
 
 	tracedModel.position.set(xTM, yTM, zTM);
 	tracedModel.rotation.set(rTMx, rTMy, rTMz);
 	tracedModel.scale.set(4.7, 6, 6);
-	/*   tracedModel.scale.multiplyScalar(6); */
+	// tracedModel.scale.multiplyScalar(6); // removes walls
 });
 
 let xTM = -0.2,
@@ -296,32 +241,28 @@ const miny = -7.2;
 
 controls.autoRotateSpeed = 1;
 animateScene(
-  snowflakes,
-  maxPlaneRotationZ,
-  maxPlaneRotationY,
-  maxPlaneRotationX,
-  plane,
-  clock,
-  animateSe,
-  animateNo,
-  animateDk,
-  animateFi,
-  speedsSe,
-  speedsNo,
-  speedsDk,
-  speedsFi,
-  rotationsSe,
-  rotationsNo,
-  rotationsDk,
-  rotationsFi,
-  controls,
-  delta,
-  Lx,
-  Rx,
-  maxy,
-  miny,
-  camera,
-  scene,
-  renderer,
-  BoundingBArray
+	snowflakes,
+	clock,
+	animateSe,
+	animateNo,
+	animateDk,
+	animateFi,
+	speedsSe,
+	speedsNo,
+	speedsDk,
+	speedsFi,
+	rotationsSe,
+	rotationsNo,
+	rotationsDk,
+	rotationsFi,
+	controls,
+	delta,
+	Lx,
+	Rx,
+	maxy,
+	miny,
+	camera,
+	scene,
+	renderer,
+	BoundingBArray
 );
