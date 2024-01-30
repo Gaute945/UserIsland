@@ -92,7 +92,6 @@ export function animateScene(
 
     //update position of boundingbarray
     boundingSe[i].copy(animateSe[i].geometry.boundingBox).applyMatrix4(animateSe[i].matrixWorld);
-
     if (
       animateSe[i].position.x > Rx ||
       animateSe[i].position.x < Lx ||
@@ -107,10 +106,12 @@ export function animateScene(
         maxy,
         Math.max(miny, animateSe[i].position.y)
       );
-
       // Change direction and slightly rotate
       speedsSe[i] *= -1;
       rotationsSe[i] += THREE.MathUtils.randFloat(-Math.PI / 3, Math.PI / 3); // Rotate between -45 and 45 degrees
+    if(boundingSe[i].intersectsBox(BoundingBArray)){
+    };
+
     }
   }
   // Norway animation

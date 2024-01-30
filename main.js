@@ -161,8 +161,7 @@ function createMeshes(
   geometry,
   positionArray,
   scene,
-  animateArray,
-  //BoundingBArray,
+  animateArray
 ) {
   for (let i = 0; i < population; i++) {
     let xPos = THREE.MathUtils.randFloat(positionArray[0], positionArray[1]);
