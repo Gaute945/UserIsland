@@ -1,12 +1,5 @@
 {
   "dependencies": {
-    "three": "^0.160.0",
-    "three.js": "^0.77.1",
-    "yarn": "^1.22.21"
-  },
-  "devDependencies": {
-    "install": "^0.13.0",
-    "npm": "^10.2.5",
-    "vite": "^5.0.11"
+    "three": "^0.160.1"
   }
 }
