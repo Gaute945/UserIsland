@@ -69,14 +69,29 @@ export function animateScene(
       }
     } */
   
+  const boundingSe=[];
+  const boundingDk=[];
+  const boundingNo=[];
+  const boundingFi=[];
+  for (let i = 0; i < animateSe.length; i++) {
+    boundingSe.push(BoundingBArray[i]);
+  }
+  for (let i = 0; i < animateNo.length; i++) {
+    boundingNo.push(BoundingBArray[i]);
+  }
+  for (let i = 0; i < animateDk.length; i++) {
+    boundingDk.push(BoundingBArray[i]);
+  }
+  for (let i = 0; i < animateFi.length; i++) {
+    boundingFi.push(BoundingBArray[i]);
+  }
   // sweden animation
-
   for (let i = 0; i < animateSe.length; i++) {
     animateSe[i].position.x += speedsSe[i] * Math.cos(rotationsSe[i]) * delta;
     animateSe[i].position.y += speedsSe[i] * Math.sin(rotationsSe[i]) * delta;
 
     //update position of boundingbarray
-    BoundingBArray[i].copy(animateSe[i].geometry.boundingBox).applyMatrix4(animateSe[i].matrixWorld);
+    boundingSe[i].copy(animateSe[i].geometry.boundingBox).applyMatrix4(animateSe[i].matrixWorld);
 
     if (
       animateSe[i].position.x > Rx ||
@@ -102,8 +117,8 @@ export function animateScene(
   for (let i = 0; i < animateNo.length; i++) {
     animateNo[i].position.x += speedsNo[i] * Math.cos(rotationsNo[i]) * delta;
     animateNo[i].position.y += speedsNo[i] * Math.sin(rotationsNo[i]) * delta;
-    
-
+        //update position of boundingbarray
+        boundingNo[i].copy(animateNo[i].geometry.boundingBox).applyMatrix4(animateNo[i].matrixWorld);
     if (
       animateNo[i].position.x > Rx ||
       animateNo[i].position.x < Lx ||
@@ -129,7 +144,8 @@ export function animateScene(
   for (let i = 0; i < animateDk.length; i++) {
     animateDk[i].position.x += speedsDk[i] * Math.cos(rotationsDk[i]) * delta;
     animateDk[i].position.y += speedsDk[i] * Math.sin(rotationsDk[i]) * delta;
-
+        //update position of boundingbarray
+        boundingDk[i].copy(animateDk[i].geometry.boundingBox).applyMatrix4(animateDk[i].matrixWorld);
     if (
       animateDk[i].position.x > Rx ||
       animateDk[i].position.x < Lx ||
@@ -155,7 +171,8 @@ export function animateScene(
   for (let i = 0; i < animateFi.length; i++) {
     animateFi[i].position.x += speedsFi[i] * Math.cos(rotationsFi[i]) * delta;
     animateFi[i].position.y += speedsFi[i] * Math.sin(rotationsFi[i]) * delta;
-
+        //update position of boundingbarray
+        boundingFi[i].copy(animateFi[i].geometry.boundingBox).applyMatrix4(animateFi[i].matrixWorld);
     if (
       animateFi[i].position.x > Rx ||
       animateFi[i].position.x < Lx ||
