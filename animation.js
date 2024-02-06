@@ -52,20 +52,24 @@ export function animateScene(
 
   // sweden animation
   for (let i = 0; i < animateSe.length; i++) {
-    boundingSe[i]
-      .copy(animateSe[i].geometry.boundingBox)
-      .applyMatrix4(animateSe[i].matrixWorld);
-
-    if (boundingSe[i].intersectsBox(wallBB)) {
-      animateSe[i].position.x += speedsSe[i] * Math.cos(rotationsSe[i]) * delta;
-      animateSe[i].position.y += speedsSe[i] * Math.sin(rotationsSe[i]) * delta;
-    }
-	else{
-		animateSe[i].position.z = 1
+	boundingSe[i]
+	  .copy(animateSe[i].geometry.boundingBox)
+	  .applyMatrix4(animateSe[i].matrixWorld);
+  
+	if (boundingSe[i].intersectsBox(wallBB)) {
+	  animateSe[i].position.x += speedsSe[i] * Math.cos(rotationsSe[i]) * delta;
+	  animateSe[i].position.y += speedsSe[i] * Math.sin(rotationsSe[i]) * delta;
+	} else {
+	  animateSe[i].position.x -= speedsSe[i] * Math.cos(rotationsSe[i]) * delta;
+	  animateSe[i].position.y -= speedsSe[i] * Math.sin(rotationsSe[i]) * delta;
+	  rotationsSe[i] += THREE.MathUtils.randFloat(-Math.PI / 1, Math.PI / 1); // Rotate between -45 and 45 degrees
 	}
   }
-
-  /*  // Norway animation
+  
+  
+  
+  
+    // Norway animation
 	for (let i = 0; i < animateNo.length; i++) {
 		animateNo[i].position.x += speedsNo[i] * Math.cos(rotationsNo[i]) * delta;
 		animateNo[i].position.y += speedsNo[i] * Math.sin(rotationsNo[i]) * delta;
@@ -94,7 +98,7 @@ export function animateScene(
 			rotationsNo[i] += THREE.MathUtils.randFloat(-Math.PI / 3, Math.PI / 3); // Rotate between -45 and 45 degrees
 		}
 	}
-
+/*
 	// denmark animation
 	for (let i = 0; i < animateDk.length; i++) {
 		animateDk[i].position.x += speedsDk[i] * Math.cos(rotationsDk[i]) * delta;
