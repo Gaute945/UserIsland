@@ -4,6 +4,7 @@ import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 
 // user docs
 import { animateScene } from "./animation";
+import { color } from "dat.gui";
 
 const loader = new GLTFLoader();
 const appMode = "";
@@ -162,6 +163,7 @@ function createMeshes(
 	scene,
 	animateArray
 ) {
+	//create cubes
 	for (let i = 0; i < population; i++) {
 		let xPos = THREE.MathUtils.randFloat(positionArray[0], positionArray[1]);
 		let yPos = THREE.MathUtils.randFloat(positionArray[2], positionArray[3]);
@@ -205,7 +207,7 @@ randRotate(animateSe, speedsSe, rotationsSe);
 randRotate(animateNo, speedsNo, rotationsNo);
 randRotate(animateDk, speedsDk, rotationsDk);
 randRotate(animateFi, speedsFi, rotationsFi);
-
+/* 
 loader.load("Resource/islandsWall.glb", (gltf) => {
 	const tracedModel = gltf.scene;
 
@@ -224,7 +226,15 @@ loader.load("Resource/islandsWall.glb", (gltf) => {
 	tracedModel.rotation.set(rTMx, rTMy, rTMz);
 	tracedModel.scale.set(4.7, 6, 6);
 	// tracedModel.scale.multiplyScalar(6); // removes walls
-});
+}); */
+//island wall
+const wallMesh = new THREE.Mesh(
+	new THREE.BoxGeometry(6,4, 5),
+	new THREE.MeshPhongMaterial({ wireframe: true }));
+wallMesh.position.set(3.5, 4.5, 1); 
+wallMesh.rotation.x = 4.7;
+scene.add(wallMesh);
+const wallBB = new THREE.Box3().setFromObject(wallMesh);
 
 let xTM = -0.2,
 	yTM = 0.2,
@@ -264,5 +274,7 @@ animateScene(
 	camera,
 	scene,
 	renderer,
-	BoundingBArray
+	BoundingBArray,
+	wallMesh,
+	wallBB
 );

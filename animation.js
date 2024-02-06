@@ -1,73 +1,72 @@
 import * as THREE from "three";
 export function animateScene(
-	snowflakes,
-	clock,
-	animateSe,
-	animateNo,
-	animateDk,
-	animateFi,
-	speedsSe,
-	speedsNo,
-	speedsDk,
-	speedsFi,
-	rotationsSe,
-	rotationsNo,
-	rotationsDk,
-	rotationsFi,
-	controls,
-	delta,
-	Lx,
-	Rx,
-	maxy,
-	miny,
-	camera,
-	scene,
-	renderer,
-	BoundingBArray
+  snowflakes,
+  clock,
+  animateSe,
+  animateNo,
+  animateDk,
+  animateFi,
+  speedsSe,
+  speedsNo,
+  speedsDk,
+  speedsFi,
+  rotationsSe,
+  rotationsNo,
+  rotationsDk,
+  rotationsFi,
+  controls,
+  delta,
+  Lx,
+  Rx,
+  maxy,
+  miny,
+  camera,
+  scene,
+  renderer,
+  BoundingBArray,
+  wallMesh,
+  wallBB
 ) {
-	delta = clock.getDelta();
-
+  delta = clock.getDelta();
   // OrbitControls update
-	controls.update(delta);
+  controls.update(delta);
 
   // Rotate the snowflakes
-	snowflakes.rotation.y += 0.001;
-
-	const boundingSe = [];
-	const boundingDk = [];
-	const boundingNo = [];
-	const boundingFi = [];
-	for (let i = 0; i < animateSe.length; i++) {
-		boundingSe.push(BoundingBArray[i]);
-	}
-	for (let i = 0; i < animateNo.length; i++) {
-		boundingNo.push(BoundingBArray[i]);
-	}
-	for (let i = 0; i < animateDk.length; i++) {
-		boundingDk.push(BoundingBArray[i]);
-	}
-	for (let i = 0; i < animateFi.length; i++) {
-		boundingFi.push(BoundingBArray[i]);
-	}
-
-  // sweden animation
-/*    for (let i = 0; i < animateSe.length; i++) {
-    animateSe[i].position.x += speedsSe[i] * Math.cos(rotationsSe[i]) * delta;
-    animateSe[i].position.y += speedsSe[i] * Math.sin(rotationsSe[i]) * delta;
-
-    //update position of boundingbarray
-    boundingSe[i].copy(animateSe[i].geometry.boundingBox).applyMatrix4(animateSe[i].matrixWorld);
-    for (let j = 0; j < animateSe.length; j++) {
-      if (i !== j && boundingSe[i].intersectsBox(boundingSe[j])) {
-          // Cubes i and j intersect, so change their directions
-          speedsSe[i] = -speedsSe[i];
-          speedsSe[j] = -speedsSe[j];
-      }
+  snowflakes.rotation.y += 0.001;
+  const boundingSe = [];
+  const boundingDk = [];
+  const boundingNo = [];
+  const boundingFi = [];
+  for (let i = 0; i < animateSe.length; i++) {
+    boundingSe.push(BoundingBArray[i]);
+  }
+  for (let i = 0; i < animateNo.length; i++) {
+    boundingNo.push(BoundingBArray[i]);
+  }
+  for (let i = 0; i < animateDk.length; i++) {
+    boundingDk.push(BoundingBArray[i]);
+  }
+  for (let i = 0; i < animateFi.length; i++) {
+    boundingFi.push(BoundingBArray[i]);
   }
 
-  }  */
+  // sweden animation
+  for (let i = 0; i < animateSe.length; i++) {
+    boundingSe[i]
+      .copy(animateSe[i].geometry.boundingBox)
+      .applyMatrix4(animateSe[i].matrixWorld);
 
-  // Norway animation
+    if (boundingSe[i].intersectsBox(wallBB)) {
+      animateSe[i].position.x += speedsSe[i] * Math.cos(rotationsSe[i]) * delta;
+      animateSe[i].position.y += speedsSe[i] * Math.sin(rotationsSe[i]) * delta;
+
+    }
+	else{
+		console.log("error")
+	}
+  }
+
+  /*  // Norway animation
 	for (let i = 0; i < animateNo.length; i++) {
 		animateNo[i].position.x += speedsNo[i] * Math.cos(rotationsNo[i]) * delta;
 		animateNo[i].position.y += speedsNo[i] * Math.sin(rotationsNo[i]) * delta;
@@ -154,42 +153,44 @@ export function animateScene(
 			speedsFi[i] *= -1;
 			rotationsFi[i] += THREE.MathUtils.randFloat(-Math.PI / 3, Math.PI / 3); // Rotate between -45 and 45 degrees
 		}
-	}
+	} */
 
-	// Handle window resize
-	window.addEventListener("resize", () => {
-		camera.aspect = window.innerWidth / window.innerHeight;
-		camera.updateProjectionMatrix();
-		renderer.setSize(window.innerWidth, window.innerHeight);
-	});
+  // Handle window resize
+  window.addEventListener("resize", () => {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+  });
 
-	renderer.render(scene, camera);
-	requestAnimationFrame(() =>
-		animateScene(
-			snowflakes,
-			clock,
-			animateSe,
-			animateNo,
-			animateDk,
-			animateFi,
-			speedsSe,
-			speedsNo,
-			speedsDk,
-			speedsFi,
-			rotationsSe,
-			rotationsNo,
-			rotationsDk,
-			rotationsFi,
-			controls,
-			delta,
-			Lx,
-			Rx,
-			maxy,
-			miny,
-			camera,
-			scene,
-			renderer,
-			BoundingBArray
-		)
-	);
+  renderer.render(scene, camera);
+  requestAnimationFrame(() =>
+    animateScene(
+      snowflakes,
+      clock,
+      animateSe,
+      animateNo,
+      animateDk,
+      animateFi,
+      speedsSe,
+      speedsNo,
+      speedsDk,
+      speedsFi,
+      rotationsSe,
+      rotationsNo,
+      rotationsDk,
+      rotationsFi,
+      controls,
+      delta,
+      Lx,
+      Rx,
+      maxy,
+      miny,
+      camera,
+      scene,
+      renderer,
+      BoundingBArray,
+      wallMesh,
+      wallBB
+    )
+  );
 }
