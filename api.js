@@ -1,6 +1,8 @@
 const express = require("express");
 const cors = require("cors");
 
+let ammount = 0;
+
 function getRandomNumber(min, max) {
 	return Math.floor(Math.random() * (max - min + 1)) + min;
 }
@@ -22,7 +24,8 @@ app.get("/api/users", (req, res) => {
 	];
 
 	res.json(dataStore);
-	console.log("request sent");
+	console.log("request " + ammount + " sent");
+	ammount++;
 });
 
 app.post("/api/users", (req, res) => {
