@@ -59,10 +59,9 @@ export function animateScene(
     if (boundingSe[i].intersectsBox(wallBB)) {
       animateSe[i].position.x += speedsSe[i] * Math.cos(rotationsSe[i]) * delta;
       animateSe[i].position.y += speedsSe[i] * Math.sin(rotationsSe[i]) * delta;
-
     }
 	else{
-		console.log("error")
+		animateSe[i].position.z = 1
 	}
   }
 
