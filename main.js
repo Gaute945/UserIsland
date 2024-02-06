@@ -8,13 +8,6 @@ import { animateScene } from "./animation";
 const loader = new GLTFLoader();
 const appMode = "";
 
-// Function to generate a random integer between min and max (inclusive)
-function getRandomInt(min, max) {
-	min = Math.ceil(min);
-	max = Math.floor(max);
-	return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
 const clock = new THREE.Clock();
 
 const scene = new THREE.Scene();
@@ -25,6 +18,16 @@ const camera = new THREE.PerspectiveCamera(
 	0.1,
 	1000
 );
+
+setTimeout(function() {
+	location.reload();
+}, 60000); // 60000 milliseconds = 1 minute
+
+function getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min)) + min;
+}
 
 const renderer = new THREE.WebGLRenderer({ antialiasing: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
@@ -131,17 +134,56 @@ async function fetchApi() {
 		populationDk = json[2].number;
 		populationFi = json[3].number;
 
-		const sef = new THREE.MeshBasicMaterial({ color: 0xecb920 }); // colored mesh for sweden
-		const nof = new THREE.MeshBasicMaterial({ color: 0x009999 }); // colored mesh for norway
-		const dkf = new THREE.MeshBasicMaterial({ color: 0xf44336 }); // colored mesh for denmark
-		const fif = new THREE.MeshBasicMaterial({ color: 0xd5d5d5 }); // colored mesh for finland
+		const sef = new THREE.MeshBasicMaterial({ color: 0xecb920 }); 
+		const nof = new THREE.MeshBasicMaterial({ color: 0x009999 }); 
+		const dkf = new THREE.MeshBasicMaterial({ color: 0xf44336 }); 
+		const fif = new THREE.MeshBasicMaterial({ color: 0xd5d5d5 }); 
 
 		const box = new THREE.BoxGeometry(0.3, 0.3, 0.3);
 
-		createMeshes(populationSe, sef, box, [3.6, 3.6, 4.5, 4.5], scene, animateSe, BoundingBArray);
-		createMeshes(populationNo, nof, box, [-5, -5, 4, 4], scene, animateNo, BoundingBArray);
-		createMeshes(populationDk, dkf, box, [5, 5, -5, -5], scene, animateDk), BoundingBArray;
-		createMeshes(populationFi, fif, box, [-5, -5, -5, -5], scene, animateFi), BoundingBArray;
+		createMeshes
+		(
+			populationSe, 
+			sef, 
+			box, 
+			[3.6, 3.6, 4.5, 4.5], 
+			scene, 
+			animateSe), 
+			BoundingBArray
+		;
+		
+		createMeshes
+		(
+			populationNo, 
+			nof, 
+			box, 
+			[-5, -5, 4, 4], 
+			scene, 
+			animateNo), 
+			BoundingBArray
+		;
+		
+		createMeshes
+		(
+			populationDk, 
+			dkf, 
+			box, 
+			[5, 5, -5, -5], 
+			scene, 
+			animateDk),
+			BoundingBArray
+		;
+		
+		createMeshes
+		(
+			populationFi, 
+			fif, 
+			box, 
+			[-5, -5, -5, -5], 
+			scene, 
+			animateFi), 
+			BoundingBArray
+		;
 
 		document.getElementById("no").innerHTML = "No " + Math.ceil(populationNo);
 		document.getElementById("se").innerHTML = "Se " + Math.ceil(populationSe);
@@ -197,7 +239,8 @@ let delta;
 function randRotate(animateCountry, speedsCountry, rotationsCountry) {
 	for (let i = 0; i < animateCountry.length; i++) {
 		speedsCountry[i] = THREE.MathUtils.randFloat(0.1, 2);
-		rotationsCountry[i] = THREE.MathUtils.randFloat(0, Math.PI / 2); // Random rotation between 0 and 90 degrees
+		rotationsCountry[i] = THREE.MathUtils.randFloat(0, Math.PI / 2); 
+		// Random rotation between 0 and 90 degrees
 	}
 }
 
@@ -210,7 +253,8 @@ loader.load("Resource/islandsWall.glb", (gltf) => {
 	const tracedModel = gltf.scene;
 
 	// apply color to GLB model
-	const material = new THREE.MeshBasicMaterial({ color: 0xffffff }); // Replace 0xff0000 with your desired color
+	const material = new THREE.MeshBasicMaterial({ color: 0xffffff }); 
+	// Replace 0xff0000 with your desired color
 	tracedModel.material = material;
 	tracedModel.traverse((node) => {
 		node.material = material;
