@@ -6,6 +6,7 @@ import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { animateScene } from "./animation";
 
 const loader = new GLTFLoader();
+
 const appMode = "";
 
 const clock = new THREE.Clock();
