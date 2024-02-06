@@ -4,7 +4,6 @@ import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 
 // user docs
 import { animateScene } from "./animation";
-import { color } from "dat.gui";
 
 const loader = new GLTFLoader();
 
