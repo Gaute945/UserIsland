@@ -25,7 +25,8 @@ export function animateScene(
   renderer,
   BoundingBArray,
   wallMesh,
-  wallBB
+  wallBB,
+  wallBBN
 ) {
   delta = clock.getDelta();
   // OrbitControls update
@@ -66,11 +67,24 @@ export function animateScene(
 	}
   }
   
-  
-  
+
   
     // Norway animation
 	for (let i = 0; i < animateNo.length; i++) {
+		boundingNo[i]
+		  .copy(animateNo[i].geometry.boundingBox)
+		  .applyMatrix4(animateNo[i].matrixWorld);
+	  
+		if (boundingNo[i].intersectsBox(wallBBN)) {
+		  animateNo[i].position.x += speedsNo[i] * Math.cos(rotationsNo[i]) * delta;
+		  animateNo[i].position.y += speedsNo[i] * Math.sin(rotationsNo[i]) * delta;
+		} else {
+		  animateNo[i].position.x -= speedsNo[i] * Math.cos(rotationsNo[i]) * delta;
+		  animateNo[i].position.y -= speedsNo[i] * Math.sin(rotationsNo[i]) * delta;
+		  rotationsNo[i] += THREE.MathUtils.randFloat(-Math.PI / 1, Math.PI / 1); // Rotate between -45 and 45 degrees
+		}
+	  }
+/* 	for (let i = 0; i < animateNo.length; i++) {
 		animateNo[i].position.x += speedsNo[i] * Math.cos(rotationsNo[i]) * delta;
 		animateNo[i].position.y += speedsNo[i] * Math.sin(rotationsNo[i]) * delta;
 
@@ -97,7 +111,7 @@ export function animateScene(
 			speedsNo[i] *= -1;
 			rotationsNo[i] += THREE.MathUtils.randFloat(-Math.PI / 3, Math.PI / 3); // Rotate between -45 and 45 degrees
 		}
-	}
+	} */
 /*
 	// denmark animation
 	for (let i = 0; i < animateDk.length; i++) {
@@ -193,7 +207,8 @@ export function animateScene(
       renderer,
       BoundingBArray,
       wallMesh,
-      wallBB
+      wallBB,
+	  wallBBN
     )
   );
 }

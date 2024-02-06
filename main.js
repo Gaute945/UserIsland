@@ -4,7 +4,6 @@ import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 
 // user docs
 import { animateScene } from "./animation";
-import { color } from "dat.gui";
 
 const loader = new GLTFLoader();
 
@@ -251,8 +250,8 @@ randRotate(animateSe, speedsSe, rotationsSe);
 randRotate(animateNo, speedsNo, rotationsNo);
 randRotate(animateDk, speedsDk, rotationsDk);
 randRotate(animateFi, speedsFi, rotationsFi);
-/* 
-loader.load("Resource/islandsWall.glb", (gltf) => {
+
+/* loader.load("Resource/islandsWall.glb", (gltf) => {
 	const tracedModel = gltf.scene;
 
 	// apply color to GLB model
@@ -280,6 +279,16 @@ wallMesh.position.set(3.5, 4.5, 1);
 wallMesh.rotation.x = 4.7;
 scene.add(wallMesh);
 const wallBB = new THREE.Box3().setFromObject(wallMesh);
+//norway wall
+const wallMeshN = new THREE.Mesh(
+	new THREE.BoxGeometry(7,4, 3.5),
+	new THREE.MeshPhongMaterial({ wireframe: true }));
+wallMeshN.position.set(-5.7, 5.5, 1); 
+wallMeshN.rotation.x = 4.7;
+wallMeshN.rotation.y = 1
+scene.add(wallMeshN);
+const wallBBN = new THREE.Box3().setFromObject(wallMeshN);
+
 
 let xTM = -0.2,
 	yTM = 0.2,
@@ -321,5 +330,6 @@ animateScene(
 	renderer,
 	BoundingBArray,
 	wallMesh,
-	wallBB
+	wallBB,
+	wallBBN
 );
