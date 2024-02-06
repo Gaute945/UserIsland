@@ -129,7 +129,7 @@ let populationFi;
 
 async function fetchApi() {
 	try {
-		const data = await fetch("http://localhost:3000/api/users");
+		const data = await fetch("http://localhost:3000/api");
 		let json = await data.json();
 		populationSe = json[0].number;
 		populationNo = json[1].number;
