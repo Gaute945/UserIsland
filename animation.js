@@ -75,7 +75,7 @@ export function animateScene(
 		  .copy(animateNo[i].geometry.boundingBox)
 		  .applyMatrix4(animateNo[i].matrixWorld);
 	  
-		if (boundingNo[i].intersectsBox(wallBBN)) {
+		if (boundingNo[i].intersectsSphere(wallBBN)) {
 		  animateNo[i].position.x += speedsNo[i] * Math.cos(rotationsNo[i]) * delta;
 		  animateNo[i].position.y += speedsNo[i] * Math.sin(rotationsNo[i]) * delta;
 		} else {

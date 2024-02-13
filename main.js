@@ -240,7 +240,7 @@ let delta;
 
 function randRotate(animateCountry, speedsCountry, rotationsCountry) {
 	for (let i = 0; i < animateCountry.length; i++) {
-		speedsCountry[i] = THREE.MathUtils.randFloat(0.1, 2);
+		speedsCountry[i] = THREE.MathUtils.randFloat(0.1, 1);
 		rotationsCountry[i] = THREE.MathUtils.randFloat(0, Math.PI / 2); 
 		// Random rotation between 0 and 90 degrees
 	}
@@ -281,15 +281,13 @@ scene.add(wallMesh);
 const wallBB = new THREE.Box3().setFromObject(wallMesh);
 //norway wall
 const wallMeshN = new THREE.Mesh(
-	new THREE.BoxGeometry(7,4, 3.5),
+	new THREE.SphereGeometry(3),
 	new THREE.MeshPhongMaterial({ wireframe: true }));
-wallMeshN.position.set(-5.7, 5.5, 1); 
-wallMeshN.rotation.x = 4.7;
-wallMeshN.rotation.y = 1
+wallMeshN.position.set(-5,4.5,0); 
+const wallBBN = new THREE.Sphere(wallMeshN.position,2.3)
 scene.add(wallMeshN);
-const wallBBN = new THREE.Box3().setFromObject(wallMeshN);
-
-
+console.log(wallBBN)
+console.log(wallMeshN)
 let xTM = -0.2,
 	yTM = 0.2,
 	zTM = -10.48,
