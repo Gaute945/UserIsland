@@ -20,9 +20,26 @@ const camera = new THREE.PerspectiveCamera(
 	1000
 );
 
-setTimeout(function() {
-	location.reload();
-}, 60000); // 60000 milliseconds = 1 minute
+const light = new THREE.AmbientLight( 0x404040 ); // soft white light
+light.intensity = 50
+scene.add( light );
+
+loader.load("Resource/Nise3D/BlaNise.gltf", function (gltf) {
+	
+	var modelGroup = gltf.scene;
+    // modelMesh.position.set(0, 0, 0); // Position the model
+    // modelMesh.scale.set(0.1, 0.1, 0.1); // Scale the model
+
+	// Add each mesh in the model group to the scene
+    modelGroup.children.forEach(function (child) {
+        // You can apply materials or perform other operations on each mesh if needed
+        scene.add(child);
+    });
+});
+
+// setTimeout(function() {
+//	location.reload();
+//}, 60000); // 60000 milliseconds = 1 minute
 
 function getRandomInt(min, max) {
     min = Math.ceil(min);
@@ -144,6 +161,7 @@ async function fetchApi() {
 
 		createMeshes
 		(
+			"se",
 			populationSe, 
 			sef, 
 			box, 
@@ -155,6 +173,7 @@ async function fetchApi() {
 		
 		createMeshes
 		(
+			"no",
 			populationNo, 
 			nof, 
 			box, 
@@ -166,6 +185,7 @@ async function fetchApi() {
 		
 		createMeshes
 		(
+			"dk",
 			populationDk, 
 			dkf, 
 			box, 
@@ -177,6 +197,7 @@ async function fetchApi() {
 		
 		createMeshes
 		(
+			"fi",
 			populationFi, 
 			fif, 
 			box, 
@@ -198,12 +219,13 @@ async function fetchApi() {
 await fetchApi();
 
 function createMeshes(
+	name,
 	population,
 	material,
 	geometry,
 	positionArray,
 	scene,
-	animateArray
+	animateArray,
 ) {
 	//create cubes
 	for (let i = 0; i < population; i++) {
@@ -211,7 +233,8 @@ function createMeshes(
 		let yPos = THREE.MathUtils.randFloat(positionArray[2], positionArray[3]);
 		const mesh = new THREE.Mesh(geometry, material);
 		mesh.position.set(xPos, yPos, 0);
-
+		mesh.name = name
+		
 		//box3 bounding box
 		const BoundingB = new THREE.Box3(new THREE.Vector3(), new THREE.Vector3());
 		BoundingB.setFromObject(mesh);
@@ -219,8 +242,11 @@ function createMeshes(
 		scene.add(mesh);
 		animateArray.push(mesh);
 		BoundingBArray.push(BoundingB);
+		
 	}
 }
+
+console.log(scene.children);
 
 const cylG = new THREE.CylinderGeometry(12, 13, 49, 128);
 const cylM = new THREE.MeshBasicMaterial({ map: textureLoad });
