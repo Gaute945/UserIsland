@@ -21,24 +21,24 @@ body {
 
 #no {
   padding: 0em 0.4em;
-  color: blue;
+  color: #009999;
 }
 
 #se {
-  padding: 0em 0.4em;
-  color: yellow;
+  padding: 0em 1em;
+  color: #ecb920;
 }
 
 #dk {
   padding: 0em 0.4em;
-  color: red;
+  color: #f44336;
 }
 
 #fi {
   padding: 0em 0.4em;
-  color: white;
+  color: #d5d5d5;
 }
 @font-face{
   font-family: retro;
-  src: url(retro.otf);
+  src: url(Resource/FreeSansBold.otf);
 }

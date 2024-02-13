@@ -161,10 +161,10 @@ async function fetchApi() {
     createMeshes(populationFi, fif, box, [-5, -5, -5, -5], scene, animateFi),
       BoundingBArray;
 
-    document.getElementById("no").innerHTML = "No " + Math.ceil(populationNo);
-    document.getElementById("se").innerHTML = "Se " + Math.ceil(populationSe);
-    document.getElementById("dk").innerHTML = "Dk " + Math.ceil(populationDk);
-    document.getElementById("fi").innerHTML = "Fi " + Math.ceil(populationFi);
+    document.getElementById("no").innerHTML = "No:" + Math.ceil(populationNo);
+    document.getElementById("se").innerHTML = "Se:" + Math.ceil(populationSe);
+    document.getElementById("dk").innerHTML = "Dk:" + Math.ceil(populationDk);
+    document.getElementById("fi").innerHTML = "Fi:" + Math.ceil(populationFi);
   } catch (error) {
     console.error(error);
   }
@@ -250,7 +250,7 @@ randRotate(animateFi, speedsFi, rotationsFi);
 
 //############################################
 //makes the bounding box wireframe dissapear
-let isvisable = false
+let isvisable = true
 //############################################
 
 //Swedish container(Unciviliced cunts)
@@ -283,11 +283,6 @@ const wallMeshF = new THREE.Mesh(
   const wallBBF = new THREE.Sphere(wallMeshF.position, 1.8);
   if(isvisable == true){
   scene.add(wallMeshF,wallMeshD,wallMeshN,wallMesh)}
-// for stop condition collision borders
-const Lx = -7.7;
-const Rx = 7.7;
-const maxy = 6;
-const miny = -7.2;
 
 controls.autoRotateSpeed = 1;
 animateScene(
@@ -307,10 +302,6 @@ animateScene(
   rotationsFi,
   controls,
   delta,
-  Lx,
-  Rx,
-  maxy,
-  miny,
   camera,
   scene,
   renderer,
