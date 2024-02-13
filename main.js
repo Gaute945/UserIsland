@@ -246,14 +246,20 @@ randRotate(animateFi, speedsFi, rotationsFi);
 	tracedModel.scale.set(4.7, 6, 6);
 	// tracedModel.scale.multiplyScalar(6); // removes walls
 }); */
+//
+
+//############################################
+//makes the bounding box wireframe dissapear
+let isvisable = false
+//############################################
+
 //Swedish container(Unciviliced cunts)
 const wallMesh = new THREE.Mesh(
   new THREE.SphereGeometry(3),
-  new THREE.MeshPhongMaterial({ wireframe: true })
+  new THREE.MeshPhongMaterial({ wireframe: isvisable })
 );
 wallMesh.position.set(3.5, 4.5, 0);
 const wallBB = new THREE.Sphere(wallMesh.position, 2.4);
-scene.add(wallMesh);
 //norway contaier
 const wallMeshN = new THREE.Mesh(
   new THREE.SphereGeometry(3),
@@ -261,7 +267,6 @@ const wallMeshN = new THREE.Mesh(
 );
 wallMeshN.position.set(-5, 4.5, 0);
 const wallBBN = new THREE.Sphere(wallMeshN.position, 2.3);
-scene.add(wallMeshN);
 //Danish container
 const wallMeshD = new THREE.Mesh(
 	new THREE.SphereGeometry(3.5),
@@ -269,7 +274,6 @@ const wallMeshD = new THREE.Mesh(
   );
   wallMeshD.position.set(5, -4, 0);
   const wallBBD = new THREE.Sphere(wallMeshD.position, 3);
-  scene.add(wallMeshD);
 //Container for Alcoholics(finish)
 const wallMeshF = new THREE.Mesh(
 	new THREE.SphereGeometry(2),
@@ -277,7 +281,8 @@ const wallMeshF = new THREE.Mesh(
   );
   wallMeshF.position.set(-5, -5.3, 0);
   const wallBBF = new THREE.Sphere(wallMeshF.position, 1.8);
-  scene.add(wallMeshF);
+  if(isvisable == true){
+  scene.add(wallMeshF,wallMeshD,wallMeshN,wallMesh)}
 // for stop condition collision borders
 const Lx = -7.7;
 const Rx = 7.7;
