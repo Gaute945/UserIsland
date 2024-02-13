@@ -256,7 +256,7 @@ let isvisable = false
 //Swedish container(Unciviliced cunts)
 const wallMesh = new THREE.Mesh(
   new THREE.SphereGeometry(3),
-  new THREE.MeshPhongMaterial({ wireframe: isvisable })
+  new THREE.MeshPhongMaterial({ wireframe: true })
 );
 wallMesh.position.set(3.5, 4.5, 0);
 const wallBB = new THREE.Sphere(wallMesh.position, 2.4);

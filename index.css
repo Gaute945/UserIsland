@@ -1,5 +1,6 @@
 body {
   margin: 0;
+  font-family: retro;
 }
 #eventButton {
   position: absolute;
@@ -36,4 +37,8 @@ body {
 #fi {
   padding: 0em 0.4em;
   color: white;
+}
+@font-face{
+  font-family: retro;
+  src: url(retro.otf);
 }
