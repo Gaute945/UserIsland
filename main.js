@@ -225,27 +225,22 @@ randRotate(animateSe, speedsSe, rotationsSe);
 randRotate(animateNo, speedsNo, rotationsNo);
 randRotate(animateDk, speedsDk, rotationsDk);
 randRotate(animateFi, speedsFi, rotationsFi);
+//ambientlight
+const color = 0xFFFFFF;
+const intensity = 4;
+const light = new THREE.AmbientLight(color, intensity);
+//nise
+scene.add(light);
+loader.load("Resource/lowpolyblanise.glb", (gltf) => {
+	const blanise = gltf.scene;
+	scene.add(blanise)
+	blanise.position.set(0,0,0.4)
+	blanise.rotation.y = -1.5
+	blanise.rotation.x = 1.5
+	console.log(blanise)
+	blanise.scale.set(0.1,0.1,0.1)
+});
 
-/* loader.load("Resource/islandsWall.glb", (gltf) => {
-	const tracedModel = gltf.scene;
-
-	// apply color to GLB model
-	const material = new THREE.MeshBasicMaterial({ color: 0xffffff }); 
-	// Replace 0xff0000 with your desired color
-	tracedModel.material = material;
-	tracedModel.traverse((node) => {
-		node.material = material;
-		material.transparent = true;
-		material.opacity = 0.5;
-	});
-
-	scene.add(tracedModel);
-
-	tracedModel.position.set(xTM, yTM, zTM);
-	tracedModel.rotation.set(rTMx, rTMy, rTMz);
-	tracedModel.scale.set(4.7, 6, 6);
-	// tracedModel.scale.multiplyScalar(6); // removes walls
-}); */
 //
 
 //############################################
