@@ -225,23 +225,7 @@ randRotate(animateSe, speedsSe, rotationsSe);
 randRotate(animateNo, speedsNo, rotationsNo);
 randRotate(animateDk, speedsDk, rotationsDk);
 randRotate(animateFi, speedsFi, rotationsFi);
-//ambientlight
-const color = 0xFFFFFF;
-const intensity = 4;
-const light = new THREE.AmbientLight(color, intensity);
-//nise
-scene.add(light);
-loader.load("Resource/lowpolyblanise.glb", (gltf) => {
-	const blanise = gltf.scene;
-	scene.add(blanise)
-	blanise.position.set(0,0,0.4)
-	blanise.rotation.y = -1.5
-	blanise.rotation.x = 1.5
-	console.log(blanise)
-	blanise.scale.set(0.1,0.1,0.1)
-});
 
-//
 
 //############################################
 //makes the bounding box wireframe dissapear
