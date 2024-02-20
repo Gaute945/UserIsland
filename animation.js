@@ -24,7 +24,8 @@ export function animateScene(
   wallBB,
   wallBBN,
   wallBBD,
-  wallBBF
+  wallBBF,
+  cylinder
 ) {
   delta = clock.getDelta();
   // OrbitControls update
@@ -48,23 +49,28 @@ export function animateScene(
   for (let i = 0; i < animateFi.length; i++) {
     boundingFi.push(BoundingBArray[i]);
   }
+  //
+
+
+
 
   // sweden animation
   for (let i = 0; i < animateSe.length; i++) {
-	boundingSe[i]
-	  .copy(animateSe[i].geometry.boundingBox)
-	  .applyMatrix4(animateSe[i].matrixWorld);
-  
-	if (boundingSe[i].intersectsSphere(wallBB)) {
-	  animateSe[i].position.x += speedsSe[i] * Math.cos(rotationsSe[i]) * delta;
-	  animateSe[i].position.y += speedsSe[i] * Math.sin(rotationsSe[i]) * delta;
-	} else {
-	  animateSe[i].position.x -= speedsSe[i] * Math.cos(rotationsSe[i]) * delta;
-	  animateSe[i].position.y -= speedsSe[i] * Math.sin(rotationsSe[i]) * delta;
-	  rotationsSe[i] += THREE.MathUtils.randFloat(-Math.PI / 1, Math.PI / 1); // Rotate between -45 and 45 degrees
-	}
-  }
-  
+    boundingSe[i]
+      .copy(animateSe[i].geometry.boundingBox)
+      .applyMatrix4(animateSe[i].matrixWorld);
+
+    if (boundingSe[i].intersectsSphere(wallBB)) {
+      animateSe[i].position.x += speedsSe[i] * Math.cos(rotationsSe[i]) * delta;
+      animateSe[i].position.y += speedsSe[i] * Math.sin(rotationsSe[i]) * delta;
+    } else {
+      const speedMultiplier = speedsSe[i] * delta;
+      animateSe[i].position.x -= speedMultiplier * Math.cos(rotationsSe[i]);
+      animateSe[i].position.y -= speedMultiplier * Math.sin(rotationsSe[i]);
+      rotationsSe[i] += THREE.MathUtils.randFloat(-Math.PI / 1, Math.PI / 1); // Rotate between -45 and 45 degrees
+    }
+}
+
 
   
     // Norway animation
@@ -146,7 +152,8 @@ export function animateScene(
       wallBB,
 	  wallBBN,
 	  wallBBD,
-	  wallBBF
+	  wallBBF,
+    cylinder
     )
   );
 }

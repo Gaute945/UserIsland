@@ -34,8 +34,15 @@ const renderer = new THREE.WebGLRenderer({ antialiasing: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
-const controls = new OrbitControls(camera, renderer.domElement);
+//background
+const sexymantex = new THREE.TextureLoader().load('Resource/scNqFDf.jpg')
+scene.background = sexymantex;
 
+const controls = new OrbitControls(camera, renderer.domElement);
+camera.position.set(0, -20, 20 );/* 
+controls.autoRotate = true;
+controls.autoRotateSpeed *= 1; */
+console.log(controls);
 // Create snowflake geometry and material
 const snowflakeGeometry = new THREE.BufferGeometry();
 const snowflakeMaterial = new THREE.PointsMaterial({
@@ -206,9 +213,7 @@ cylinder.rotation.y = 0;
 cylinder.position.z = -24.9;
 scene.add(cylinder);
 
- camera.position.z = 10;
-camera.position.y = -20;
-camera.position.x = 0; 
+
 
 // delta time
 let delta;
@@ -289,5 +294,6 @@ animateScene(
   wallBB,
   wallBBN,
   wallBBD,
-  wallBBF
+  wallBBF,
+  cylinder
 );
