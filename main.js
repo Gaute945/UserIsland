@@ -206,9 +206,9 @@ cylinder.rotation.y = 0;
 cylinder.position.z = -24.9;
 scene.add(cylinder);
 
-camera.position.z = 10;
+ camera.position.z = 10;
 camera.position.y = -20;
-camera.position.x = 0;
+camera.position.x = 0; 
 
 // delta time
 let delta;
@@ -229,7 +229,7 @@ randRotate(animateFi, speedsFi, rotationsFi);
 
 //############################################
 //makes the bounding box wireframe dissapear
-let isvisable = true
+let isvisable = false
 //############################################
 
 //Swedish container(Unciviliced cunts)
