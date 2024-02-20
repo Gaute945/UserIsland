@@ -20,9 +20,26 @@ const camera = new THREE.PerspectiveCamera(
   1000
 );
 
-setTimeout(function () {
-  location.reload();
-}, 60000); // 60000 milliseconds = 1 minute
+const light = new THREE.AmbientLight( 0x404040 ); // soft white light
+light.intensity = 50
+scene.add( light );
+
+loader.load("Resource/Nise3D/BlaNise.gltf", function (gltf) {
+	
+	var modelGroup = gltf.scene;
+    // modelMesh.position.set(0, 0, 0); // Position the model
+    // modelMesh.scale.set(0.1, 0.1, 0.1); // Scale the model
+
+	// Add each mesh in the model group to the scene
+    modelGroup.children.forEach(function (child) {
+        // You can apply materials or perform other operations on each mesh if needed
+        scene.add(child);
+    });
+});
+
+// setTimeout(function() {
+//	location.reload();
+//}, 60000); // 60000 milliseconds = 1 minute
 
 function getRandomInt(min, max) {
   min = Math.ceil(min);
@@ -134,75 +151,109 @@ let populationDk;
 let populationFi;
 
 async function fetchApi() {
-  try {
-    const data = await fetch("http://localhost:3000/api");
-    let json = await data.json();
-    populationSe = json[0].number;
-    populationNo = json[1].number;
-    populationDk = json[2].number;
-    populationFi = json[3].number;
+	try {
+		const data = await fetch("http://localhost:3000/api");
+		let json = await data.json();
+		populationSe = json[0].number;
+		populationNo = json[1].number;
+		populationDk = json[2].number;
+		populationFi = json[3].number;
 
-    const sef = new THREE.MeshBasicMaterial({ color: 0xecb920 });
-    const nof = new THREE.MeshBasicMaterial({ color: 0x009999 });
-    const dkf = new THREE.MeshBasicMaterial({ color: 0xf44336 });
-    const fif = new THREE.MeshBasicMaterial({ color: 0xd5d5d5 });
+		const sef = new THREE.MeshBasicMaterial({ color: 0xecb920 }); 
+		const nof = new THREE.MeshBasicMaterial({ color: 0x009999 }); 
+		const dkf = new THREE.MeshBasicMaterial({ color: 0xf44336 }); 
+		const fif = new THREE.MeshBasicMaterial({ color: 0xd5d5d5 }); 
 
-    const box = new THREE.BoxGeometry(0.3, 0.3, 0.3);
+		const box = new THREE.BoxGeometry(0.3, 0.3, 0.3);
 
-    createMeshes(
-      populationSe,
-      sef,
-      box,
-      [3.6, 3.6, 4.5, 4.5],
-      scene,
-      animateSe
-    ),
-      BoundingBArray;
+		createMeshes
+		(
+			"se",
+			populationSe, 
+			sef, 
+			box, 
+			[3.6, 3.6, 4.5, 4.5], 
+			scene, 
+			animateSe), 
+			BoundingBArray
+		;
+		
+		createMeshes
+		(
+			"no",
+			populationNo, 
+			nof, 
+			box, 
+			[-5, -5, 4, 4], 
+			scene, 
+			animateNo), 
+			BoundingBArray
+		;
+		
+		createMeshes
+		(
+			"dk",
+			populationDk, 
+			dkf, 
+			box, 
+			[5, 5, -5, -5], 
+			scene, 
+			animateDk),
+			BoundingBArray
+		;
+		
+		createMeshes
+		(
+			"fi",
+			populationFi, 
+			fif, 
+			box, 
+			[-5, -5, -5, -5], 
+			scene, 
+			animateFi), 
+			BoundingBArray
+		;
 
-    createMeshes(populationNo, nof, box, [-5, -5, 4, 4], scene, animateNo),
-      BoundingBArray;
-
-    createMeshes(populationDk, dkf, box, [5, 5, -5, -5], scene, animateDk),
-      BoundingBArray;
-
-    createMeshes(populationFi, fif, box, [-5, -5, -5, -5], scene, animateFi),
-      BoundingBArray;
-
-    document.getElementById("no").innerHTML = "No:" + Math.ceil(populationNo);
-    document.getElementById("se").innerHTML = "Se:" + Math.ceil(populationSe);
-    document.getElementById("dk").innerHTML = "Dk:" + Math.ceil(populationDk);
-    document.getElementById("fi").innerHTML = "Fi:" + Math.ceil(populationFi);
-  } catch (error) {
-    console.error(error);
-  }
+		document.getElementById("no").innerHTML = "No " + Math.ceil(populationNo);
+		document.getElementById("se").innerHTML = "Se " + Math.ceil(populationSe);
+		document.getElementById("dk").innerHTML = "Dk " + Math.ceil(populationDk);
+		document.getElementById("fi").innerHTML = "Fi " + Math.ceil(populationFi);
+	} catch (error) {
+		console.error(error);
+	}
 }
 
 await fetchApi();
 
 function createMeshes(
-  population,
-  material,
-  geometry,
-  positionArray,
-  scene,
-  animateArray
+	name,
+	population,
+	material,
+	geometry,
+	positionArray,
+	scene,
+	animateArray,
 ) {
-  //create cubes
-  for (let i = 0; i < population; i++) {
-    let xPos = THREE.MathUtils.randFloat(positionArray[0], positionArray[1]);
-    let yPos = THREE.MathUtils.randFloat(positionArray[2], positionArray[3]);
-    const mesh = new THREE.Mesh(geometry, material);
-    mesh.position.set(xPos, yPos, 0);
+	//create cubes
+	for (let i = 0; i < population; i++) {
+		let xPos = THREE.MathUtils.randFloat(positionArray[0], positionArray[1]);
+		let yPos = THREE.MathUtils.randFloat(positionArray[2], positionArray[3]);
+		const mesh = new THREE.Mesh(geometry, material);
+		mesh.position.set(xPos, yPos, 0);
+		mesh.name = name
+		
+		//box3 bounding box
+		const BoundingB = new THREE.Box3(new THREE.Vector3(), new THREE.Vector3());
+		BoundingB.setFromObject(mesh);
 
-    //box3 bounding box
-    const BoundingB = new THREE.Box3(new THREE.Vector3(), new THREE.Vector3());
-    BoundingB.setFromObject(mesh);
-
-    scene.add(mesh);
-    animateArray.push(mesh);
-    BoundingBArray.push(BoundingB);
-  }
+		scene.add(mesh);
+		animateArray.push(mesh);
+		BoundingBArray.push(BoundingB);
+		
+	}
 }
+
+console.log(scene.children);
 
 const cylG = new THREE.CylinderGeometry(12, 13, 49, 128);
 const cylM = new THREE.MeshBasicMaterial({ map: textureLoad });
@@ -237,7 +288,7 @@ randRotate(animateFi, speedsFi, rotationsFi);
 let isvisable = false
 //############################################
 
-//Swedish container(Unciviliced cunts)
+//Swedish container
 const wallMesh = new THREE.Mesh(
   new THREE.SphereGeometry(3),
   new THREE.MeshPhongMaterial({ wireframe: true })
