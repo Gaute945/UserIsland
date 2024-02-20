@@ -35,16 +35,71 @@ loader.load("Resource/loqpoly1.glb", function (gltf) {
         // You can apply materials or perform other operations on each mesh if needed
 		child.position.set (4.5, 4.5)
 		console.log(child)
-		child.children[0].material.color.r = 1
-		child.children[0].material.color.g = 1
+		child.children[0].material.color.r = 0.8387990117372213
+		child.children[0].material.color.g = 0.48514994004665124
+		child.children[0].material.color.b = 0.014443843592229466
+        scene.add(child);
+    });
+});
+
+loader.load("Resource/loqpoly1.glb", function (gltf) {
+	
+	var modelGroup = gltf.scene;
+    // modelMesh.position.set(0, 0, 0); // Position the model
+    // modelMesh.scale.set(0.1, 0.1, 0.1); // Scale the model
+
+	// Add each mesh in the model group to the scene
+    modelGroup.children.forEach(function (child) {
+        // You can apply materials or perform other operations on each mesh if needed
+		child.position.set (-4.5, -4.5)
+		console.log(child)
+		child.children[0].material.color.r = 0.7
+		child.children[0].material.color.g = 0.7
+		child.children[0].material.color.b = 0.7
+        scene.add(child);
+    });
+});
+
+loader.load("Resource/loqpoly1.glb", function (gltf) {
+	
+	var modelGroup = gltf.scene;
+    // modelMesh.position.set(0, 0, 0); // Position the model
+    // modelMesh.scale.set(0.1, 0.1, 0.1); // Scale the model
+
+	// Add each mesh in the model group to the scene
+    modelGroup.children.forEach(function (child) {
+        // You can apply materials or perform other operations on each mesh if needed
+		child.position.set (-4.5, 4.5)
+		console.log(child)
+		child.children[0].material.color.r = 0
+		child.children[0].material.color.g = 0.5
+		child.children[0].material.color.b = 0.5
+        scene.add(child);
+    });
+});
+
+loader.load("Resource/loqpoly1.glb", function (gltf) {
+	
+	var modelGroup = gltf.scene;
+    // modelMesh.position.set(0, 0, 0); // Position the model
+    // modelMesh.scale.set(0.1, 0.1, 0.1); // Scale the model
+
+	// Add each mesh in the model group to the scene
+    modelGroup.children.forEach(function (child) {
+        // You can apply materials or perform other operations on each mesh if needed
+		child.position.set (4.5, -4.5)
+		console.log(child)
+		child.children[0].material.color.r = 0.8
+		child.children[0].material.color.g = 0
 		child.children[0].material.color.b = 0
         scene.add(child);
     });
 });
 
+
 // setTimeout(function() {
-//	location.reload();
-//}, 60000); // 60000 milliseconds = 1 minute
+// 	location.reload();
+// }, 60000); // 60000 milliseconds = 1 minute
 
 function getRandomInt(min, max) {
   min = Math.ceil(min);
