@@ -14,10 +14,10 @@ const clock = new THREE.Clock();
 const scene = new THREE.Scene();
 
 const camera = new THREE.PerspectiveCamera(
-	45,
-	window.innerWidth / window.innerHeight,
-	0.1,
-	1000
+  45,
+  window.innerWidth / window.innerHeight,
+  0.1,
+  1000
 );
 
 const light = new THREE.AmbientLight( 0x404040 ); // soft white light
@@ -42,9 +42,9 @@ loader.load("Resource/Nise3D/BlaNise.gltf", function (gltf) {
 //}, 60000); // 60000 milliseconds = 1 minute
 
 function getRandomInt(min, max) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min)) + min;
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min)) + min;
 }
 
 const renderer = new THREE.WebGLRenderer({ antialiasing: true });
@@ -56,8 +56,8 @@ const controls = new OrbitControls(camera, renderer.domElement);
 // Create snowflake geometry and material
 const snowflakeGeometry = new THREE.BufferGeometry();
 const snowflakeMaterial = new THREE.PointsMaterial({
-	size: 0.05,
-	color: 0xffffff,
+  size: 0.05,
+  color: 0xffffff,
 });
 
 // Create an array to store snowflake positions
@@ -66,16 +66,16 @@ const snowAmount = getRandomInt(1, 50000);
 
 // Populate the array with random snowflake positions
 for (let i = 0; i < snowAmount; i++) {
-	const x = (Math.random() - 0.5) * 25;
-	const y = (Math.random() - 0.5) * 25;
-	const z = (Math.random() - 0.5) * 25;
-	snowflakeVertices.push(x, y, z);
+  const x = (Math.random() - 0.5) * 25;
+  const y = (Math.random() - 0.5) * 25;
+  const z = (Math.random() - 0.5) * 25;
+  snowflakeVertices.push(x, y, z);
 }
 
 // Set the snowflake vertices to the geometry
 snowflakeGeometry.setAttribute(
-	"position",
-	new THREE.Float32BufferAttribute(snowflakeVertices, 3)
+  "position",
+  new THREE.Float32BufferAttribute(snowflakeVertices, 3)
 );
 
 // Create the snowflake points
@@ -84,24 +84,24 @@ const snowflakes = new THREE.Points(snowflakeGeometry, snowflakeMaterial);
 let textureLoad;
 
 switch (appMode) {
-	case "christmas":
-		// Add snowflakes to the scene
-		scene.add(snowflakes);
+  case "christmas":
+    // Add snowflakes to the scene
+    scene.add(snowflakes);
 
-		// christmas map
-		textureLoad = new THREE.TextureLoader().load(
-			"Resource/a1ebabf8-049a-4983-9b33-5af273a03605.jpeg"
-		);
+    // christmas map
+    textureLoad = new THREE.TextureLoader().load(
+      "Resource/a1ebabf8-049a-4983-9b33-5af273a03605.jpeg"
+    );
 
-		// controls.autoRotate = true;
-		break;
+    // controls.autoRotate = true;
+    break;
 
-	default:
-		// normal map
-		textureLoad = new THREE.TextureLoader().load(
-			"Resource/map (1)-noCircle.png"
-		);
-		break;
+  default:
+    // normal map
+    textureLoad = new THREE.TextureLoader().load(
+      "Resource/map (1)-noCircle.png"
+    );
+    break;
 }
 
 // helpers
@@ -123,19 +123,19 @@ switch (appMode) {
 //end of helpers
 
 let [
-	speedsSe,
-	speedsNo,
-	speedsDk,
-	speedsFi,
-	rotationsNo,
-	rotationsSe,
-	rotationsDk,
-	rotationsFi,
-	animateSe,
-	animateNo,
-	animateDk,
-	animateFi,
-	BoundingBArray,
+  speedsSe,
+  speedsNo,
+  speedsDk,
+  speedsFi,
+  rotationsNo,
+  rotationsSe,
+  rotationsDk,
+  rotationsFi,
+  animateSe,
+  animateNo,
+  animateDk,
+  animateFi,
+  BoundingBArray,
 ] = [[], [], [], [], [], [], [], [], [], [], [], [], []];
 
 let populationSe;
@@ -257,19 +257,19 @@ cylinder.rotation.y = 0;
 cylinder.position.z = -24.9;
 scene.add(cylinder);
 
-camera.position.z = 10;
+ camera.position.z = 10;
 camera.position.y = -20;
-camera.position.x = 0;
+camera.position.x = 0; 
 
 // delta time
 let delta;
 
 function randRotate(animateCountry, speedsCountry, rotationsCountry) {
-	for (let i = 0; i < animateCountry.length; i++) {
-		speedsCountry[i] = THREE.MathUtils.randFloat(0.1, 2);
-		rotationsCountry[i] = THREE.MathUtils.randFloat(0, Math.PI / 2); 
-		// Random rotation between 0 and 90 degrees
-	}
+  for (let i = 0; i < animateCountry.length; i++) {
+    speedsCountry[i] = THREE.MathUtils.randFloat(0.1, 1);
+    rotationsCountry[i] = THREE.MathUtils.randFloat(0, Math.PI / 2);
+    // Random rotation between 0 and 90 degrees
+  }
 }
 
 randRotate(animateSe, speedsSe, rotationsSe);
@@ -277,85 +277,68 @@ randRotate(animateNo, speedsNo, rotationsNo);
 randRotate(animateDk, speedsDk, rotationsDk);
 randRotate(animateFi, speedsFi, rotationsFi);
 
-/* loader.load("Resource/islandsWall.glb", (gltf) => {
-	const tracedModel = gltf.scene;
 
-	// apply color to GLB model
-	const material = new THREE.MeshBasicMaterial({ color: 0xffffff }); 
-	// Replace 0xff0000 with your desired color
-	tracedModel.material = material;
-	tracedModel.traverse((node) => {
-		node.material = material;
-		material.transparent = true;
-		material.opacity = 0.5;
-	});
+//############################################
+//makes the bounding box wireframe dissapear
+let isvisable = false
+//############################################
 
-	scene.add(tracedModel);
-
-	tracedModel.position.set(xTM, yTM, zTM);
-	tracedModel.rotation.set(rTMx, rTMy, rTMz);
-	tracedModel.scale.set(4.7, 6, 6);
-	// tracedModel.scale.multiplyScalar(6); // removes walls
-}); */
-//island wall
+//Swedish container
 const wallMesh = new THREE.Mesh(
-	new THREE.BoxGeometry(6,4, 5),
-	new THREE.MeshPhongMaterial({ wireframe: true }));
-wallMesh.position.set(3.5, 4.5, 1); 
-wallMesh.rotation.x = 4.7;
-scene.add(wallMesh);
-const wallBB = new THREE.Box3().setFromObject(wallMesh);
-//norway wall
+  new THREE.SphereGeometry(3),
+  new THREE.MeshPhongMaterial({ wireframe: true })
+);
+wallMesh.position.set(3.5, 4.5, 0);
+const wallBB = new THREE.Sphere(wallMesh.position, 2.4);
+//norway contaier
 const wallMeshN = new THREE.Mesh(
-	new THREE.BoxGeometry(7,4, 3.5),
-	new THREE.MeshPhongMaterial({ wireframe: true }));
-wallMeshN.position.set(-5.7, 5.5, 1); 
-wallMeshN.rotation.x = 4.7;
-wallMeshN.rotation.y = 1
-scene.add(wallMeshN);
-const wallBBN = new THREE.Box3().setFromObject(wallMeshN);
-
-
-let xTM = -0.2,
-	yTM = 0.2,
-	zTM = -10.48,
-	rTMx = 1.554,
-	rTMy = 5 - 0.3,
-	rTMz = 0;
-
-// for stop condition collision borders
-const Lx = -7.7;
-const Rx = 7.7;
-const maxy = 6;
-const miny = -7.2;
+  new THREE.SphereGeometry(3),
+  new THREE.MeshPhongMaterial({ wireframe: true })
+);
+wallMeshN.position.set(-5, 4.5, 0);
+const wallBBN = new THREE.Sphere(wallMeshN.position, 2.3);
+//Danish container
+const wallMeshD = new THREE.Mesh(
+	new THREE.SphereGeometry(3.5),
+	new THREE.MeshPhongMaterial({ wireframe: true })
+  );
+  wallMeshD.position.set(5, -4, 0);
+  const wallBBD = new THREE.Sphere(wallMeshD.position, 3);
+//Container for Alcoholics(finish)
+const wallMeshF = new THREE.Mesh(
+	new THREE.SphereGeometry(2),
+	new THREE.MeshPhongMaterial({ wireframe: true })
+  );
+  wallMeshF.position.set(-5, -5.3, 0);
+  const wallBBF = new THREE.Sphere(wallMeshF.position, 1.8);
+  if(isvisable == true){
+  scene.add(wallMeshF,wallMeshD,wallMeshN,wallMesh)}
 
 controls.autoRotateSpeed = 1;
 animateScene(
-	snowflakes,
-	clock,
-	animateSe,
-	animateNo,
-	animateDk,
-	animateFi,
-	speedsSe,
-	speedsNo,
-	speedsDk,
-	speedsFi,
-	rotationsSe,
-	rotationsNo,
-	rotationsDk,
-	rotationsFi,
-	controls,
-	delta,
-	Lx,
-	Rx,
-	maxy,
-	miny,
-	camera,
-	scene,
-	renderer,
-	BoundingBArray,
-	wallMesh,
-	wallBB,
-	wallBBN
+  snowflakes,
+  clock,
+  animateSe,
+  animateNo,
+  animateDk,
+  animateFi,
+  speedsSe,
+  speedsNo,
+  speedsDk,
+  speedsFi,
+  rotationsSe,
+  rotationsNo,
+  rotationsDk,
+  rotationsFi,
+  controls,
+  delta,
+  camera,
+  scene,
+  renderer,
+  BoundingBArray,
+  wallMesh,
+  wallBB,
+  wallBBN,
+  wallBBD,
+  wallBBF
 );
