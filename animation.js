@@ -59,12 +59,12 @@ export function animateScene(
     boundingSe[i]
       .copy(animateSe[i].geometry.boundingBox)
       .applyMatrix4(animateSe[i].matrixWorld);
-
+      const speedMultiplier = speedsSe[i] * delta;
     if (boundingSe[i].intersectsSphere(wallBB)) {
       animateSe[i].position.x += speedsSe[i] * Math.cos(rotationsSe[i]) * delta;
       animateSe[i].position.y += speedsSe[i] * Math.sin(rotationsSe[i]) * delta;
     } else {
-      const speedMultiplier = speedsSe[i] * delta;
+
       animateSe[i].position.x -= speedMultiplier * Math.cos(rotationsSe[i]);
       animateSe[i].position.y -= speedMultiplier * Math.sin(rotationsSe[i]);
       rotationsSe[i] += THREE.MathUtils.randFloat(-Math.PI / 1, Math.PI / 1); // Rotate between -45 and 45 degrees
