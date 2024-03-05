@@ -59,14 +59,14 @@ export function animateScene(
     boundingSe[i]
       .copy(animateSe[i].geometry.boundingBox)
       .applyMatrix4(animateSe[i].matrixWorld);
-      const speedMultiplier = speedsSe[i] * delta;
+      const speedDelta = speedsSe[i] * delta;
     if (boundingSe[i].intersectsSphere(wallBB)) {
       animateSe[i].position.x += speedsSe[i] * Math.cos(rotationsSe[i]) * delta;
       animateSe[i].position.y += speedsSe[i] * Math.sin(rotationsSe[i]) * delta;
     } else {
 
-      animateSe[i].position.x -= speedMultiplier * Math.cos(rotationsSe[i]);
-      animateSe[i].position.y -= speedMultiplier * Math.sin(rotationsSe[i]);
+      animateSe[i].position.x -= speedDelta * Math.cos(rotationsSe[i]);
+      animateSe[i].position.y -= speedDelta * Math.sin(rotationsSe[i]);
       rotationsSe[i] += THREE.MathUtils.randFloat(-Math.PI / 1, Math.PI / 1); // Rotate between -45 and 45 degrees
     }
 }
@@ -78,13 +78,13 @@ export function animateScene(
 		boundingNo[i]
 		  .copy(animateNo[i].geometry.boundingBox)
 		  .applyMatrix4(animateNo[i].matrixWorld);
-	  
+      const speedDelta = speedsNo[i] * delta;
 		if (boundingNo[i].intersectsSphere(wallBBN)) {
 		  animateNo[i].position.x += speedsNo[i] * Math.cos(rotationsNo[i]) * delta;
 		  animateNo[i].position.y += speedsNo[i] * Math.sin(rotationsNo[i]) * delta;
 		} else {
-		  animateNo[i].position.x -= speedsNo[i] * Math.cos(rotationsNo[i]) * delta;
-		  animateNo[i].position.y -= speedsNo[i] * Math.sin(rotationsNo[i]) * delta;
+		  animateNo[i].position.x -= speedDelta * Math.cos(rotationsNo[i])
+      animateNo[i].position.y -= speedDelta * Math.sin(rotationsNo[i])
 		  rotationsNo[i] += THREE.MathUtils.randFloat(-Math.PI / 1, Math.PI / 1); // Rotate between -45 and 45 degrees
 		}
 	  }
@@ -93,13 +93,14 @@ export function animateScene(
 		boundingFi[i]
 		  .copy(animateFi[i].geometry.boundingBox)
 		  .applyMatrix4(animateFi[i].matrixWorld);
+      const speedDelta = speedsFi[i] * delta;
 	  
 		if (boundingFi[i].intersectsSphere(wallBBF)) {
 		  animateFi[i].position.x += speedsFi[i] * Math.cos(rotationsFi[i]) * delta;
 		  animateFi[i].position.y += speedsFi[i] * Math.sin(rotationsFi[i]) * delta;
 		} else {
-		  animateFi[i].position.x -= speedsFi[i] * Math.cos(rotationsFi[i]) * delta;
-		  animateFi[i].position.y -= speedsFi[i] * Math.sin(rotationsFi[i]) * delta;
+		  animateFi[i].position.x -= speedDelta * Math.cos(rotationsFi[i])
+		  animateFi[i].position.y -= speedDelta * Math.sin(rotationsFi[i])
 		  rotationsFi[i] += THREE.MathUtils.randFloat(-Math.PI / 1, Math.PI / 1); // Rotate between -45 and 45 degrees
 		}
 	  }
@@ -108,13 +109,14 @@ export function animateScene(
 		boundingDk[i]
 		  .copy(animateDk[i].geometry.boundingBox)
 		  .applyMatrix4(animateDk[i].matrixWorld);
+      const speedDelta = speedsDk[i] * delta;
 	  
 		if (boundingDk[i].intersectsSphere(wallBBD)) {
 		  animateDk[i].position.x += speedsDk[i] * Math.cos(rotationsDk[i]) * delta;
 		  animateDk[i].position.y += speedsDk[i] * Math.sin(rotationsDk[i]) * delta;
 		} else {
-		  animateDk[i].position.x -= speedsDk[i] * Math.cos(rotationsDk[i]) * delta;
-		  animateDk[i].position.y -= speedsDk[i] * Math.sin(rotationsDk[i]) * delta;
+		  animateDk[i].position.x -= speedDelta * Math.cos(rotationsDk[i]);
+		  animateDk[i].position.y -= speedDelta * Math.sin(rotationsDk[i]);
 		  rotationsDk[i] += THREE.MathUtils.randFloat(-Math.PI / 1, Math.PI / 1); // Rotate between -45 and 45 degrees
 		}
 	  }

@@ -9,8 +9,8 @@ function getRandomNumber(min, max) {
 }
 
 function updateValues() {
-    sen = getRandomNumber(2000, 2000);
-    non = getRandomNumber(2000, 2000); 
+    sen = getRandomNumber(1, 50);
+    non = getRandomNumber(1, 25); 
     dkn = getRandomNumber(1, 50);
     fin = getRandomNumber(1, 10);
 }
