@@ -206,6 +206,7 @@ async function fetchApi() {
 		document.getElementById("se").innerHTML = "Se " + Math.ceil(populationSe);
 		document.getElementById("dk").innerHTML = "Dk " + Math.ceil(populationDk);
 		document.getElementById("fi").innerHTML = "Fi " + Math.ceil(populationFi);
+		document.getElementById("total").innerHTML = "Total " + Math.ceil(populationNo + populationSe + populationDk + populationFi);
 			} catch (error) {
 		console.error(error);
 	}
@@ -238,6 +239,7 @@ function createMeshes(
 		mesh.scale.set(1.5,1.5,1.5);
 		//console.log(localGnome)
 		localGnome.add(mesh)
+		scene.add(localGnome)
 		//console.log(localGnome)
 
 		//box3 bounding box
