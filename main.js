@@ -23,79 +23,13 @@ const camera = new THREE.PerspectiveCamera(
 const light = new THREE.AmbientLight( 0x404040 ); // soft white light
 light.intensity = 50
 scene.add( light );
-
+let gnomeModel;
 loader.load("Resource/loqpoly1.glb", function (gltf) {
 	
 	var modelGroup = gltf.scene;
-    // modelMesh.position.set(0, 0, 0); // Position the model
-    // modelMesh.scale.set(0.1, 0.1, 0.1); // Scale the model
 
-	// Add each mesh in the model group to the scene
-    modelGroup.children.forEach(function (child) {
-        // You can apply materials or perform other operations on each mesh if needed
-		child.position.set (4.5, 4.5)
-		console.log(child)
-		child.children[0].material.color.r = 0.8387990117372213
-		child.children[0].material.color.g = 0.48514994004665124
-		child.children[0].material.color.b = 0.014443843592229466
-        scene.add(child);
-    });
+	gnomeModel = modelGroup;
 });
-
-loader.load("Resource/loqpoly1.glb", function (gltf) {
-	
-	var modelGroup = gltf.scene;
-    // modelMesh.position.set(0, 0, 0); // Position the model
-    // modelMesh.scale.set(0.1, 0.1, 0.1); // Scale the model
-
-	// Add each mesh in the model group to the scene
-    modelGroup.children.forEach(function (child) {
-        // You can apply materials or perform other operations on each mesh if needed
-		child.position.set (-4.5, -4.5)
-		console.log(child)
-		child.children[0].material.color.r = 0.7
-		child.children[0].material.color.g = 0.7
-		child.children[0].material.color.b = 0.7
-        scene.add(child);
-    });
-});
-
-loader.load("Resource/loqpoly1.glb", function (gltf) {
-	
-	var modelGroup = gltf.scene;
-    // modelMesh.position.set(0, 0, 0); // Position the model
-    // modelMesh.scale.set(0.1, 0.1, 0.1); // Scale the model
-
-	// Add each mesh in the model group to the scene
-    modelGroup.children.forEach(function (child) {
-        // You can apply materials or perform other operations on each mesh if needed
-		child.position.set (-4.5, 4.5)
-		console.log(child)
-		child.children[0].material.color.r = 0
-		child.children[0].material.color.g = 0.5
-		child.children[0].material.color.b = 0.5
-        scene.add(child);
-    });
-});
-
-loader.load("Resource/loqpoly1.glb", function (gltf) {
-	
-	var modelGroup = gltf.scene;
-    // modelMesh.position.set(0, 0, 0); // Position the model
-    // modelMesh.scale.set(0.1, 0.1, 0.1); // Scale the model
-
-	// Add each mesh in the model group to the scene
-    modelGroup.children.forEach(function (child) {
-        // You can apply materials or perform other operations on each mesh if needed
-		child.position.set (4.5, -4.5)
-		console.log(child)
-		child.children[0].material.color.r = 0.8
-		child.children[0].material.color.g = 0
-		child.children[0].material.color.b = 0
-        scene.add(child);
-    });
-});
-
 
 // setTimeout(function() {
 // 	location.reload();
@@ -202,6 +136,7 @@ let populationSe;
 let populationNo;
 let populationDk;
 let populationFi;
+let localGnome;
 
 async function fetchApi() {
 	try {
@@ -271,7 +206,7 @@ async function fetchApi() {
 		document.getElementById("se").innerHTML = "Se " + Math.ceil(populationSe);
 		document.getElementById("dk").innerHTML = "Dk " + Math.ceil(populationDk);
 		document.getElementById("fi").innerHTML = "Fi " + Math.ceil(populationFi);
-	} catch (error) {
+			} catch (error) {
 		console.error(error);
 	}
 }
@@ -292,21 +227,31 @@ function createMeshes(
 		let xPos = THREE.MathUtils.randFloat(positionArray[0], positionArray[1]);
 		let yPos = THREE.MathUtils.randFloat(positionArray[2], positionArray[3]);
 		const mesh = new THREE.Mesh(geometry, material);
-		mesh.position.set(xPos, yPos, 0);
 		mesh.name = name
 		
+		localGnome = gnomeModel.clone();
+		localGnome.children.forEach(function (child) {
+			// You can apply materials or perform other operations on each mesh if needed
+			// child.position.set (4.5, 4.5)
+			child.children[0].material = material;
+		});
+		mesh.scale.set(1.5,1.5,1.5);
+		//console.log(localGnome)
+		localGnome.add(mesh)
+		//console.log(localGnome)
+
 		//box3 bounding box
 		const BoundingB = new THREE.Box3(new THREE.Vector3(), new THREE.Vector3());
-		BoundingB.setFromObject(mesh);
-
-		scene.add(mesh);
-		animateArray.push(mesh);
-		BoundingBArray.push(BoundingB);
-		
+		// BoundingB.setFromObject(mesh);
+		localGnome.position.set(xPos, yPos, 0);
+		BoundingB.setFromObject(localGnome);
+		// scene.add(mesh);
+		// animateArray.push(mesh);
+		// animateArray.push(localGnome);
+		BoundingBArray.push(localGnome);
+		scene.add(localGnome);
 	}
 }
-
-console.log(scene.children);
 
 const cylG = new THREE.CylinderGeometry(12, 13, 49, 128);
 const cylM = new THREE.MeshBasicMaterial({ map: textureLoad });
@@ -317,7 +262,7 @@ cylinder.rotation.y = 0;
 cylinder.position.z = -24.9;
 scene.add(cylinder);
 
- camera.position.z = 10;
+camera.position.z = 10;
 camera.position.y = -20;
 camera.position.x = 0; 
 
@@ -370,12 +315,13 @@ const wallMeshF = new THREE.Mesh(
 	new THREE.MeshPhongMaterial({ wireframe: true })
   );
   wallMeshF.position.set(-5, -5.3, 0);
-  const wallBBF = new THREE.Sphere(wallMeshF.position, 1.8);
-  if(isvisable == true){
-  scene.add(wallMeshF,wallMeshD,wallMeshN,wallMesh)}
+const wallBBF = new THREE.Sphere(wallMeshF.position, 1.8);
+if(isvisable == true){
+	scene.add(wallMeshF,wallMeshD,wallMeshN,wallMesh)}
 
 controls.autoRotateSpeed = 1;
 animateScene(
+  localGnome,
   snowflakes,
   clock,
   animateSe,
