@@ -56,6 +56,8 @@ export function animateScene(
 
   // sweden animation
   for (let i = 0; i < animateSe.length; i++) {
+    let isCol = false
+    let isCol3sec = false
     boundingSe[i]
       .copy(animateSe[i].geometry.boundingBox)
       .applyMatrix4(animateSe[i].matrixWorld);
@@ -63,11 +65,16 @@ export function animateScene(
     if (boundingSe[i].intersectsSphere(wallBB)) {
       animateSe[i].position.x += speedsSe[i] * Math.cos(rotationsSe[i]) * delta;
       animateSe[i].position.y += speedsSe[i] * Math.sin(rotationsSe[i]) * delta;
+      isCol = true
     } else {
 
       animateSe[i].position.x -= speedDelta * Math.cos(rotationsSe[i]);
       animateSe[i].position.y -= speedDelta * Math.sin(rotationsSe[i]);
       rotationsSe[i] += THREE.MathUtils.randFloat(-Math.PI / 1, Math.PI / 1); // Rotate between -45 and 45 degrees
+      if(isCol == false){
+        setTimeout(() => {
+          animateSe[i].position.set(3.6, 5.5, 0);
+        }, 3000);}
     }
 }
 

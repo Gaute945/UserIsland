@@ -57,7 +57,8 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
 //background
-const sexymantex = new THREE.TextureLoader().load('Resource/scNqFDf.jpg')
+const sexymantex = new THREE.TextureLoader().load('Resource/bak.jpg');
+console.log(sexymantex)
 scene.background = sexymantex;
 
 const controls = new OrbitControls(camera, renderer.domElement);
@@ -287,10 +288,9 @@ randRotate(animateNo, speedsNo, rotationsNo);
 randRotate(animateDk, speedsDk, rotationsDk);
 randRotate(animateFi, speedsFi, rotationsFi);
 
-
 //############################################
 //makes the bounding box wireframe dissapear
-let isvisable = false
+let isvisable = true
 //############################################
 
 //Swedish container
@@ -298,6 +298,7 @@ const wallMesh = new THREE.Mesh(
   new THREE.SphereGeometry(3),
   new THREE.MeshPhongMaterial({ wireframe: true })
 );
+
 wallMesh.position.set(3.5, 4.5, 0);
 const wallBB = new THREE.Sphere(wallMesh.position, 2.4);
 //norway contaier
@@ -305,8 +306,10 @@ const wallMeshN = new THREE.Mesh(
   new THREE.SphereGeometry(3),
   new THREE.MeshPhongMaterial({ wireframe: true })
 );
+
 wallMeshN.position.set(-5, 4.5, 0);
 const wallBBN = new THREE.Sphere(wallMeshN.position, 2.3);
+
 //Danish container
 const wallMeshD = new THREE.Mesh(
 	new THREE.SphereGeometry(3.5),
@@ -314,6 +317,7 @@ const wallMeshD = new THREE.Mesh(
   );
   wallMeshD.position.set(5, -4, 0);
   const wallBBD = new THREE.Sphere(wallMeshD.position, 3);
+
 //Container for Alcoholics(finish)
 const wallMeshF = new THREE.Mesh(
 	new THREE.SphereGeometry(2),
@@ -325,6 +329,7 @@ const wallMeshF = new THREE.Mesh(
   scene.add(wallMeshF,wallMeshD,wallMeshN,wallMesh)}
 
 controls.autoRotateSpeed = 1;
+
 animateScene(
   snowflakes,
   clock,
