@@ -49,11 +49,8 @@ export function animateScene(
   for (let i = 0; i < animateFi.length; i++) {
     boundingFi.push(BoundingBArray[i]);
   }
-<<<<<<< HEAD
-=======
 
   console.log(animateSe)
->>>>>>> 0319f8b (working on animate nisse)
   // sweden animation
   for (let i = 0; i < animateSe.length; i++) {
 	boundingSe[i]
