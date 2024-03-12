@@ -57,9 +57,8 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
 //background
-const sexymantex = new THREE.TextureLoader().load('Resource/bak.jpg');
-console.log(sexymantex)
-scene.background = sexymantex;
+const background = new THREE.TextureLoader().load('Resource/bakgrnd.jpg');
+scene.background = background;
 
 const controls = new OrbitControls(camera, renderer.domElement);
 camera.position.set(0, -20, 20 );/* 
