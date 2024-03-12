@@ -50,7 +50,13 @@ export function animateScene(
     boundingFi.push(BoundingBArray[i]);
   }
 
-  console.log(animateSe)
+  //nise loop
+	for(let i = 0; i < BoundingBArray.length; i++){
+    let nise = BoundingBArray[4].children[1];
+    nise.position.x += 0.0001
+  }
+  
+  /* 
   // sweden animation
   for (let i = 0; i < animateSe.length; i++) {
 	boundingSe[i]
@@ -118,7 +124,7 @@ export function animateScene(
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight);
-  });
+  }); */
 
   renderer.render(scene, camera);
   requestAnimationFrame(() =>

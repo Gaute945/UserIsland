@@ -287,7 +287,7 @@ randRotate(animateFi, speedsFi, rotationsFi);
 
 //############################################
 //makes the bounding box wireframe dissapear
-let isvisable = false
+let isvisable = true
 //############################################
 
 //Swedish container
@@ -320,6 +320,8 @@ const wallMeshF = new THREE.Mesh(
 const wallBBF = new THREE.Sphere(wallMeshF.position, 1.8);
 if(isvisable == true){
 	scene.add(wallMeshF,wallMeshD,wallMeshN,wallMesh)}
+
+console.log(BoundingBArray)
 
 controls.autoRotateSpeed = 1;
 animateScene(
