@@ -25,7 +25,7 @@ export function animateScene(
   wallBBN,
   wallBBD,
   wallBBF,
-  cylinder
+  cylinder,
 ) {
   delta = clock.getDelta();
   // OrbitControls update
@@ -54,10 +54,8 @@ export function animateScene(
 
 
 
-  // sweden animation
+// sweden animation
   for (let i = 0; i < animateSe.length; i++) {
-    let isCol = false
-    let isCol3sec = false
     boundingSe[i]
       .copy(animateSe[i].geometry.boundingBox)
       .applyMatrix4(animateSe[i].matrixWorld);
@@ -65,19 +63,18 @@ export function animateScene(
     if (boundingSe[i].intersectsSphere(wallBB)) {
       animateSe[i].position.x += speedsSe[i] * Math.cos(rotationsSe[i]) * delta;
       animateSe[i].position.y += speedsSe[i] * Math.sin(rotationsSe[i]) * delta;
-      isCol = true
     } else {
-
       animateSe[i].position.x -= speedDelta * Math.cos(rotationsSe[i]);
       animateSe[i].position.y -= speedDelta * Math.sin(rotationsSe[i]);
-      rotationsSe[i] += THREE.MathUtils.randFloat(-Math.PI / 1, Math.PI / 1); // Rotate between -45 and 45 degrees
-      if(isCol == false){
-        setTimeout(() => {
-          animateSe[i].position.set(3.6, 5.5, 0);
-        }, 3000);}
+      rotationsSe[i] += THREE.MathUtils.randFloat(-Math.PI / 1, Math.PI / 1);
     }
-}
+    let distance = animateSe[i].position.distanceTo(wallBB.center);
+    let radius = wallBB.radius + 0.5
+    if(distance > radius){
+      animateSe[i].position.set(3.5,4.5,0)
+    }
 
+}
 
   
     // Norway animation
@@ -94,6 +91,11 @@ export function animateScene(
       animateNo[i].position.y -= speedDelta * Math.sin(rotationsNo[i])
 		  rotationsNo[i] += THREE.MathUtils.randFloat(-Math.PI / 1, Math.PI / 1); // Rotate between -45 and 45 degrees
 		}
+    let distance = animateNo[i].position.distanceTo(wallBBN.center);
+    let radius = wallBBN.radius + 0.5
+    if(distance > radius){
+      animateNo[i].position.set(-5, 4.5, 0)
+    }
 	  }
     // finish animation
 	for (let i = 0; i < animateFi.length; i++) {
@@ -110,6 +112,11 @@ export function animateScene(
 		  animateFi[i].position.y -= speedDelta * Math.sin(rotationsFi[i])
 		  rotationsFi[i] += THREE.MathUtils.randFloat(-Math.PI / 1, Math.PI / 1); // Rotate between -45 and 45 degrees
 		}
+    let distance = animateFi[i].position.distanceTo(wallBBF.center);
+    let radius = wallBBF.radius + 0.5
+    if(distance > radius){
+      animateFi[i].position.set(-5,-5.3,0)
+    }
 	  }
 	      // Danish animation
 	for (let i = 0; i < animateDk.length; i++) {
@@ -126,6 +133,11 @@ export function animateScene(
 		  animateDk[i].position.y -= speedDelta * Math.sin(rotationsDk[i]);
 		  rotationsDk[i] += THREE.MathUtils.randFloat(-Math.PI / 1, Math.PI / 1); // Rotate between -45 and 45 degrees
 		}
+    let distance = animateDk[i].position.distanceTo(wallBBD.center);
+    let radius = wallBBD.radius + 0.5
+    if(distance > radius){
+      animateDk[i].position.set(5, -4, 0)
+    }
 	  }
   // Handle window resize
   window.addEventListener("resize", () => {
@@ -162,7 +174,7 @@ export function animateScene(
 	  wallBBN,
 	  wallBBD,
 	  wallBBF,
-    cylinder
+    cylinder,
     )
   );
 }

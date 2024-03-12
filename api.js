@@ -9,10 +9,10 @@ function getRandomNumber(min, max) {
 }
 
 function updateValues() {
-    sen = getRandomNumber(1, 50);
-    non = getRandomNumber(1, 25); 
-    dkn = getRandomNumber(1, 50);
-    fin = getRandomNumber(1, 10);
+    sen = getRandomNumber(50, 50);
+    non = getRandomNumber(25, 25); 
+    dkn = getRandomNumber(50, 50);
+    fin = getRandomNumber(50, 50);
 }
 
 updateValues();
