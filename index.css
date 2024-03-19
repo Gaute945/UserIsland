@@ -9,6 +9,23 @@ body {
   width: 12rem;
   font-size: larger;
 }
+.info{
+  position:absolute;
+  display: inline-flex;
+}
+.info button{
+  margin-top: 20vh;
+  margin-left: 4vh;
+  width: 14vh;
+  height: 6vh;
+  border-radius: 0.6vh;
+  border-style: hidden;
+  color: green;
+  background-color: #009999;
+  cursor: pointer;
+  font-size: 3vh;
+  font-family: retro;
+}
 .outer-div {
   position: absolute;
   top: 0;

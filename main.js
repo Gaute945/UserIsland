@@ -42,9 +42,9 @@ loader.load("Resource/loqpoly1.glb", function (gltf) {
     });
 });
 
-// setTimeout(function() {
-//	location.reload();
-//}, 60000); // 60000 milliseconds = 1 minute
+ setTimeout(function() {
+	location.reload();
+}, 60000); // 60000 milliseconds = 1 minute
 
 function getRandomInt(min, max) {
   min = Math.ceil(min);

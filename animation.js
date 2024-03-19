@@ -69,7 +69,6 @@ export function animateScene(
     if(distance > radius){
       animateSe[i].position.set(3.5,4.5,0)
     }
-
 }
 
   
@@ -88,7 +87,7 @@ export function animateScene(
 		  rotationsNo[i] += THREE.MathUtils.randFloat(-Math.PI / 1, Math.PI / 1); // Rotate between -45 and 45 degrees
 		}
     let distance = animateNo[i].position.distanceTo(wallBBN.center);
-    let radius = wallBBN.radius + 0.5
+    let radius = wallBBN.radius + 0.8
     if(distance > radius){
       animateNo[i].position.set(-5, 4.5, 0)
     }
