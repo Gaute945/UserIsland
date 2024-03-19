@@ -24,24 +24,6 @@ const light = new THREE.AmbientLight( 0x404040 ); // soft white light
 light.intensity = 50
 scene.add( light );
 
-loader.load("Resource/loqpoly1.glb", function (gltf) {
-	
-	var modelGroup = gltf.scene;
-    // modelMesh.position.set(0, 0, 0); // Position the model
-    // modelMesh.scale.set(0.1, 0.1, 0.1); // Scale the model
-
-	// Add each mesh in the model group to the scene
-    modelGroup.children.forEach(function (child) {
-        // You can apply materials or perform other operations on each mesh if needed
-		child.position.set (4.5, 4.5)
-		console.log(child)
-		child.children[0].material.color.r = 1
-		child.children[0].material.color.g = 1
-		child.children[0].material.color.b = 0
-        scene.add(child);
-    });
-});
-
  setTimeout(function() {
 	location.reload();
 }, 60000); // 60000 milliseconds = 1 minute
